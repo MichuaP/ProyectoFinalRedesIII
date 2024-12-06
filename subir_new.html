@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>City Wired News</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Free HTML Templates" name="keywords">
+    <meta content="Free HTML Templates" name="description">
+
+    <!-- Favicon -->
+    <link href="img/favicon.ico" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="css/style.css" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Topbar Start -->
+    <div class="row align-items-center py-2 px-lg-5">
+        <div class="col-lg-4">
+            <a href="" class="navbar-brand d-none d-lg-block">
+                <h1 class="m-0 display-5 text-uppercase"><span class="text-primary">CITY WIRED </span>NEWS</h1>
+            </a>
+        </div>
+    </div>
+    </div>
+    <!-- Topbar End -->
+
+
+    <!-- Navbar Start -->
+    <div class="container-fluid p-0 mb-3">
+        <nav class="navbar navbar-expand-lg bg-light navbar-light py-2 py-lg-0 px-lg-5">
+            <a href="" class="navbar-brand d-block d-lg-none">
+                <h1 class="m-0 display-5 text-uppercase"><span class="text-primary">City Wired </span>News</h1>
+            </a>
+            <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-between px-0 px-lg-3" id="navbarCollapse">
+                <div class="navbar-nav mr-auto py-0">
+                    <a href="index.html" class="nav-item nav-link">Incio</a>
+                    <a href="category.html" class="nav-item nav-link">Categorías</a>
+                    <a href="single.html" class="nav-item nav-link">Noticias Individuales</a>
+                    <a href="iniciar_sesion.html" class="nav-item nav-link">Inicia Sesión</a>
+                    <a href="preferencias.html" class="nav-item nav-link">Preferencias</a>
+                    <a href="subir_new.html" class="nav-item nav-link active">Publicar noticia</a>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <!-- Navbar End -->
+
+    <!-- Formulario para subir una noticia -->
+<div class="container-fluid py-3">
+    <div class="container">
+        <h2>Subir Noticia</h2>
+        <form action="submit_news.php" method="POST">
+            <!-- Titulo -->
+            <div class="mb-3">
+                <label for="titulo" class="form-label">Título</label>
+                <input type="text" class="form-control" id="titulo" name="titulo" required>
+            </div>
+            
+            <!-- Contenido -->
+            <div class="mb-3">
+                <label for="contenido" class="form-label">Contenido</label>
+                <textarea class="form-control" id="contenido" name="contenido" rows="5" required></textarea>
+            </div>
+            
+            <!-- FechaPublic -->
+            <div class="mb-3">
+                <label for="fechaPublic" class="form-label">Fecha de Publicación</label>
+                <input type="date" class="form-control" id="fechaPublic" name="fechaPublic" required>
+            </div>
+            
+            <!-- IdLugar -->
+            <div class="mb-3">
+                <label for="idLugar" class="form-label">Lugar</label>
+                <select class="form-select" class="form-control" id="idLugar" name="idLugar" required>
+                    <option value="">Seleccione un lugar</option>
+                    <option value="1">Lugar 1</option>
+                    <option value="2">Lugar 2</option>
+                    <option value="3">Lugar 3</option>
+                </select>
+            </div>
+            
+            <!-- IdPais -->
+            <div class="mb-3">
+                <label for="idPais" class="form-label">País</label>
+                <select class="form-select" class="form-control" id="idPais" name="idPais" required>
+                    <option value="">Seleccione un país</option>
+                    <option value="1">País 1</option>
+                    <option value="2">País 2</option>
+                    <option value="3">País 3</option>
+                </select>
+            </div>
+            
+            <!-- IdCategoria -->
+            <div class="mb-3">
+                <label for="idCategoria" class="form-label">Categoría</label>
+                <select class="form-select" class="form-control" id="idCategoria" name="idCategoria" required>
+                    <option value="">Seleccione una categoría</option>
+                    <option value="1">Categoría 1</option>
+                    <option value="2">Categoría 2</option>
+                    <option value="3">Categoría 3</option>
+                </select>
+            </div>
+            
+            <!-- IdIdioma -->
+            <div class="mb-3">
+                <label for="idIdioma" class="form-label">Idioma</label>
+                <select class="form-select" class="form-control" id="idIdioma" name="idIdioma" required>
+                    <option value="">Seleccione un idioma</option>
+                    <option value="1">Español</option>
+                    <option value="2">Inglés</option>
+                    <option value="3">Francés</option>
+                </select>
+            </div>
+            
+            <!-- Botón de Enviar -->
+            <div class="text-center mt-4">
+                <button type="submit" class="btn btn-primary">Subir Noticia</button>
+            </div>
+        </form>
+        <br>
+    </div>
+</div>
+<!-- Formulario End -->
+
+
+    <!-- Footer Start -->
+    <div class="container-fluid bg-light pt-5 px-sm-3 px-md-5">
+        <div class="row">
+            <div class="col-lg-3 col-md-6 mb-5">
+                <a href="index.html" class="navbar-brand">
+                    <h1 class="mb-2 mt-n2 display-5 text-uppercase"><span class="text-primary">City Wired </span>News
+                    </h1>
+                </a>
+                <p>Volup amet magna clita tempor. Tempor sea eos vero ipsum. Lorem lorem sit sed elitr sed kasd et</p>
+                <div class="d-flex justify-content-start mt-4">
+                    <a class="btn btn-outline-secondary text-center mr-2 px-0" style="width: 38px; height: 38px;"
+                        href="#"><i class="fab fa-twitter"></i></a>
+                    <a class="btn btn-outline-secondary text-center mr-2 px-0" style="width: 38px; height: 38px;"
+                        href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a class="btn btn-outline-secondary text-center mr-2 px-0" style="width: 38px; height: 38px;"
+                        href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <a class="btn btn-outline-secondary text-center mr-2 px-0" style="width: 38px; height: 38px;"
+                        href="#"><i class="fab fa-instagram"></i></a>
+                    <a class="btn btn-outline-secondary text-center mr-2 px-0" style="width: 38px; height: 38px;"
+                        href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-5">
+                <h4 class="font-weight-bold mb-4">Categorías</h4>
+                <div class="d-flex flex-wrap m-n1">
+                    <a href="" class="btn btn-sm btn-outline-secondary m-1">Política</a>
+                    <a href="" class="btn btn-sm btn-outline-secondary m-1">Negocios</a>
+                    <a href="" class="btn btn-sm btn-outline-secondary m-1">Corporativo</a>
+                    <a href="" class="btn btn-sm btn-outline-secondary m-1">Deportes</a>
+                    <a href="" class="btn btn-sm btn-outline-secondary m-1">Salud</a>
+                    <a href="" class="btn btn-sm btn-outline-secondary m-1">Educación</a>
+                    <a href="" class="btn btn-sm btn-outline-secondary m-1">Ciencia</a>
+                    <a href="" class="btn btn-sm btn-outline-secondary m-1">Tecnología</a>
+                    <a href="" class="btn btn-sm btn-outline-secondary m-1">Alimentos</a>
+                    <a href="" class="btn btn-sm btn-outline-secondary m-1">Entretenimiento</a>
+                    <a href="" class="btn btn-sm btn-outline-secondary m-1">Viajes</a>
+                    <a href="" class="btn btn-sm btn-outline-secondary m-1">Estilo de vida</a>
+
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-5">
+                <h4 class="font-weight-bold mb-4">Etiquetas</h4>
+                <div class="d-flex flex-wrap m-n1">
+                    <a href="" class="btn btn-sm btn-outline-secondary m-1">Política</a>
+                    <a href="" class="btn btn-sm btn-outline-secondary m-1">Negocios</a>
+                    <a href="" class="btn btn-sm btn-outline-secondary m-1">Corporativo</a>
+                    <a href="" class="btn btn-sm btn-outline-secondary m-1">Deportes</a>
+                    <a href="" class="btn btn-sm btn-outline-secondary m-1">Salud</a>
+                    <a href="" class="btn btn-sm btn-outline-secondary m-1">Educación</a>
+                    <a href="" class="btn btn-sm btn-outline-secondary m-1">Ciencia</a>
+                    <a href="" class="btn btn-sm btn-outline-secondary m-1">Tecnología</a>
+                    <a href="" class="btn btn-sm btn-outline-secondary m-1">Alimentos</a>
+                    <a href="" class="btn btn-sm btn-outline-secondary m-1">Entretenimiento</a>
+                    <a href="" class="btn btn-sm btn-outline-secondary m-1">Viajes</a>
+                    <a href="" class="btn btn-sm btn-outline-secondary m-1">Estilo de vida</a>
+
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-5">
+                <h4 class="font-weight-bold mb-4">Links Rápidos</h4>
+                <div class="d-flex flex-column justify-content-start">
+                    <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right text-dark mr-2"></i>Inicio</a>
+                    <a class="text-secondary mb-2" href="#"><i
+                            class="fa fa-angle-right text-dark mr-2"></i>Categorías</a>
+                    <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right text-dark mr-2"></i>Inicia
+                        Sesión</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid py-4 px-sm-3 px-md-5">
+        <p class="m-0 text-center">
+            &copy; <a class="font-weight-bold" href="#">City Wired News</a>. Todos los derechos reservados.
+        </p>
+    </div>
+    <!-- Footer End -->
+
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-dark back-to-top"><i class="fa fa-angle-up"></i></a>
+
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+
+    <!-- iniciar_sesion Javascript File -->
+    <script src="mail/jqBootstrapValidation.min.js"></script>
+    <script src="mail/iniciar_sesion.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="js/main.js"></script>
+</body>
+
+</html>
