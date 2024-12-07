@@ -122,6 +122,7 @@
                     </div>
                     <div id="dynamic-categories"></div>
                 </div>
+
             </div>
         </div>
     </div>
@@ -129,87 +130,87 @@
 
     <script>
         async function fetchNews(section) {
-    const url = `https://api.nytimes.com/svc/topstories/v2/${section}.json?api-key=${apiKey}`;
-    const response = await fetch(url);
-    const data = await response.json();
-    return data.results; // Devuelve los resultados de las noticias
-}
-
-function renderCarouselItem(article, section) {
-    // Crear el contenedor principal del carrusel
-    const carouselItemWrapper = document.createElement('div');
-    carouselItemWrapper.classList.add('position-relative', 'overflow-hidden');
-    carouselItemWrapper.style.height = '435px';
-
-    // Crear el "item" del carrusel
-    const carouselItem = document.createElement('div');
-    carouselItem.classList.add('position-relative', 'overflow-hidden');
-    carouselItem.style.height = '435px';
-
-    // Contenido HTML del artículo dentro del carrusel
-    carouselItem.innerHTML = `
-        <img class="img-fluid h-100" src="${article.multimedia && article.multimedia.length > 0 ? article.multimedia[0].url : 'img/default.jpg'}" style="object-fit: cover;">
-        <div class="overlay">
-            <div class="mb-1">
-                <a class="text-white" href="${article.url}">${section.charAt(0).toUpperCase() + section.slice(1).replace('/', ' ')}</a>
-                <span class="px-2 text-white">/</span>
-                <a class="text-white" href="${article.url}">${new Date(article.published_date).toLocaleDateString()}</a>
-            </div>
-            <a class="h2 m-0 text-white font-weight-bold" href="${article.url}">${article.title}</a>
-        </div>
-    `;
-
-    // Añadir el "item" del carrusel al contenedor principal
-    carouselItemWrapper.appendChild(carouselItem);
-
-    return carouselItemWrapper;
-}
-
-async function loadCategoryNews() {
-    const carouselContainer = document.createElement('div');
-    carouselContainer.classList.add('owl-carousel', 'owl-carousel-2', 'carousel-item-1', 'position-relative', 'mb-3', 'mb-lg-0');
-
-    // Añadir el contenedor del carrusel al contenedor principal
-    const newsCarouselContainer = document.getElementById('news-carousel-container');
-    newsCarouselContainer.appendChild(carouselContainer);
-
-    // Recorremos todas las categorías
-    for (const category of categories) {
-        const news = await fetchNews(category);
-        if (news.length > 0) {
-            const article = news[1]; // Tomar la segunda noticia de la categoría
-            const carouselItem = renderCarouselItem(article, category);
-            carouselContainer.appendChild(carouselItem); // Añadir el item al carrusel
+            const url = `https://api.nytimes.com/svc/topstories/v2/${section}.json?api-key=${apiKey}`;
+            const response = await fetch(url);
+            const data = await response.json();
+            return data.results; // Devuelve los resultados de las noticias
         }
-    }
 
-    // Inicializar el Owl Carousel SOLO en este contenedor específico
-    $(carouselContainer).owlCarousel({
-        loop: true,
-        margin: 10,
-        nav: true,
-        autoplay: true,
-        autoplayTimeout: 5000,
-        navText: [
-            '<i class="fa fa-angle-left" aria-hidden="true"></i>',
-            '<i class="fa fa-angle-right" aria-hidden="true"></i>'
-        ],
-        responsive: {
-            0: {
-                items: 1
-            },
-            600: {
-                items: 1
-            },
-            1000: {
-                items: 1
+        function renderCarouselItem(article, section) {
+            // Crear el contenedor principal del carrusel
+            const carouselItemWrapper = document.createElement('div');
+            carouselItemWrapper.classList.add('position-relative', 'overflow-hidden');
+            carouselItemWrapper.style.height = '435px';
+
+            // Crear el "item" del carrusel
+            const carouselItem = document.createElement('div');
+            carouselItem.classList.add('position-relative', 'overflow-hidden');
+            carouselItem.style.height = '435px';
+
+            // Contenido HTML del artículo dentro del carrusel
+            carouselItem.innerHTML = `
+                <img class="img-fluid h-100" src="${article.multimedia && article.multimedia.length > 0 ? article.multimedia[0].url : 'img/default.jpg'}" style="object-fit: cover;">
+                <div class="overlay">
+                    <div class="mb-1">
+                        <a class="text-white" href="${article.url}">${section.charAt(0).toUpperCase() + section.slice(1).replace('/', ' ')}</a>
+                        <span class="px-2 text-white">/</span>
+                        <a class="text-white" href="${article.url}">${new Date(article.published_date).toLocaleDateString()}</a>
+                    </div>
+                    <a class="h2 m-0 text-white font-weight-bold" href="${article.url}">${article.title}</a>
+                </div>
+            `;
+
+            // Añadir el "item" del carrusel al contenedor principal
+            carouselItemWrapper.appendChild(carouselItem);
+
+            return carouselItemWrapper;
+        }
+
+        async function loadCategoryNews() {
+            const carouselContainer = document.createElement('div');
+            carouselContainer.classList.add('owl-carousel', 'owl-carousel-2', 'carousel-item-1', 'position-relative', 'mb-3', 'mb-lg-0');
+
+            // Añadir el contenedor del carrusel al contenedor principal
+            const newsCarouselContainer = document.getElementById('news-carousel-container');
+            newsCarouselContainer.appendChild(carouselContainer);
+
+            // Recorremos todas las categorías
+            for (const category of categories) {
+                const news = await fetchNews(category);
+                if (news.length > 0) {
+                    const article = news[5]; // Tomar la sexta noticia de la categoría
+                    const carouselItem = renderCarouselItem(article, category);
+                    carouselContainer.appendChild(carouselItem); // Añadir el item al carrusel
+                }
             }
-        }
-    });
-}
 
-// Cargar las noticias cuando la página esté lista
-document.addEventListener('DOMContentLoaded', loadCategoryNews);
+            // Inicializar el Owl Carousel SOLO en este contenedor específico
+            $(carouselContainer).owlCarousel({
+                loop: true,
+                margin: 10,
+                nav: true,
+                autoplay: true,
+                autoplayTimeout: 5000,
+                navText: [
+                    '<i class="fa fa-angle-left" aria-hidden="true"></i>',
+                    '<i class="fa fa-angle-right" aria-hidden="true"></i>'
+                ],
+                responsive: {
+                    0: {
+                        items: 1
+                    },
+                    600: {
+                        items: 1
+                    },
+                    1000: {
+                        items: 1
+                    }
+                }
+            });
+        }
+
+        // Cargar las noticias cuando la página esté lista
+        document.addEventListener('DOMContentLoaded', loadCategoryNews);
 
 
         /* ---------------- CATEGORIAS (LATERAL) --------------- */
@@ -237,15 +238,27 @@ document.addEventListener('DOMContentLoaded', loadCategoryNews);
                 const categoryName = category.charAt(0).toUpperCase() + category.slice(1).toLowerCase();
 
                 categoryDiv.innerHTML = `
-            <img class="img-fluid w-100 h-100" src="${defaultImage}" style="object-fit: cover;">
-            <a href="#" class="overlay align-items-center justify-content-center h4 m-0 text-white text-decoration-none">
-                ${categoryName}
-            </a>
-        `;
+                    <img class="img-fluid w-100 h-100" src="${defaultImage}" style="object-fit: cover;">
+                    <a href="#" class="overlay align-items-center justify-content-center h4 m-0 text-white text-decoration-none" data-category="${category}">
+                        ${categoryName}
+                    </a>
+                `;
                 container.appendChild(categoryDiv);
             });
-        }
 
+            // Añadir el evento de clic para hacer scroll
+            const categoryLinks = document.querySelectorAll("#dynamic-categories a");
+            categoryLinks.forEach(link => {
+                link.addEventListener("click", (e) => {
+                    e.preventDefault();
+                    const category = e.target.getAttribute("data-category");
+                    const sectionElement = document.getElementById(`${category}-section`);
+                    if (sectionElement) {
+                        sectionElement.scrollIntoView({ behavior: "smooth" }); // Desplazar suavemente hacia la sección
+                    }
+                });
+            });
+        }
 
         // Inicializar visualización con solo 4 categorías
         renderCategories(false);
@@ -270,7 +283,6 @@ document.addEventListener('DOMContentLoaded', loadCategoryNews);
     <!-- Category News Slider End -->
 
     <script>
-
         // Función para hacer una llamada a la API de noticias por sección
         async function fetchNews(section) {
             try {
@@ -307,18 +319,18 @@ document.addEventListener('DOMContentLoaded', loadCategoryNews);
             // Crear los artículos dentro del carrusel
             news.forEach(article => {
                 const articleHtml = `
-                    <div class="position-relative">
-                        <img class="img-fluid w-100" src="${article.multimedia && article.multimedia.length > 0 ? article.multimedia[0].url : 'img/default.jpg'}" style="object-fit: cover; height: 360px;">
-                        <div class="overlay position-relative bg-light">
-                            <div class="mb-2" style="font-size: 13px;">
-                                <a href="${article.url}">${section}</a>
-                                <span class="px-1">/</span>
-                                <span>${new Date(article.published_date).toLocaleDateString()}</span>
-                            </div>
-                            <a class="h4 m-0" href="${article.url}">${article.title}</a>
+                <div class="position-relative">
+                    <img class="img-fluid w-100" src="${article.multimedia && article.multimedia.length > 0 ? article.multimedia[0].url : 'img/default.jpg'}" style="object-fit: cover; height: 360px;">
+                    <div class="overlay position-relative bg-light">
+                        <div class="mb-2" style="font-size: 13px;">
+                            <a href="${article.url}">${section}</a>
+                            <span class="px-1">/</span>
+                            <span>${new Date(article.published_date).toLocaleDateString()}</span>
                         </div>
+                        <a class="h4 m-0" href="${article.url}">${article.title}</a>
                     </div>
-                `;
+                </div>
+            `;
                 carouselContainer.innerHTML += articleHtml;
             });
 
@@ -411,6 +423,17 @@ document.addEventListener('DOMContentLoaded', loadCategoryNews);
                         button.href = "#";  // Aquí puedes poner un enlace real si lo necesitas
                         button.classList.add("btn", "btn-sm", "btn-outline-secondary", "m-1");
                         button.textContent = category;
+
+                        // Agregar el evento de clic para hacer scroll
+                        button.addEventListener("click", (e) => {
+                            e.preventDefault();
+                            const categoryId = `${category}-section`; // Id de la sección correspondiente
+                            const sectionElement = document.getElementById(categoryId);
+                            if (sectionElement) {
+                                sectionElement.scrollIntoView({ behavior: "smooth" }); // Desplazar suavemente hacia la sección
+                            }
+                        });
+
                         categoryButtonsContainer.appendChild(button);
                     });
                 }
