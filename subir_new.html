@@ -61,81 +61,96 @@
     <!-- Navbar End -->
 
     <!-- Formulario para subir una noticia -->
-<div class="container-fluid py-3">
-    <div class="container">
-        <h2>Subir Noticia</h2>
-        <form action="submit_news.php" method="POST">
-            <!-- Titulo -->
-            <div class="mb-3">
-                <label for="titulo" class="form-label">Título</label>
-                <input type="text" class="form-control" id="titulo" name="titulo" required>
-            </div>
-            
-            <!-- Contenido -->
-            <div class="mb-3">
-                <label for="contenido" class="form-label">Contenido</label>
-                <textarea class="form-control" id="contenido" name="contenido" rows="5" required></textarea>
-            </div>
-            
-            <!-- FechaPublic -->
-            <div class="mb-3">
-                <label for="fechaPublic" class="form-label">Fecha de Publicación</label>
-                <input type="date" class="form-control" id="fechaPublic" name="fechaPublic" required>
-            </div>
-            
-            <!-- IdLugar -->
-            <div class="mb-3">
-                <label for="idLugar" class="form-label">Lugar</label>
-                <select class="form-select" class="form-control" id="idLugar" name="idLugar" required>
-                    <option value="">Seleccione un lugar</option>
-                    <option value="1">Lugar 1</option>
-                    <option value="2">Lugar 2</option>
-                    <option value="3">Lugar 3</option>
-                </select>
-            </div>
-            
-            <!-- IdPais -->
-            <div class="mb-3">
-                <label for="idPais" class="form-label">País</label>
-                <select class="form-select" class="form-control" id="idPais" name="idPais" required>
-                    <option value="">Seleccione un país</option>
-                    <option value="1">País 1</option>
-                    <option value="2">País 2</option>
-                    <option value="3">País 3</option>
-                </select>
-            </div>
-            
-            <!-- IdCategoria -->
-            <div class="mb-3">
-                <label for="idCategoria" class="form-label">Categoría</label>
-                <select class="form-select" class="form-control" id="idCategoria" name="idCategoria" required>
-                    <option value="">Seleccione una categoría</option>
-                    <option value="1">Categoría 1</option>
-                    <option value="2">Categoría 2</option>
-                    <option value="3">Categoría 3</option>
-                </select>
-            </div>
-            
-            <!-- IdIdioma -->
-            <div class="mb-3">
-                <label for="idIdioma" class="form-label">Idioma</label>
-                <select class="form-select" class="form-control" id="idIdioma" name="idIdioma" required>
-                    <option value="">Seleccione un idioma</option>
-                    <option value="1">Español</option>
-                    <option value="2">Inglés</option>
-                    <option value="3">Francés</option>
-                </select>
-            </div>
-            
-            <!-- Botón de Enviar -->
-            <div class="text-center mt-4">
-                <button type="submit" class="btn btn-primary">Subir Noticia</button>
-            </div>
-        </form>
-        <br>
+    <div class="container-fluid py-3">
+        <div class="container">
+            <h2>Subir Noticia</h2>
+            <form action="submit_news.php" method="POST">
+                <!-- Titulo -->
+                <div class="mb-3">
+                    <label for="titulo" class="form-label">Título</label>
+                    <input type="text" class="form-control" id="titulo" name="titulo" required>
+                </div>
+
+                <!-- Contenido -->
+                <div class="mb-3">
+                    <label for="contenido" class="form-label">Contenido</label>
+                    <textarea class="form-control" id="contenido" name="contenido" rows="5" required></textarea>
+                </div>
+
+                <div class="row">
+                    <!-- FechaPublic -->
+                    <div class="col-md-4 mb-3">
+                        <label for="fechaPublic" class="form-label">Fecha de Publicación</label>
+                        <input type="date" class="form-control" id="fechaPublic" name="fechaPublic" required>
+                    </div>
+    
+                    <!-- IdCategoria -->
+                    <div class="col-md-4 mb-3">
+                        <label for="idCategoria" class="form-label">Categoría</label>
+                        <select class="form-select" id="idCategoria" name="idCategoria" required>
+                            <option value="">Seleccione una categoría</option>
+                            <option value="1">Categoría 1</option>
+                            <option value="2">Categoría 2</option>
+                            <option value="3">Categoría 3</option>
+                        </select>
+                    </div>
+    
+                    <!-- IdIdioma -->
+                    <div class="col-md-4 mb-3">
+                        <label for="idIdioma" class="form-label">Idioma</label>
+                        <select class="form-select" id="idIdioma" name="idIdioma" required>
+                            <option value="">Seleccione un idioma</option>
+                            <option value="1">Español</option>
+                            <option value="2">Inglés</option>
+                            <option value="3">Francés</option>
+                        </select>
+                    </div>
+                </div>
+    
+                <div class="row">
+                    <!-- IdPais -->
+                    <div class="col-md-4 mb-3">
+                        <label for="idPais" class="form-label">País</label>
+                        <select class="form-select" id="idPais" name="idPais" required>
+                            <option value="">Seleccione un país</option>
+                            <option value="1">País 1</option>
+                            <option value="2">País 2</option>
+                            <option value="3">País 3</option>
+                        </select>
+                    </div>
+    
+                    <!-- IdEstado -->
+                    <div class="col-md-4 mb-3">
+                        <label for="idEstado" class="form-label">Estado</label>
+                        <select class="form-select" id="idEstado" name="idEstado" required>
+                            <option value="">Seleccione un estado</option>
+                            <option value="1">Estado 1</option>
+                            <option value="2">Estado 2</option>
+                            <option value="3">Estado 3</option>
+                        </select>
+                    </div>
+    
+                    <!-- IdLugar -->
+                    <div class="col-md-4 mb-3">
+                        <label for="idLugar" class="form-label">Lugar</label>
+                        <select class="form-select" id="idLugar" name="idLugar" required>
+                            <option value="">Seleccione un lugar</option>
+                            <option value="1">Lugar 1</option>
+                            <option value="2">Lugar 2</option>
+                            <option value="3">Lugar 3</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Botón de Enviar -->
+                <div class="text-center mt-4">
+                    <button type="submit" class="btn btn-primary">Subir Noticia</button>
+                </div>
+            </form>
+            <br>
+        </div>
     </div>
-</div>
-<!-- Formulario End -->
+    <!-- Formulario End -->
 
 
     <!-- Footer Start -->
@@ -200,8 +215,6 @@
                 <h4 class="font-weight-bold mb-4">Links Rápidos</h4>
                 <div class="d-flex flex-column justify-content-start">
                     <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right text-dark mr-2"></i>Inicio</a>
-                    <a class="text-secondary mb-2" href="#"><i
-                            class="fa fa-angle-right text-dark mr-2"></i>Categorías</a>
                     <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right text-dark mr-2"></i>Inicia
                         Sesión</a>
                 </div>
