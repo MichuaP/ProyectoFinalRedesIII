@@ -64,8 +64,8 @@
     <div class="container-fluid py-3">
         <div class="container">
             <div class="bg-light py-2 px-4 mb-3">
-                <h3 class="m-0" id="formTitle">Inicia Sesión</h3>
-            </div>
+                <h3 class="m-0" id="formTitle">Registrate</h3>
+            </div>      
             <div class="row">
                 <div class="col-md-5">
                     <div class="bg-light mb-3" style="padding: 30px;">
@@ -92,16 +92,41 @@
                             </div>
                         </div>
                         <br>
-                        <p>¿No tienes cuenta? <a href="registrarse.html">¡Registrate!</a></p>
+                        <p>¿Ya tienes una cuenta? <a href="iniciar_sesion.html">Inicia Sesión</a></p>
                     </div>
-                </div>
-
-                <!-- Formulario de Inicio de Sesión -->
-                <div class="col-md-7" id="loginForm">
+                </div>          
+                <!-- Formulario de Registro (inicialmente oculto) -->
+                <div class="col-md-7" id="registerForm">
                     <div class="iniciar_sesion-form bg-light mb-3" style="padding: 30px;">
                         <div id="success"></div>
                         <form name="sentMessage" id="iniciar_sesionForm" novalidate="novalidate">
                             <div class="form-row">
+                                <div class="col-md-6">
+                                    <div class="control-group">
+                                        <input type="text" class="form-control p-4" id="Nombre" placeholder="Nombre"
+                                            required="required"
+                                            data-validation-required-message="Introduce tu nombre" />
+                                        <p class="help-block text-danger"></p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="control-group">
+                                        <input type="text" class="form-control p-4" id="ApePat"
+                                            placeholder="Apellido Paterno" required="required"
+                                            data-validation-required-message="Introduce tu apellido paterno" />
+                                        <p class="help-block text-danger"></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-md-6">
+                                    <div class="control-group">
+                                        <input type="text" class="form-control p-4" id="ApeMat"
+                                            placeholder="Apellido Materno" required="required"
+                                            data-validation-required-message="Introduce tu apellido materno" />
+                                        <p class="help-block text-danger"></p>
+                                    </div>
+                                </div>
                                 <div class="col-md-6">
                                     <div class="control-group">
                                         <input type="text" class="form-control p-4" id="Alias" placeholder="Alias"
@@ -109,6 +134,8 @@
                                         <p class="help-block text-danger"></p>
                                     </div>
                                 </div>
+                            </div>
+                            <div class="form-row">
                                 <div class="col-md-6">
                                     <div class="control-group">
                                         <input type="password" class="form-control p-4" id="Contraseña"
@@ -117,10 +144,24 @@
                                         <p class="help-block text-danger"></p>
                                     </div>
                                 </div>
+                                <div class="col-md-6">
+                                    <div class="control-group">
+                                        <input type="email" class="form-control p-4" id="Correo"
+                                            placeholder="Correo Electrónico" required="required"
+                                            data-validation-required-message="Introduce tu correo" />
+                                        <p class="help-block text-danger"></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <input type="number" class="form-control p-4" id="TipoUsuario"
+                                    placeholder="Tipo de Usuario" required="required"
+                                    data-validation-required-message="Introduce el tipo de usuario" />
+                                <p class="help-block text-danger"></p>
                             </div>
                             <div>
                                 <button class="btn btn-primary font-weight-semi-bold px-4" style="height: 50px;"
-                                    type="submit" id="loginButton">Iniciar Sesión</button>
+                                    type="submit" id="sendMessageButton">Registrarse</button>
                             </div>
                         </form>
                     </div>
@@ -128,7 +169,6 @@
             </div>
         </div>
     </div>
-    <!-- iniciar_sesion End -->
 
     <!-- Footer Start -->
     <div class="container-fluid bg-light pt-5 px-sm-3 px-md-5">
