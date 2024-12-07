@@ -26,6 +26,17 @@
 </head>
 
 <body>
+
+    <script>
+        const apiKey = '2wwlSHxIGMzzoBxuk311UPiEaoYCKPSf';  // Clave de API de New York Times
+        const categories = [
+            "arts", "business", "fashion", "food", "health",
+            "home", "movies", "politics", "science", "sports", "technology",
+            "theater", "travel", "world"
+        ];
+
+    </script>
+
     <!-- Topbar Start -->
     <div class="row align-items-center py-2 px-lg-5">
         <div class="col-lg-4">
@@ -67,30 +78,26 @@
             <div class="owl-carousel owl-carousel-2 carousel-item-3 position-relative">
                 <div class="d-flex">
                     <img src="img/news-100x100-1.jpg" style="width: 80px; height: 80px; object-fit: cover;">
-                    <div class="d-flex align-items-center bg-light px-3" style="height: 80px;">
-                        <a class="text-secondary font-weight-semi-bold" href="">Lorem ipsum dolor sit amet consec adipis
-                            elit</a>
+                    <div class="d-flex align-items-center bg-light px-2" style="height: 80px; width: 270px;">
+                        <a class="text-secondary font-weight-semi-bold" href="">Nadia Montserrat Acosta Miranda</a>
                     </div>
                 </div>
                 <div class="d-flex">
                     <img src="img/news-100x100-2.jpg" style="width: 80px; height: 80px; object-fit: cover;">
-                    <div class="d-flex align-items-center bg-light px-3" style="height: 80px;">
-                        <a class="text-secondary font-weight-semi-bold" href="">Lorem ipsum dolor sit amet consec adipis
-                            elit</a>
+                    <div class="d-flex align-items-center bg-light px-2" style="height: 80px; width: 270px;">
+                        <a class="text-secondary font-weight-semi-bold" href="">Paula Michelle Cruz Lira</a>
                     </div>
                 </div>
                 <div class="d-flex">
                     <img src="img/news-100x100-3.jpg" style="width: 80px; height: 80px; object-fit: cover;">
-                    <div class="d-flex align-items-center bg-light px-3" style="height: 80px;">
-                        <a class="text-secondary font-weight-semi-bold" href="">Lorem ipsum dolor sit amet consec adipis
-                            elit</a>
+                    <div class="d-flex align-items-center bg-light px-2" style="height: 80px; width: 270px;">
+                        <a class="text-secondary font-weight-semi-bold" href="">Luis Uriel Martínez Rodríguez</a>
                     </div>
                 </div>
                 <div class="d-flex">
                     <img src="img/news-100x100-4.jpg" style="width: 80px; height: 80px; object-fit: cover;">
-                    <div class="d-flex align-items-center bg-light px-3" style="height: 80px;">
-                        <a class="text-secondary font-weight-semi-bold" href="">Lorem ipsum dolor sit amet consec adipis
-                            elit</a>
+                    <div class="d-flex align-items-center bg-light px-2" style="height: 80px; width: 270px;">
+                        <a class="text-secondary font-weight-semi-bold" href="">Johan Ronaldo Martínez Ramírez</a>
                     </div>
                 </div>
             </div>
@@ -98,327 +105,269 @@
     </div>
     <!-- Top News Slider End -->
 
-
     <!-- Main News Slider Start -->
     <div class="container-fluid py-3">
         <div class="container">
             <div class="row">
                 <div class="col-lg-8">
-                    <div class="owl-carousel owl-carousel-2 carousel-item-1 position-relative mb-3 mb-lg-0">
-                        <div class="position-relative overflow-hidden" style="height: 435px;">
-                            <img class="img-fluid h-100" src="img/news-700x435-1.jpg" style="object-fit: cover;">
-                            <div class="overlay">
-                                <div class="mb-1">
-                                    <a class="text-white" href="">Technología</a>
-                                    <span class="px-2 text-white">/</span>
-                                    <a class="text-white" href="">January 01, 2045</a>
-                                </div>
-                                <a class="h2 m-0 text-white font-weight-bold" href="">Sanctus amet sed amet ipsum lorem.
-                                    Dolores et erat et elitr sea sed</a>
-                            </div>
-                        </div>
-                        <div class="position-relative overflow-hidden" style="height: 435px;">
-                            <img class="img-fluid h-100" src="img/news-700x435-2.jpg" style="object-fit: cover;">
-                            <div class="overlay">
-                                <div class="mb-1">
-                                    <a class="text-white" href="">Technología</a>
-                                    <span class="px-2 text-white">/</span>
-                                    <a class="text-white" href="">January 01, 2045</a>
-                                </div>
-                                <a class="h2 m-0 text-white font-weight-bold" href="">Sanctus amet sed amet ipsum lorem.
-                                    Dolores et erat et elitr sea sed</a>
-                            </div>
-                        </div>
-                    </div>
+                    <!-- Contenedor del carrusel se creará dinámicamente -->
+                    <div id="news-carousel-container" class="position-relative"></div>
                 </div>
+
                 <div class="col-lg-4">
                     <div class="d-flex align-items-center justify-content-between bg-light py-2 px-4 mb-3">
                         <h3 class="m-0">Categorías</h3>
-                        <a class="text-secondary font-weight-medium text-decoration-none" href="">Ver Todo</a>
+                        <a id="toggle-categories" class="text-secondary font-weight-medium text-decoration-none"
+                            href="#">Ver Todo</a>
                     </div>
-                    <div class="position-relative overflow-hidden mb-3" style="height: 80px;">
-                        <img class="img-fluid w-100 h-100" src="img/cat-500x80-1.jpg" style="object-fit: cover;">
-                        <a href=""
-                            class="overlay align-items-center justify-content-center h4 m-0 text-white text-decoration-none">
-                            Negocio
-                        </a>
-                    </div>
-                    <div class="position-relative overflow-hidden mb-3" style="height: 80px;">
-                        <img class="img-fluid w-100 h-100" src="img/cat-500x80-2.jpg" style="object-fit: cover;">
-                        <a href=""
-                            class="overlay align-items-center justify-content-center h4 m-0 text-white text-decoration-none">
-                            Tecnología
-                        </a>
-                    </div>
-                    <div class="position-relative overflow-hidden mb-3" style="height: 80px;">
-                        <img class="img-fluid w-100 h-100" src="img/cat-500x80-3.jpg" style="object-fit: cover;">
-                        <a href=""
-                            class="overlay align-items-center justify-content-center h4 m-0 text-white text-decoration-none">
-                            Enteretenimiento
-                        </a>
-                    </div>
-                    <div class="position-relative overflow-hidden" style="height: 80px;">
-                        <img class="img-fluid w-100 h-100" src="img/cat-500x80-4.jpg" style="object-fit: cover;">
-                        <a href=""
-                            class="overlay align-items-center justify-content-center h4 m-0 text-white text-decoration-none">
-                            Deportes
-                        </a>
-                    </div>
+                    <div id="dynamic-categories"></div>
                 </div>
             </div>
         </div>
     </div>
     <!-- Main News Slider End -->
 
+    <script>
+        async function fetchNews(section) {
+    const url = `https://api.nytimes.com/svc/topstories/v2/${section}.json?api-key=${apiKey}`;
+    const response = await fetch(url);
+    const data = await response.json();
+    return data.results; // Devuelve los resultados de las noticias
+}
 
-    <!-- Featured News Slider Start -->
-    <div class="container-fluid py-3">
-        <div class="container">
-            <div class="d-flex align-items-center justify-content-between bg-light py-2 px-4 mb-3">
-                <h3 class="m-0">Podría Interesarte</h3>
+function renderCarouselItem(article, section) {
+    // Crear el contenedor principal del carrusel
+    const carouselItemWrapper = document.createElement('div');
+    carouselItemWrapper.classList.add('position-relative', 'overflow-hidden');
+    carouselItemWrapper.style.height = '435px';
+
+    // Crear el "item" del carrusel
+    const carouselItem = document.createElement('div');
+    carouselItem.classList.add('position-relative', 'overflow-hidden');
+    carouselItem.style.height = '435px';
+
+    // Contenido HTML del artículo dentro del carrusel
+    carouselItem.innerHTML = `
+        <img class="img-fluid h-100" src="${article.multimedia && article.multimedia.length > 0 ? article.multimedia[0].url : 'img/default.jpg'}" style="object-fit: cover;">
+        <div class="overlay">
+            <div class="mb-1">
+                <a class="text-white" href="${article.url}">${section.charAt(0).toUpperCase() + section.slice(1).replace('/', ' ')}</a>
+                <span class="px-2 text-white">/</span>
+                <a class="text-white" href="${article.url}">${new Date(article.published_date).toLocaleDateString()}</a>
             </div>
-            <div class="owl-carousel owl-carousel-2 carousel-item-4 position-relative">
-                <div class="position-relative overflow-hidden" style="height: 300px;">
-                    <img class="img-fluid w-100 h-100" src="img/news-300x300-1.jpg" style="object-fit: cover;">
-                    <div class="overlay">
-                        <div class="mb-1" style="font-size: 13px;">
-                            <a class="text-white" href="">Deportes</a>
-                            <span class="px-1 text-white">/</span>
-                            <a class="text-white" href="">January 01, 2045</a>
-                        </div>
-                        <a class="h4 m-0 text-white" href="">Sanctus amet sed ipsum lorem</a>
-                    </div>
-                </div>
-                <div class="position-relative overflow-hidden" style="height: 300px;">
-                    <img class="img-fluid w-100 h-100" src="img/news-300x300-5.jpg" style="object-fit: cover;">
-                    <div class="overlay">
-                        <div class="mb-1" style="font-size: 13px;">
-                            <a class="text-white" href="">Tecnología</a>
-                            <span class="px-1 text-white">/</span>
-                            <a class="text-white" href="">January 01, 2045</a>
-                        </div>
-                        <a class="h4 m-0 text-white" href="">Sanctus amet sed ipsum lorem</a>
-                    </div>
-                </div>
-                <div class="position-relative overflow-hidden" style="height: 300px;">
-                    <img class="img-fluid w-100 h-100" src="img/news-300x300-2.jpg" style="object-fit: cover;">
-                    <div class="overlay">
-                        <div class="mb-1" style="font-size: 13px;">
-                            <a class="text-white" href="">Negocios</a>
-                            <span class="px-1 text-white">/</span>
-                            <a class="text-white" href="">January 01, 2045</a>
-                        </div>
-                        <a class="h4 m-0 text-white" href="">Sanctus amet sed ipsum lorem</a>
-                    </div>
-                </div>
-                <div class="position-relative overflow-hidden" style="height: 300px;">
-                    <img class="img-fluid w-100 h-100" src="img/news-300x300-3.jpg" style="object-fit: cover;">
-                    <div class="overlay">
-                        <div class="mb-1" style="font-size: 13px;">
-                            <a class="text-white" href="">Entretenimiento</a>
-                            <span class="px-1 text-white">/</span>
-                            <a class="text-white" href="">January 01, 2045</a>
-                        </div>
-                        <a class="h4 m-0 text-white" href="">Sanctus amet sed ipsum lorem</a>
-                    </div>
-                </div>
-                <div class="position-relative overflow-hidden" style="height: 300px;">
-                    <img class="img-fluid w-100 h-100" src="img/news-300x300-4.jpg" style="object-fit: cover;">
-                    <div class="overlay">
-                        <div class="mb-1" style="font-size: 13px;">
-                            <a class="text-white" href="">Tecnología</a>
-                            <span class="px-1 text-white">/</span>
-                            <a class="text-white" href="">January 01, 2045</a>
-                        </div>
-                        <a class="h4 m-0 text-white" href="">Sanctus amet sed ipsum lorem</a>
-                    </div>
-                </div>
-            </div>
+            <a class="h2 m-0 text-white font-weight-bold" href="${article.url}">${article.title}</a>
         </div>
-    </div>
-    </div>
-    <!-- Featured News Slider End -->
+    `;
 
+    // Añadir el "item" del carrusel al contenedor principal
+    carouselItemWrapper.appendChild(carouselItem);
+
+    return carouselItemWrapper;
+}
+
+async function loadCategoryNews() {
+    const carouselContainer = document.createElement('div');
+    carouselContainer.classList.add('owl-carousel', 'owl-carousel-2', 'carousel-item-1', 'position-relative', 'mb-3', 'mb-lg-0');
+
+    // Añadir el contenedor del carrusel al contenedor principal
+    const newsCarouselContainer = document.getElementById('news-carousel-container');
+    newsCarouselContainer.appendChild(carouselContainer);
+
+    // Recorremos todas las categorías
+    for (const category of categories) {
+        const news = await fetchNews(category);
+        if (news.length > 0) {
+            const article = news[1]; // Tomar la segunda noticia de la categoría
+            const carouselItem = renderCarouselItem(article, category);
+            carouselContainer.appendChild(carouselItem); // Añadir el item al carrusel
+        }
+    }
+
+    // Inicializar el Owl Carousel SOLO en este contenedor específico
+    $(carouselContainer).owlCarousel({
+        loop: true,
+        margin: 10,
+        nav: true,
+        autoplay: true,
+        autoplayTimeout: 5000,
+        navText: [
+            '<i class="fa fa-angle-left" aria-hidden="true"></i>',
+            '<i class="fa fa-angle-right" aria-hidden="true"></i>'
+        ],
+        responsive: {
+            0: {
+                items: 1
+            },
+            600: {
+                items: 1
+            },
+            1000: {
+                items: 1
+            }
+        }
+    });
+}
+
+// Cargar las noticias cuando la página esté lista
+document.addEventListener('DOMContentLoaded', loadCategoryNews);
+
+
+        /* ---------------- CATEGORIAS (LATERAL) --------------- */
+
+        const defaultImage = "img/default.jpg"; // Imagen genérica
+        const container = document.getElementById("dynamic-categories");
+        const toggleButton = document.getElementById("toggle-categories");
+
+        let showingAll = false; // Estado de la visualización (por defecto, false)
+
+        // Renderizar categorías
+        function renderCategories(showAll) {
+            container.innerHTML = ""; // Limpiar contenido anterior
+
+            // Determinar las categorías a mostrar
+            const categoriesToShow = showAll ? categories : categories.slice(0, 4);
+
+            // Generar HTML dinámico
+            categoriesToShow.forEach(category => {
+                const categoryDiv = document.createElement("div");
+                categoryDiv.className = "position-relative overflow-hidden mb-3";
+                categoryDiv.style.height = "80px";
+
+                // Convertir la primera letra de la categoría a mayúsculas
+                const categoryName = category.charAt(0).toUpperCase() + category.slice(1).toLowerCase();
+
+                categoryDiv.innerHTML = `
+            <img class="img-fluid w-100 h-100" src="${defaultImage}" style="object-fit: cover;">
+            <a href="#" class="overlay align-items-center justify-content-center h4 m-0 text-white text-decoration-none">
+                ${categoryName}
+            </a>
+        `;
+                container.appendChild(categoryDiv);
+            });
+        }
+
+
+        // Inicializar visualización con solo 4 categorías
+        renderCategories(false);
+
+        // Alternar entre mostrar todas las categorías u ocultarlas
+        toggleButton.addEventListener("click", (e) => {
+            e.preventDefault(); // Evitar el comportamiento por defecto del enlace
+            showingAll = !showingAll; // Cambiar el estado
+            renderCategories(showingAll); // Renderizar categorías nuevamente
+            toggleButton.textContent = showingAll ? "Ver Menos" : "Ver Todo"; // Cambiar el texto del botón
+        });
+    </script>
 
     <!-- Category News Slider Start -->
     <div class="container-fluid">
         <div class="container">
-            <div class="row">
-                <div class="col-lg-6 py-3">
-                    <div class="bg-light py-2 px-4 mb-3">
-                        <h3 class="m-0">Negocios</h3>
-                    </div>
-                    <div class="owl-carousel owl-carousel-3 carousel-item-2 position-relative">
-                        <div class="position-relative">
-                            <img class="img-fluid w-100" src="img/news-500x280-1.jpg" style="object-fit: cover;">
-                            <div class="overlay position-relative bg-light">
-                                <div class="mb-2" style="font-size: 13px;">
-                                    <a href="">Negocios</a>
-                                    <span class="px-1">/</span>
-                                    <span>January 01, 2045</span>
-                                </div>
-                                <a class="h4 m-0" href="">Sanctus amet sed ipsum lorem</a>
-                            </div>
-                        </div>
-                        <div class="position-relative">
-                            <img class="img-fluid w-100" src="img/news-500x280-2.jpg" style="object-fit: cover;">
-                            <div class="overlay position-relative bg-light">
-                                <div class="mb-2" style="font-size: 13px;">
-                                    <a href="">Negocios</a>
-                                    <span class="px-1">/</span>
-                                    <span>January 01, 2045</span>
-                                </div>
-                                <a class="h4 m-0" href="">Sanctus amet sed ipsum lorem</a>
-                            </div>
-                        </div>
-                        <div class="position-relative">
-                            <img class="img-fluid w-100" src="img/news-500x280-3.jpg" style="object-fit: cover;">
-                            <div class="overlay position-relative bg-light">
-                                <div class="mb-2" style="font-size: 13px;">
-                                    <a href="">Negocios</a>
-                                    <span class="px-1">/</span>
-                                    <span>January 01, 2045</span>
-                                </div>
-                                <a class="h4 m-0" href="">Sanctus amet sed ipsum lorem</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-6 py-3">
-                    <div class="bg-light py-2 px-4 mb-3">
-                        <h3 class="m-0">Tecnología</h3>
-                    </div>
-                    <div class="owl-carousel owl-carousel-3 carousel-item-2 position-relative">
-                        <div class="position-relative">
-                            <img class="img-fluid w-100" src="img/news-500x280-4.jpg" style="object-fit: cover;">
-                            <div class="overlay position-relative bg-light">
-                                <div class="mb-2" style="font-size: 13px;">
-                                    <a href="">Tecnología</a>
-                                    <span class="px-1">/</span>
-                                    <span>January 01, 2045</span>
-                                </div>
-                                <a class="h4 m-0" href="">Sanctus amet sed ipsum lorem</a>
-                            </div>
-                        </div>
-                        <div class="position-relative">
-                            <img class="img-fluid w-100" src="img/news-500x280-5.jpg" style="object-fit: cover;">
-                            <div class="overlay position-relative bg-light">
-                                <div class="mb-2" style="font-size: 13px;">
-                                    <a href="">Tecnología</a>
-                                    <span class="px-1">/</span>
-                                    <span>January 01, 2045</span>
-                                </div>
-                                <a class="h4 m-0" href="">Sanctus amet sed ipsum lorem</a>
-                            </div>
-                        </div>
-                        <div class="position-relative">
-                            <img class="img-fluid w-100" src="img/news-500x280-6.jpg" style="object-fit: cover;">
-                            <div class="overlay position-relative bg-light">
-                                <div class="mb-2" style="font-size: 13px;">
-                                    <a href="">Tecnología</a>
-                                    <span class="px-1">/</span>
-                                    <span>January 01, 2045</span>
-                                </div>
-                                <a class="h4 m-0" href="">Sanctus amet sed ipsum lorem</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <div class="row" id="news-slider">
+                <!-- Los carruseles se generarán dinámicamente aquí -->
             </div>
         </div>
-    </div>
     </div>
     <!-- Category News Slider End -->
 
+    <script>
 
-    <!-- Category News Slider Start -->
-    <div class="container-fluid">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-6 py-3">
-                    <div class="bg-light py-2 px-4 mb-3">
-                        <h3 class="m-0">Entretenimiento</h3>
-                    </div>
-                    <div class="owl-carousel owl-carousel-3 carousel-item-2 position-relative">
-                        <div class="position-relative">
-                            <img class="img-fluid w-100" src="img/news-500x280-6.jpg" style="object-fit: cover;">
-                            <div class="overlay position-relative bg-light">
-                                <div class="mb-2" style="font-size: 13px;">
-                                    <a href="">Entretenimiento</a>
-                                    <span class="px-1">/</span>
-                                    <span>January 01, 2045</span>
-                                </div>
-                                <a class="h4 m-0" href="">Sanctus amet sed ipsum lorem</a>
-                            </div>
-                        </div>
-                        <div class="position-relative">
-                            <img class="img-fluid w-100" src="img/news-500x280-5.jpg" style="object-fit: cover;">
-                            <div class="overlay position-relative bg-light">
-                                <div class="mb-2" style="font-size: 13px;">
-                                    <a href="">Entretenimiento</a>
-                                    <span class="px-1">/</span>
-                                    <span>January 01, 2045</span>
-                                </div>
-                                <a class="h4 m-0" href="">Sanctus amet sed ipsum lorem</a>
-                            </div>
-                        </div>
-                        <div class="position-relative">
-                            <img class="img-fluid w-100" src="img/news-500x280-4.jpg" style="object-fit: cover;">
-                            <div class="overlay position-relative bg-light">
-                                <div class="mb-2" style="font-size: 13px;">
-                                    <a href="">Entretenimiento</a>
-                                    <span class="px-1">/</span>
-                                    <span>January 01, 2045</span>
-                                </div>
-                                <a class="h4 m-0" href="">Sanctus amet sed ipsum lorem</a>
-                            </div>
-                        </div>
-                    </div>
+        // Función para hacer una llamada a la API de noticias por sección
+        async function fetchNews(section) {
+            try {
+                const url = `https://api.nytimes.com/svc/topstories/v2/${section}.json?api-key=${apiKey}`;
+                const response = await fetch(url);
+                const data = await response.json();
+                return data.results || []; // Asegúrate de que la respuesta contenga artículos
+            } catch (error) {
+                console.error(`Error fetching news for section ${section}:`, error);
+                return [];
+            }
+        }
+
+        // Función para renderizar las noticias en el carrusel
+        function renderNewsCarousel(news, section) {
+            // Crear la sección y el carrusel correspondiente
+            const sectionContainer = document.createElement('div');
+            sectionContainer.classList.add('col-lg-6', 'py-3');
+            sectionContainer.id = `${section}-section`;
+
+            // Título de la sección
+            const sectionTitle = `
+                <div class="bg-light py-2 px-4 mb-3">
+                    <h3 class="m-0">${section.charAt(0).toUpperCase() + section.slice(1).replace('/', ' ')}</h3>
                 </div>
-                <div class="col-lg-6 py-3">
-                    <div class="bg-light py-2 px-4 mb-3">
-                        <h3 class="m-0">Deportes</h3>
-                    </div>
-                    <div class="owl-carousel owl-carousel-3 carousel-item-2 position-relative">
-                        <div class="position-relative">
-                            <img class="img-fluid w-100" src="img/news-500x280-3.jpg" style="object-fit: cover;">
-                            <div class="overlay position-relative bg-light">
-                                <div class="mb-2" style="font-size: 13px;">
-                                    <a href="">Deportes</a>
-                                    <span class="px-1">/</span>
-                                    <span>January 01, 2045</span>
-                                </div>
-                                <a class="h4 m-0" href="">Sanctus amet sed ipsum lorem</a>
+            `;
+            sectionContainer.innerHTML = sectionTitle;
+
+            // Carrusel de noticias
+            const carouselContainer = document.createElement('div');
+            carouselContainer.classList.add('owl-carousel', 'owl-carousel-3', 'carousel-item-2', 'position-relative');
+            carouselContainer.id = `${section}-carousel`;
+
+            // Crear los artículos dentro del carrusel
+            news.forEach(article => {
+                const articleHtml = `
+                    <div class="position-relative">
+                        <img class="img-fluid w-100" src="${article.multimedia && article.multimedia.length > 0 ? article.multimedia[0].url : 'img/default.jpg'}" style="object-fit: cover; height: 360px;">
+                        <div class="overlay position-relative bg-light">
+                            <div class="mb-2" style="font-size: 13px;">
+                                <a href="${article.url}">${section}</a>
+                                <span class="px-1">/</span>
+                                <span>${new Date(article.published_date).toLocaleDateString()}</span>
                             </div>
-                        </div>
-                        <div class="position-relative">
-                            <img class="img-fluid w-100" src="img/news-500x280-2.jpg" style="object-fit: cover;">
-                            <div class="overlay position-relative bg-light">
-                                <div class="mb-2" style="font-size: 13px;">
-                                    <a href="">Deportes</a>
-                                    <span class="px-1">/</span>
-                                    <span>January 01, 2045</span>
-                                </div>
-                                <a class="h4 m-0" href="">Sanctus amet sed ipsum lorem</a>
-                            </div>
-                        </div>
-                        <div class="position-relative">
-                            <img class="img-fluid w-100" src="img/news-500x280-1.jpg" style="object-fit: cover;">
-                            <div class="overlay position-relative bg-light">
-                                <div class="mb-2" style="font-size: 13px;">
-                                    <a href="">Deportes</a>
-                                    <span class="px-1">/</span>
-                                    <span>January 01, 2045</span>
-                                </div>
-                                <a class="h4 m-0" href="">Sanctus amet sed ipsum lorem</a>
-                            </div>
+                            <a class="h4 m-0" href="${article.url}">${article.title}</a>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    </div>
+                `;
+                carouselContainer.innerHTML += articleHtml;
+            });
+
+            // Agregar el carrusel a la sección
+            sectionContainer.appendChild(carouselContainer);
+
+            // Agregar la sección completa al contenedor principal
+            document.getElementById('news-slider').appendChild(sectionContainer);
+
+            // Inicializar el Owl Carousel para esa sección
+            $(`#${section}-carousel`).owlCarousel({
+                loop: true,
+                margin: 10,
+                nav: true,
+                autoplay: true,
+                autoplayTimeout: 5000,
+                navText: [
+                    '<i class="fa fa-angle-left" aria-hidden="true"></i>',
+                    '<i class="fa fa-angle-right" aria-hidden="true"></i>'
+                ],
+                responsive: {
+                    0: {
+                        items: 1
+                    },
+                    600: {
+                        items: 1
+                    },
+                    1000: {
+                        items: 1
+                    }
+                }
+            });
+        }
+
+        // Función principal para cargar las noticias de todas las categorías
+        async function loadCategoryNews() {
+            const newsPromises = categories.map(category => fetchNews(category)); // Ejecuta todas las peticiones en paralelo
+            const newsResults = await Promise.all(newsPromises); // Espera que todas las promesas se resuelvan
+
+            newsResults.forEach((news, index) => {
+                renderNewsCarousel(news, categories[index]); // Renderiza los resultados
+            });
+        }
+
+        // Llamada a la función para cargar las noticias
+        loadCategoryNews();
+
+    </script>
+
 
     <!-- Footer Start -->
     <div class="container-fluid bg-light pt-5 px-sm-3 px-md-5">
@@ -442,47 +391,40 @@
                         href="#"><i class="fab fa-youtube"></i></a>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-6 mb-5">
+            <div class="col-lg-5 col-md-6 mb-5">
                 <h4 class="font-weight-bold mb-4">Categorías</h4>
-                <div class="d-flex flex-wrap m-n1">
-                    <a href="" class="btn btn-sm btn-outline-secondary m-1">Política</a>
-                    <a href="" class="btn btn-sm btn-outline-secondary m-1">Negocios</a>
-                    <a href="" class="btn btn-sm btn-outline-secondary m-1">Corporativo</a>
-                    <a href="" class="btn btn-sm btn-outline-secondary m-1">Deportes</a>
-                    <a href="" class="btn btn-sm btn-outline-secondary m-1">Salud</a>
-                    <a href="" class="btn btn-sm btn-outline-secondary m-1">Educación</a>
-                    <a href="" class="btn btn-sm btn-outline-secondary m-1">Ciencia</a>
-                    <a href="" class="btn btn-sm btn-outline-secondary m-1">Tecnología</a>
-                    <a href="" class="btn btn-sm btn-outline-secondary m-1">Alimentos</a>
-                    <a href="" class="btn btn-sm btn-outline-secondary m-1">Entretenimiento</a>
-                    <a href="" class="btn btn-sm btn-outline-secondary m-1">Viajes</a>
-                    <a href="" class="btn btn-sm btn-outline-secondary m-1">Estilo de vida</a>
-
+                <div class="d-flex flex-wrap m-n1" id="category-buttons-container">
+                    <!-- Categorías -->
                 </div>
             </div>
-            <div class="col-lg-3 col-md-6 mb-5">
-                <h4 class="font-weight-bold mb-4">Etiquetas</h4>
-                <div class="d-flex flex-wrap m-n1">
-                    <a href="" class="btn btn-sm btn-outline-secondary m-1">Política</a>
-                    <a href="" class="btn btn-sm btn-outline-secondary m-1">Negocios</a>
-                    <a href="" class="btn btn-sm btn-outline-secondary m-1">Corporativo</a>
-                    <a href="" class="btn btn-sm btn-outline-secondary m-1">Deportes</a>
-                    <a href="" class="btn btn-sm btn-outline-secondary m-1">Salud</a>
-                    <a href="" class="btn btn-sm btn-outline-secondary m-1">Educación</a>
-                    <a href="" class="btn btn-sm btn-outline-secondary m-1">Ciencia</a>
-                    <a href="" class="btn btn-sm btn-outline-secondary m-1">Tecnología</a>
-                    <a href="" class="btn btn-sm btn-outline-secondary m-1">Alimentos</a>
-                    <a href="" class="btn btn-sm btn-outline-secondary m-1">Entretenimiento</a>
-                    <a href="" class="btn btn-sm btn-outline-secondary m-1">Viajes</a>
-                    <a href="" class="btn btn-sm btn-outline-secondary m-1">Estilo de vida</a>
 
-                </div>
-            </div>
+            <script>
+                // Contenedor de los botones
+                const categoryButtonsContainer = document.getElementById("category-buttons-container");
+
+                // Función para crear los botones de categorías
+                function renderCategoryButtons() {
+                    categoryButtonsContainer.innerHTML = ""; // Limpiar cualquier contenido previo
+
+                    categories.forEach(category => {
+                        const button = document.createElement("a");
+                        button.href = "#";  // Aquí puedes poner un enlace real si lo necesitas
+                        button.classList.add("btn", "btn-sm", "btn-outline-secondary", "m-1");
+                        button.textContent = category;
+                        categoryButtonsContainer.appendChild(button);
+                    });
+                }
+
+                // Llamamos a la función para renderizar los botones cuando la página se haya cargado
+                document.addEventListener("DOMContentLoaded", renderCategoryButtons);
+            </script>
+
             <div class="col-lg-3 col-md-6 mb-5">
                 <h4 class="font-weight-bold mb-4">Links Rápidos</h4>
                 <div class="d-flex flex-column justify-content-start">
                     <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right text-dark mr-2"></i>Inicio</a>
-                    <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right text-dark mr-2"></i>Inicia Sesión</a>
+                    <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right text-dark mr-2"></i>Inicia
+                        Sesión</a>
                 </div>
             </div>
         </div>
@@ -507,7 +449,6 @@
 
     <!-- iniciar_sesion Javascript File -->
     <script src="mail/jqBootstrapValidation.min.js"></script>
-    <script src="mail/iniciar_sesion.js"></script>
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>

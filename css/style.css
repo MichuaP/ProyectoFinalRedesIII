@@ -9602,6 +9602,44 @@ h6,
   background-size: cover;
 }
 
+/* Estilo para los botones de navegación solo dentro del contenedor específico */
+#news-carousel-container .owl-nav .owl-prev,
+#news-carousel-container .owl-nav .owl-next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%); /* Centrar verticalmente */
+  width: 30px;
+  height: 30px;
+  margin: 0 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #dee2e6;
+  background: transparent;
+  border: 1px solid #dee2e6;
+  font-size: 16px;
+  transition: .3s;
+  z-index: 10; /* Asegura que los botones estén por encima de la imagen */
+}
+
+/* Posicionar los botones de navegación */
+#news-carousel-container .owl-nav .owl-prev {
+  left: 10px; /* A la izquierda */
+}
+
+#news-carousel-container .owl-nav .owl-next {
+  right: 10px; /* A la derecha */
+}
+
+/* Efecto al pasar el ratón sobre los botones */
+#news-carousel-container .owl-nav .owl-prev:hover,
+#news-carousel-container .owl-nav .owl-next:hover {
+  color: #ffffff;
+  background: #ED1C24;
+  border-color: #ED1C24;
+}
+
+
 @media (max-width: 991.98px) {
   .page-header {
     height: 300px;
