@@ -34,7 +34,6 @@
             "home", "movies", "politics", "science", "sports", "technology",
             "theater", "travel", "world"
         ];
-
     </script>
 
     <!-- Topbar Start -->
@@ -61,14 +60,20 @@
             <div class="collapse navbar-collapse justify-content-between px-0 px-lg-3" id="navbarCollapse">
                 <div class="navbar-nav mr-auto py-0">
                     <a href="index.html" class="nav-item nav-link active">Incio</a>
-                    <a href="single.html" class="nav-item nav-link">Noticias Individuales</a>
                     <a href="iniciar_sesion.html" class="nav-item nav-link">Inicia Sesión</a>
                     <a href="preferencias.html" class="nav-item nav-link">Preferencias</a>
                     <a href="subir_new.html" class="nav-item nav-link">Publicar noticia</a>
                 </div>
             </div>
+            <div class="input-group ml-auto" style="width: 100%; max-width: 300px;">
+                <input type="text" class="form-control" placeholder="Keyword">
+                <div class="input-group-append">
+                    <button class="input-group-text text-secondary"><i class="fa fa-search"></i></button>
+                </div>
+            </div>
         </nav>
     </div>
+
     <!-- Navbar End -->
 
 
@@ -129,6 +134,7 @@
     <!-- Main News Slider End -->
 
     <script>
+
         async function fetchNews(section) {
             const url = `https://api.nytimes.com/svc/topstories/v2/${section}.json?api-key=${apiKey}`;
             const response = await fetch(url);
@@ -137,34 +143,35 @@
         }
 
         function renderCarouselItem(article, section) {
-            // Crear el contenedor principal del carrusel
             const carouselItemWrapper = document.createElement('div');
             carouselItemWrapper.classList.add('position-relative', 'overflow-hidden');
             carouselItemWrapper.style.height = '435px';
+            const date = new Date(article.published_date);
+            const formattedDate = `${date.getDate().toString().padStart(2, '0')}/${(date.getMonth() + 1).toString().padStart(2, '0')}/${date.getFullYear()}`;
 
-            // Crear el "item" del carrusel
-            const carouselItem = document.createElement('div');
-            carouselItem.classList.add('position-relative', 'overflow-hidden');
-            carouselItem.style.height = '435px';
-
-            // Contenido HTML del artículo dentro del carrusel
-            carouselItem.innerHTML = `
+            carouselItemWrapper.innerHTML = `
                 <img class="img-fluid h-100" src="${article.multimedia && article.multimedia.length > 0 ? article.multimedia[0].url : 'img/default.jpg'}" style="object-fit: cover;">
                 <div class="overlay">
                     <div class="mb-1">
-                        <a class="text-white" href="${article.url}">${section.charAt(0).toUpperCase() + section.slice(1).replace('/', ' ')}</a>
-                        <span class="px-2 text-white">/</span>
-                        <a class="text-white" href="${article.url}">${new Date(article.published_date).toLocaleDateString()}</a>
+                       <p class="text-white">
+                            <span style="color: #ED1C24;">
+                                ${section.charAt(0).toUpperCase() + section.slice(1).replace('/', ' ')}
+                            </span>
+                            <span class="px-2">-</span>
+                            ${formattedDate}
+                        </p>
+
                     </div>
-                    <a class="h2 m-0 text-white font-weight-bold" href="${article.url}">${article.title}</a>
+                    <a class="h2 m-0 text-white font-weight-bold" 
+                        href="single.html?title=${encodeURIComponent(article.title)}&image=${encodeURIComponent(article.multimedia && article.multimedia.length > 0 ? article.multimedia[0].url : 'img/default.jpg')}&section=${encodeURIComponent(section)}&published_date=${encodeURIComponent(article.published_date)}&abstract=${encodeURIComponent(article.abstract)}">
+                        ${article.title}
+                    </a>
                 </div>
             `;
 
-            // Añadir el "item" del carrusel al contenedor principal
-            carouselItemWrapper.appendChild(carouselItem);
-
             return carouselItemWrapper;
         }
+
 
         async function loadCategoryNews() {
             const carouselContainer = document.createElement('div');
@@ -215,6 +222,23 @@
 
         /* ---------------- CATEGORIAS (LATERAL) --------------- */
 
+        const categoryImages = {
+            "arts": "img/arts.jpg",
+            "business": "img/cat-500x80-1.jpg",
+            "fashion": "img/cat-500x80-3.jpg",
+            "food": "img/comida.jpg",
+            "health": "img/valor-salud.jpg",
+            "home": "img/home.jpg",
+            "movies": "img/movies.jpg",
+            "politics": "img/politica.jpg",
+            "science": "img/ciencia.jpg",
+            "sports": "img/cat-500x80-4.jpg",
+            "technology": "img/cat-500x80-2.jpg",
+            "theater": "img/theater.jpg",
+            "travel": "img/viaje.jpg",
+            "world": "img/world.jpg"
+        };
+
         const defaultImage = "img/default.jpg"; // Imagen genérica
         const container = document.getElementById("dynamic-categories");
         const toggleButton = document.getElementById("toggle-categories");
@@ -237,8 +261,11 @@
                 // Convertir la primera letra de la categoría a mayúsculas
                 const categoryName = category.charAt(0).toUpperCase() + category.slice(1).toLowerCase();
 
+                // Obtener la imagen correspondiente para la categoría, si no existe usar la imagen por defecto
+                const categoryImage = categoryImages[category] || defaultImage;
+
                 categoryDiv.innerHTML = `
-                    <img class="img-fluid w-100 h-100" src="${defaultImage}" style="object-fit: cover;">
+                    <img class="img-fluid w-100 h-100" src="${categoryImage}" style="object-fit: cover;">
                     <a href="#" class="overlay align-items-center justify-content-center h4 m-0 text-white text-decoration-none" data-category="${category}">
                         ${categoryName}
                     </a>
@@ -262,6 +289,7 @@
 
         // Inicializar visualización con solo 4 categorías
         renderCategories(false);
+
 
         // Alternar entre mostrar todas las categorías u ocultarlas
         toggleButton.addEventListener("click", (e) => {
@@ -318,19 +346,26 @@
 
             // Crear los artículos dentro del carrusel
             news.forEach(article => {
+                // Formatear la fecha
+                const date = new Date(article.published_date);
+                const formattedDate = `${date.getDate().toString().padStart(2, '0')}/${(date.getMonth() + 1).toString().padStart(2, '0')}/${date.getFullYear()}`;
+
+                // Crear el HTML del artículo
                 const articleHtml = `
-                <div class="position-relative">
-                    <img class="img-fluid w-100" src="${article.multimedia && article.multimedia.length > 0 ? article.multimedia[0].url : 'img/default.jpg'}" style="object-fit: cover; height: 360px;">
-                    <div class="overlay position-relative bg-light">
-                        <div class="mb-2" style="font-size: 13px;">
-                            <a href="${article.url}">${section}</a>
-                            <span class="px-1">/</span>
-                            <span>${new Date(article.published_date).toLocaleDateString()}</span>
+                    <div class="position-relative">
+                        <img class="img-fluid w-100" src="${article.multimedia && article.multimedia.length > 0 ? article.multimedia[0].url : 'img/default.jpg'}" style="object-fit: cover; height: 360px;">
+                        <div class="overlay position-relative bg-light">
+                            <div class="mb-2" style="font-size: 13px;">
+                                <p class="d-inline" style="color: #ED1C24;">
+                                    ${section.charAt(0).toUpperCase() + section.slice(1)}
+                                </p>
+                                <span class="px-1">-</span>
+                                <p class="d-inline">${formattedDate}</p>
+                            </div>
+                            <a class="h4 m-0" href="single.html?title=${encodeURIComponent(article.title)}&image=${encodeURIComponent(article.multimedia && article.multimedia.length > 0 ? article.multimedia[0].url : 'img/default.jpg')}&section=${encodeURIComponent(section)}&published_date=${encodeURIComponent(article.published_date)}&abstract=${encodeURIComponent(article.abstract)}">${article.title}</a>
                         </div>
-                        <a class="h4 m-0" href="${article.url}">${article.title}</a>
                     </div>
-                </div>
-            `;
+                `;
                 carouselContainer.innerHTML += articleHtml;
             });
 
@@ -364,6 +399,7 @@
                 }
             });
         }
+
 
         // Función principal para cargar las noticias de todas las categorías
         async function loadCategoryNews() {
@@ -422,7 +458,7 @@
                         const button = document.createElement("a");
                         button.href = "#";  // Aquí puedes poner un enlace real si lo necesitas
                         button.classList.add("btn", "btn-sm", "btn-outline-secondary", "m-1");
-                        button.textContent = category;
+                        button.textContent = category.charAt(0).toUpperCase() + category.slice(1);
 
                         // Agregar el evento de clic para hacer scroll
                         button.addEventListener("click", (e) => {

@@ -26,6 +26,16 @@
 </head>
 
 <body>
+    <script>
+        const apiKey = '2wwlSHxIGMzzoBxuk311UPiEaoYCKPSf';  // Clave de API de New York Times
+        const categories = [
+            "arts", "business", "fashion", "food", "health",
+            "home", "movies", "politics", "science", "sports", "technology",
+            "theater", "travel", "world"
+        ];
+
+    </script>
+
     <!-- Topbar Start -->
     <div class="row align-items-center py-2 px-lg-5">
         <div class="col-lg-4">
@@ -50,7 +60,6 @@
             <div class="collapse navbar-collapse justify-content-between px-0 px-lg-3" id="navbarCollapse">
                 <div class="navbar-nav mr-auto py-0">
                     <a href="index.html" class="nav-item nav-link">Incio</a>
-                    <a href="single.html" class="nav-item nav-link">Noticias Individuales</a>
                     <a href="iniciar_sesion.html" class="nav-item nav-link active">Inicia Sesión</a>
                     <a href="preferencias.html" class="nav-item nav-link">Preferencias</a>
                     <a href="subir_new.html" class="nav-item nav-link">Publicar noticia</a>
@@ -192,42 +201,45 @@
                         href="#"><i class="fab fa-youtube"></i></a>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-6 mb-5">
+            <div class="col-lg-5 col-md-6 mb-5">
                 <h4 class="font-weight-bold mb-4">Categorías</h4>
-                <div class="d-flex flex-wrap m-n1">
-                    <a href="" class="btn btn-sm btn-outline-secondary m-1">Política</a>
-                    <a href="" class="btn btn-sm btn-outline-secondary m-1">Negocios</a>
-                    <a href="" class="btn btn-sm btn-outline-secondary m-1">Corporativo</a>
-                    <a href="" class="btn btn-sm btn-outline-secondary m-1">Deportes</a>
-                    <a href="" class="btn btn-sm btn-outline-secondary m-1">Salud</a>
-                    <a href="" class="btn btn-sm btn-outline-secondary m-1">Educación</a>
-                    <a href="" class="btn btn-sm btn-outline-secondary m-1">Ciencia</a>
-                    <a href="" class="btn btn-sm btn-outline-secondary m-1">Tecnología</a>
-                    <a href="" class="btn btn-sm btn-outline-secondary m-1">Alimentos</a>
-                    <a href="" class="btn btn-sm btn-outline-secondary m-1">Entretenimiento</a>
-                    <a href="" class="btn btn-sm btn-outline-secondary m-1">Viajes</a>
-                    <a href="" class="btn btn-sm btn-outline-secondary m-1">Estilo de vida</a>
-
+                <div class="d-flex flex-wrap m-n1" id="category-buttons-container">
+                    <!-- Categorías -->
                 </div>
             </div>
-            <div class="col-lg-3 col-md-6 mb-5">
-                <h4 class="font-weight-bold mb-4">Etiquetas</h4>
-                <div class="d-flex flex-wrap m-n1">
-                    <a href="" class="btn btn-sm btn-outline-secondary m-1">Política</a>
-                    <a href="" class="btn btn-sm btn-outline-secondary m-1">Negocios</a>
-                    <a href="" class="btn btn-sm btn-outline-secondary m-1">Corporativo</a>
-                    <a href="" class="btn btn-sm btn-outline-secondary m-1">Deportes</a>
-                    <a href="" class="btn btn-sm btn-outline-secondary m-1">Salud</a>
-                    <a href="" class="btn btn-sm btn-outline-secondary m-1">Educación</a>
-                    <a href="" class="btn btn-sm btn-outline-secondary m-1">Ciencia</a>
-                    <a href="" class="btn btn-sm btn-outline-secondary m-1">Tecnología</a>
-                    <a href="" class="btn btn-sm btn-outline-secondary m-1">Alimentos</a>
-                    <a href="" class="btn btn-sm btn-outline-secondary m-1">Entretenimiento</a>
-                    <a href="" class="btn btn-sm btn-outline-secondary m-1">Viajes</a>
-                    <a href="" class="btn btn-sm btn-outline-secondary m-1">Estilo de vida</a>
 
-                </div>
-            </div>
+            <script>
+                // Contenedor de los botones
+                const categoryButtonsContainer = document.getElementById("category-buttons-container");
+
+                // Función para crear los botones de categorías
+                function renderCategoryButtons() {
+                    categoryButtonsContainer.innerHTML = ""; // Limpiar cualquier contenido previo
+
+                    categories.forEach(category => {
+                        const button = document.createElement("a");
+                        button.href = "#";  // Aquí puedes poner un enlace real si lo necesitas
+                        button.classList.add("btn", "btn-sm", "btn-outline-secondary", "m-1");
+                        button.textContent = category.charAt(0).toUpperCase() + category.slice(1);
+
+                        // Agregar el evento de clic para hacer scroll
+                        button.addEventListener("click", (e) => {
+                            e.preventDefault();
+                            const categoryId = `${category}-section`; // Id de la sección correspondiente
+                            const sectionElement = document.getElementById(categoryId);
+                            if (sectionElement) {
+                                sectionElement.scrollIntoView({ behavior: "smooth" }); // Desplazar suavemente hacia la sección
+                            }
+                        });
+
+                        categoryButtonsContainer.appendChild(button);
+                    });
+                }
+
+                // Llamamos a la función para renderizar los botones cuando la página se haya cargado
+                document.addEventListener("DOMContentLoaded", renderCategoryButtons);
+            </script>
+
             <div class="col-lg-3 col-md-6 mb-5">
                 <h4 class="font-weight-bold mb-4">Links Rápidos</h4>
                 <div class="d-flex flex-column justify-content-start">

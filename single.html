@@ -26,6 +26,17 @@
 </head>
 
 <body>
+
+    <script>
+        const apiKey = '2wwlSHxIGMzzoBxuk311UPiEaoYCKPSf';  // Clave de API de New York Times
+        const categories = [
+            "arts", "business", "fashion", "food", "health",
+            "home", "movies", "politics", "science", "sports", "technology",
+            "theater", "travel", "world"
+        ];
+
+    </script>
+
     <!-- Topbar Start -->
     <div class="row align-items-center py-2 px-lg-5">
         <div class="col-lg-4">
@@ -50,7 +61,6 @@
             <div class="collapse navbar-collapse justify-content-between px-0 px-lg-3" id="navbarCollapse">
                 <div class="navbar-nav mr-auto py-0">
                     <a href="index.html" class="nav-item nav-link">Incio</a>
-                    <a href="single.html" class="nav-item nav-link active">Noticias Individuales</a>
                     <a href="iniciar_sesion.html" class="nav-item nav-link">Inicia Sesión</a>
                     <a href="preferencias.html" class="nav-item nav-link">Preferencias</a>
                     <a href="subir_new.html" class="nav-item nav-link">Publicar noticia</a>
@@ -60,19 +70,98 @@
     </div>
     <!-- Navbar End -->
 
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // Obtener los parámetros de la URL
+            const params = new URLSearchParams(window.location.search);
+            const section = params.get("section") || "Sin Categoría";
+            const title = params.get("title") || "Título No Disponible";
+
+            // Seleccionar los elementos del breadcrumb
+            const categoryElement = document.querySelector(".breadcrumb-category");
+            const titleElement = document.querySelector(".breadcrumb-title");
+
+            // Actualizar el texto del breadcrumb
+            if (categoryElement) {
+                categoryElement.textContent = section.charAt(0).toUpperCase() + section.slice(1);
+                categoryElement.href = `#`; // Si quieres enlazar a algo, cambia el valor aquí
+            }
+
+            if (titleElement) {
+                titleElement.textContent = decodeURIComponent(title);
+            }
+        });
+
+    </script>
 
     <!-- Breadcrumb Start -->
     <div class="container-fluid">
         <div class="container">
             <nav class="breadcrumb bg-transparent m-0 p-0">
                 <a class="breadcrumb-item" href="#">Inicio</a>
-                <a class="breadcrumb-item" href="#">Categoría</a>
-                <a class="breadcrumb-item" href="#">Tecnología</a>
-                <span class="breadcrumb-item active">Título Noticia</span>
+                <a class="breadcrumb-item breadcrumb-category" href="#">Categoría</a>
+                <span class="breadcrumb-item breadcrumb-title active">Título Noticia</span>
             </nav>
         </div>
     </div>
+
     <!-- Breadcrumb End -->
+
+    <script>
+        // Función para obtener los parámetros de la URL
+        function getQueryParams() {
+            const params = {};
+            const queryString = window.location.search.slice(1);
+            const queries = queryString.split("&");
+            queries.forEach(query => {
+                const [key, value] = query.split("=");
+                params[key] = decodeURIComponent(value || "");
+            });
+            return params;
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            // Todo el código para obtener los parámetros y actualizar el DOM
+            const params = new URLSearchParams(window.location.search);
+            const title = params.get("title") || "Título no disponible";
+            const abstract = params.get("abstract") || "Descripción no disponible";
+            const imageUrl = params.get("image") || "img/default.jpg";
+            const section = params.get("section") || "Sección no disponible";
+            const publishedDate = params.get("published_date") || "Fecha no disponible";
+
+            // Asegúrate de que los selectores correspondan a los elementos reales en el HTML
+            const imageElement = document.querySelector(".news-image");
+            if (imageElement) {
+                imageElement.src = imageUrl;
+            }
+
+            const titleElement = document.querySelector(".news-title");
+            if (titleElement) {
+                titleElement.textContent = title;
+            }
+
+            const abstractElement = document.querySelector(".news-abstract");
+            if (abstractElement) {
+                abstractElement.textContent = abstract;
+            }
+
+            const sectionElement = document.querySelector(".news-section");
+            if (sectionElement) {
+                sectionElement.textContent = section.charAt(0).toUpperCase() + section.slice(1);
+            }
+
+            // Formatear la fecha con ceros al principio
+            const date = new Date(publishedDate);
+            const formattedDate = `${date.getDate().toString().padStart(2, '0')}/${(date.getMonth() + 1).toString().padStart(2, '0')}/${date.getFullYear()}`;
+
+            const dateElement = document.querySelector(".news-date");
+            if (dateElement) {
+                dateElement.textContent = formattedDate;
+            }
+        });
+
+    </script>
+
 
 
     <!-- News With Sidebar Start -->
@@ -82,55 +171,19 @@
                 <div class="col-lg-8">
                     <!-- News Detail Start -->
                     <div class="position-relative mb-3">
-                        <img class="img-fluid w-100" src="img/news-700x435-2.jpg" style="object-fit: cover;">
+                        <img class="img-fluid w-100 news-image" src="img/default.jpg" style="object-fit: cover;">
                         <div class="overlay position-relative bg-light">
                             <div class="mb-3">
-                                <a href="">Tecnología</a>
-                                <span class="px-1">/</span>
-                                <span>January 01, 2045</span>
+                                <span class="news-section" style="color: #ED1C24;">Sección no disponible</span>
+                                <span class="px-1">-</span>
+                                <span class="news-date">Fecha no disponible</span>
                             </div>
-                            <div>
-                                <h3 class="mb-3">Est stet amet ipsum stet clita rebum duo</h3>
-                                <p>Sadipscing labore amet rebum est et justo gubergren. Et eirmod ipsum sit diam ut
-                                    magna lorem. Nonumy vero labore lorem sanctus rebum et lorem magna kasd, stet
-                                    amet magna accusam consetetur eirmod. Kasd accusam sit ipsum sadipscing et at at
-                                    sanctus et. Ipsum sit gubergren dolores et, consetetur justo invidunt at et
-                                    aliquyam ut et vero clita. Diam sea sea no sed dolores diam nonumy, gubergren
-                                    sit stet no diam kasd vero.</p>
-                                <p>Voluptua est takimata stet invidunt sed rebum nonumy stet, clita aliquyam dolores
-                                    vero stet consetetur elitr takimata rebum sanctus. Sit sed accusam stet sit
-                                    nonumy kasd diam dolores, sanctus lorem kasd duo dolor dolor vero sit et. Labore
-                                    ipsum duo sanctus amet eos et. Consetetur no sed et aliquyam ipsum justo et,
-                                    clita lorem sit vero amet amet est dolor elitr, stet et no diam sit. Dolor erat
-                                    justo dolore sit invidunt.</p>
-                                <h4 class="mb-3">Est dolor lorem et ea</h4>
-                                <img class="img-fluid w-50 float-left mr-4 mb-2" src="img/news-500x280-1.jpg">
-                                <p>Diam dolor est labore duo invidunt ipsum clita et, sed et lorem voluptua tempor
-                                    invidunt at est sanctus sanctus. Clita dolores sit kasd diam takimata justo diam
-                                    lorem sed. Magna amet sed rebum eos. Clita no magna no dolor erat diam tempor
-                                    rebum consetetur, sanctus labore sed nonumy diam lorem amet eirmod. No at tempor
-                                    sea diam kasd, takimata ea nonumy elitr sadipscing gubergren erat. Gubergren at
-                                    lorem invidunt sadipscing rebum sit amet ut ut, voluptua diam dolores at
-                                    sadipscing stet. Clita dolor amet dolor ipsum vero ea ea eos. Invidunt sed diam
-                                    dolores takimata dolor dolore dolore sit. Sit ipsum erat amet lorem et, magna
-                                    sea at sed et eos. Accusam eirmod kasd lorem clita sanctus ut consetetur et. Et
-                                    duo tempor sea kasd clita ipsum et.</p>
-                                <h5 class="mb-3">Est dolor lorem et ea</h5>
-                                <img class="img-fluid w-50 float-right ml-4 mb-2" src="img/news-500x280-2.jpg">
-                                <p>Diam dolor est labore duo invidunt ipsum clita et, sed et lorem voluptua tempor
-                                    invidunt at est sanctus sanctus. Clita dolores sit kasd diam takimata justo diam
-                                    lorem sed. Magna amet sed rebum eos. Clita no magna no dolor erat diam tempor
-                                    rebum consetetur, sanctus labore sed nonumy diam lorem amet eirmod. No at tempor
-                                    sea diam kasd, takimata ea nonumy elitr sadipscing gubergren erat. Gubergren at
-                                    lorem invidunt sadipscing rebum sit amet ut ut, voluptua diam dolores at
-                                    sadipscing stet. Clita dolor amet dolor ipsum vero ea ea eos. Invidunt sed diam
-                                    dolores takimata dolor dolore dolore sit. Sit ipsum erat amet lorem et, magna
-                                    sea at sed et eos. Accusam eirmod kasd lorem clita sanctus ut consetetur et. Et
-                                    duo tempor sea kasd clita ipsum et. Takimata kasd diam justo est eos erat
-                                    aliquyam et ut.</p>
-                            </div>
+                            <h3 class="mb-3 news-title">Título no disponible</h3>
+                            <p class="news-abstract">Descripción no disponible</p>
                         </div>
                     </div>
+
+
                     <!-- News Detail End -->
 
                     <!-- Comment List Start -->
@@ -240,21 +293,10 @@
                     <!-- Tags Start -->
                     <div class="pb-3">
                         <div class="bg-light py-2 px-4 mb-3">
-                            <h3 class="m-0">Etiquetas</h3>
+                            <h3 class="m-0">Categorías</h3>
                         </div>
-                        <div class="d-flex flex-wrap m-n1">
-                            <a href="" class="btn btn-sm btn-outline-secondary m-1">Política</a>
-                            <a href="" class="btn btn-sm btn-outline-secondary m-1">Negocios</a>
-                            <a href="" class="btn btn-sm btn-outline-secondary m-1">Corporativo</a>
-                            <a href="" class="btn btn-sm btn-outline-secondary m-1">Deportes</a>
-                            <a href="" class="btn btn-sm btn-outline-secondary m-1">Salud</a>
-                            <a href="" class="btn btn-sm btn-outline-secondary m-1">Educación</a>
-                            <a href="" class="btn btn-sm btn-outline-secondary m-1">Ciencia</a>
-                            <a href="" class="btn btn-sm btn-outline-secondary m-1">Tecnología</a>
-                            <a href="" class="btn btn-sm btn-outline-secondary m-1">Alimentos</a>
-                            <a href="" class="btn btn-sm btn-outline-secondary m-1">Entretenimiento</a>
-                            <a href="" class="btn btn-sm btn-outline-secondary m-1">Viajes</a>
-                            <a href="" class="btn btn-sm btn-outline-secondary m-1">Estilo de vida</a>
+                        <div class="d-flex flex-wrap m-n1" id="category-buttons-container">
+
                         </div>
                     </div>
                     <!-- Tags End -->
@@ -266,8 +308,8 @@
     <!-- News With Sidebar End -->
 
 
-     <!-- Footer Start -->
-     <div class="container-fluid bg-light pt-5 px-sm-3 px-md-5">
+    <!-- Footer Start -->
+    <div class="container-fluid bg-light pt-5 px-sm-3 px-md-5">
         <div class="row">
             <div class="col-lg-3 col-md-6 mb-5">
                 <a href="index.html" class="navbar-brand">
@@ -288,42 +330,62 @@
                         href="#"><i class="fab fa-youtube"></i></a>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-6 mb-5">
+            <div class="col-lg-5 col-md-6 mb-5">
                 <h4 class="font-weight-bold mb-4">Categorías</h4>
-                <div class="d-flex flex-wrap m-n1">
-                    <a href="" class="btn btn-sm btn-outline-secondary m-1">Política</a>
-                    <a href="" class="btn btn-sm btn-outline-secondary m-1">Negocios</a>
-                    <a href="" class="btn btn-sm btn-outline-secondary m-1">Corporativo</a>
-                    <a href="" class="btn btn-sm btn-outline-secondary m-1">Deportes</a>
-                    <a href="" class="btn btn-sm btn-outline-secondary m-1">Salud</a>
-                    <a href="" class="btn btn-sm btn-outline-secondary m-1">Educación</a>
-                    <a href="" class="btn btn-sm btn-outline-secondary m-1">Ciencia</a>
-                    <a href="" class="btn btn-sm btn-outline-secondary m-1">Tecnología</a>
-                    <a href="" class="btn btn-sm btn-outline-secondary m-1">Alimentos</a>
-                    <a href="" class="btn btn-sm btn-outline-secondary m-1">Entretenimiento</a>
-                    <a href="" class="btn btn-sm btn-outline-secondary m-1">Viajes</a>
-                    <a href="" class="btn btn-sm btn-outline-secondary m-1">Estilo de vida</a>
-
+                <div class="d-flex flex-wrap m-n1" id="category-buttons-container">
+                    <!-- Categorías -->
                 </div>
             </div>
-            <div class="col-lg-3 col-md-6 mb-5">
-                <h4 class="font-weight-bold mb-4">Etiquetas</h4>
-                <div class="d-flex flex-wrap m-n1">
-                    <a href="" class="btn btn-sm btn-outline-secondary m-1">Política</a>
-                    <a href="" class="btn btn-sm btn-outline-secondary m-1">Negocios</a>
-                    <a href="" class="btn btn-sm btn-outline-secondary m-1">Corporativo</a>
-                    <a href="" class="btn btn-sm btn-outline-secondary m-1">Deportes</a>
-                    <a href="" class="btn btn-sm btn-outline-secondary m-1">Salud</a>
-                    <a href="" class="btn btn-sm btn-outline-secondary m-1">Educación</a>
-                    <a href="" class="btn btn-sm btn-outline-secondary m-1">Ciencia</a>
-                    <a href="" class="btn btn-sm btn-outline-secondary m-1">Tecnología</a>
-                    <a href="" class="btn btn-sm btn-outline-secondary m-1">Alimentos</a>
-                    <a href="" class="btn btn-sm btn-outline-secondary m-1">Entretenimiento</a>
-                    <a href="" class="btn btn-sm btn-outline-secondary m-1">Viajes</a>
-                    <a href="" class="btn btn-sm btn-outline-secondary m-1">Estilo de vida</a>
 
-                </div>
-            </div>
+            <script>
+                // Contenedor de los botones
+                const categoryButtonsContainer = document.getElementById("category-buttons-container");
+
+                // Función para obtener parámetros de la URL
+                function getQueryParams() {
+                    const params = new URLSearchParams(window.location.search);
+                    return {
+                        category: params.get("section") || "", // Obtener el parámetro de categoría
+                    };
+                }
+
+                // Función para crear los botones de categorías
+                function renderCategoryButtons() {
+                    const { category: currentCategory } = getQueryParams(); // Obtener la categoría actual de la URL
+
+                    categoryButtonsContainer.innerHTML = ""; // Limpiar cualquier contenido previo
+
+                    categories.forEach(category => {
+                        const button = document.createElement("a");
+                        button.href = "#"; // Aquí no es necesario un enlace real
+                        button.classList.add("btn", "btn-sm", "btn-outline-secondary", "m-1");
+                        button.textContent = category.charAt(0).toUpperCase() + category.slice(1);
+
+                        // Marcar el botón si coincide con la categoría actual
+                        if (category === currentCategory) {
+                            button.classList.add("active"); // Clase para destacar el botón activo
+                        }
+
+                        // Agregar el evento de clic para redirigir a la página de inicio y hacer scroll
+                        button.addEventListener("click", (e) => {
+                            e.preventDefault();
+
+                            // Si el botón no está activo, redirigir a la página de inicio con el parámetro de la categoría
+                            if (category !== currentCategory) {
+                                window.location.href = `index.html?section=${category}`; // Cambiar la URL para incluir el parámetro de categoría
+                            }
+                        });
+
+                        categoryButtonsContainer.appendChild(button);
+                    });
+                }
+
+                // Llamamos a la función para renderizar los botones cuando la página se haya cargado
+                document.addEventListener("DOMContentLoaded", renderCategoryButtons);
+            </script>
+
+
+
             <div class="col-lg-3 col-md-6 mb-5">
                 <h4 class="font-weight-bold mb-4">Links Rápidos</h4>
                 <div class="d-flex flex-column justify-content-start">
