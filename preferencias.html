@@ -70,172 +70,85 @@
     <!-- Navbar End -->
 
     <!-- Preferencias Start -->
-<div class="container-fluid py-3">
-    <div class="container">
-        <div class="row">
-            <!-- Categoría 1 -->
-            <div class="col-md-4 mb-3">
-                <div class="position-relative overflow-hidden" style="height: 80px;">
-                    <img class="img-fluid w-100 h-100" src="img/cat-500x80-1.jpg" style="object-fit: cover;">
-                    <div class="overlay align-items-center justify-content-center h4 m-0 text-white">
-                        Negocio
-                    </div>
-                </div>
-                <div class="mt-2">
-                    <input type="checkbox" id="checkbox1"> <label for="checkbox1">Seleccionar</label>
-                </div>
+    <div class="container-fluid py-3">
+        <div class="container">
+            <div class="row" id="category-container">
+                <!-- Las categorías se agregarán aquí dinámicamente -->
             </div>
-            <!-- Categoría 2 -->
-            <div class="col-md-4 mb-3">
-                <div class="position-relative overflow-hidden" style="height: 80px;">
-                    <img class="img-fluid w-100 h-100" src="img/cat-500x80-2.jpg" style="object-fit: cover;">
-                    <div class="overlay align-items-center justify-content-center h4 m-0 text-white">
-                        Tecnología
-                    </div>
-                </div>
-                <div class="mt-2">
-                    <input type="checkbox" id="checkbox2"> <label for="checkbox2">Seleccionar</label>
-                </div>
-            </div>
-            <!-- Categoría 3 -->
-            <div class="col-md-4 mb-3">
-                <div class="position-relative overflow-hidden" style="height: 80px;">
-                    <img class="img-fluid w-100 h-100" src="img/cat-500x80-3.jpg" style="object-fit: cover;">
-                    <div class="overlay align-items-center justify-content-center h4 m-0 text-white">
-                        Entretenimiento
-                    </div>
-                </div>
-                <div class="mt-2">
-                    <input type="checkbox" id="checkbox3"> <label for="checkbox3">Seleccionar</label>
-                </div>
-            </div>
-        </div>
 
-        <div class="row">
-            <!-- Categoría 4 -->
-            <div class="col-md-4 mb-3">
-                <div class="position-relative overflow-hidden" style="height: 80px;">
-                    <img class="img-fluid w-100 h-100" src="img/cat-500x80-4.jpg" style="object-fit: cover;">
-                    <div class="overlay align-items-center justify-content-center h4 m-0 text-white">
-                        Deportes
-                    </div>
-                </div>
-                <div class="mt-2">
-                    <input type="checkbox" id="checkbox4"> <label for="checkbox4">Seleccionar</label>
-                </div>
+            <!-- Botón de Aceptar -->
+            <div class="text-center mt-4">
+                <button class="btn btn-primary" id="acceptButton">Aceptar</button>
             </div>
-            <!-- Categoría 5 -->
-            <div class="col-md-4 mb-3">
-                <div class="position-relative overflow-hidden" style="height: 80px;">
-                    <img class="img-fluid w-100 h-100" src="img/valor-salud.jpg" style="object-fit: cover;">
-                    <div class="overlay align-items-center justify-content-center h4 m-0 text-white">
-                        Salud
-                    </div>
-                </div>
-                <div class="mt-2">
-                    <input type="checkbox" id="checkbox5"> <label for="checkbox5">Seleccionar</label>
-                </div>
-            </div>
-            <!-- Categoría 6 -->
-            <div class="col-md-4 mb-3">
-                <div class="position-relative overflow-hidden" style="height: 80px;">
-                    <img class="img-fluid w-100 h-100" src="img/educacion.jpg" style="object-fit: cover;">
-                    <div class="overlay align-items-center justify-content-center h4 m-0 text-white">
-                        Educación
-                    </div>
-                </div>
-                <div class="mt-2">
-                    <input type="checkbox" id="checkbox6"> <label for="checkbox6">Seleccionar</label>
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <!-- Categoría 7 -->
-            <div class="col-md-4 mb-3">
-                <div class="position-relative overflow-hidden" style="height: 80px;">
-                    <img class="img-fluid w-100 h-100" src="img/ciencia.jpg" style="object-fit: cover;">
-                    <div class="overlay align-items-center justify-content-center h4 m-0 text-white">
-                        Ciencia
-                    </div>
-                </div>
-                <div class="mt-2">
-                    <input type="checkbox" id="checkbox7"> <label for="checkbox7">Seleccionar</label>
-                </div>
-            </div>
-            <!-- Categoría 8 -->
-            <div class="col-md-4 mb-3">
-                <div class="position-relative overflow-hidden" style="height: 80px;">
-                    <img class="img-fluid w-100 h-100" src="img/comida.jpg" style="object-fit: cover;">
-                    <div class="overlay align-items-center justify-content-center h4 m-0 text-white">
-                        Comida
-                    </div>
-                </div>
-                <div class="mt-2">
-                    <input type="checkbox" id="checkbox8"> <label for="checkbox8">Seleccionar</label>
-                </div>
-            </div>
-            <!-- Categoría 9 -->
-            <div class="col-md-4 mb-3">
-                <div class="position-relative overflow-hidden" style="height: 80px;">
-                    <img class="img-fluid w-100 h-100" src="img/viaje.jpg" style="object-fit: cover;">
-                    <div class="overlay align-items-center justify-content-center h4 m-0 text-white">
-                        Viajes
-                    </div>
-                </div>
-                <div class="mt-2">
-                    <input type="checkbox" id="checkbox9"> <label for="checkbox9">Seleccionar</label>
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <!-- Categoría 10 -->
-            <div class="col-md-4 mb-3">
-                <div class="position-relative overflow-hidden" style="height: 80px;">
-                    <img class="img-fluid w-100 h-100" src="img/news-300x300-3.jpg" style="object-fit: cover;">
-                    <div class="overlay align-items-center justify-content-center h4 m-0 text-white">
-                        Estilo de Vida
-                    </div>
-                </div>
-                <div class="mt-2">
-                    <input type="checkbox" id="checkbox10"> <label for="checkbox10">Seleccionar</label>
-                </div>
-            </div>
-            <!-- Categoría 11 -->
-            <div class="col-md-4 mb-3">
-                <div class="position-relative overflow-hidden" style="height: 80px;">
-                    <img class="img-fluid w-100 h-100" src="img/politica.jpg" style="object-fit: cover;">
-                    <div class="overlay align-items-center justify-content-center h4 m-0 text-white">
-                        Política
-                    </div>
-                </div>
-                <div class="mt-2">
-                    <input type="checkbox" id="checkbox11"> <label for="checkbox11">Seleccionar</label>
-                </div>
-            </div>
-            <!-- Categoría 12 -->
-            <div class="col-md-4 mb-3">
-                <div class="position-relative overflow-hidden" style="height: 80px;">
-                    <img class="img-fluid w-100 h-100" src="img/news-500x280-5.jpg" style="object-fit: cover;">
-                    <div class="overlay align-items-center justify-content-center h4 m-0 text-white">
-                        Negocios Internacionales
-                    </div>
-                </div>
-                <div class="mt-2">
-                    <input type="checkbox" id="checkbox12"> <label for="checkbox12">Seleccionar</label>
-                </div>
-            </div>
-        </div>
-
-        <!-- Botón de Aceptar -->
-        <div class="text-center mt-4">
-            <button class="btn btn-primary">Aceptar</button>
         </div>
     </div>
-</div>
-<br>
-<!-- Preferencias End -->
+    <br>
+    <!-- Preferencias End -->
+
+    <script>
+        // Definimos las categorías con sus imágenes
+        const categoryImages = {
+            "arts": "img/arts.jpg",
+            "business": "img/cat-500x80-1.jpg",
+            "fashion": "img/cat-500x80-3.jpg",
+            "food": "img/comida.jpg",
+            "health": "img/valor-salud.jpg",
+            "home": "img/home.jpg",
+            "movies": "img/movies.jpg",
+            "politics": "img/politica.jpg",
+            "science": "img/ciencia.jpg",
+            "sports": "img/cat-500x80-4.jpg",
+            "technology": "img/cat-500x80-2.jpg",
+            "theater": "img/theater.jpg",
+            "travel": "img/viaje.jpg",
+            "world": "img/world.jpg"
+        };
+
+        const defaultImage = "img/default.jpg";
+        // Contenedor donde se agregarán las categorías dinámicamente
+        const categoryContainer = document.getElementById("category-container");
+
+        // Función para renderizar las categorías
+        function renderCategories() {
+            categories.forEach((category, index) => {
+                const categoryDiv = document.createElement("div");
+                categoryDiv.classList.add("col-md-4", "mb-3");
+
+                // Usamos el nombre de la categoría para obtener la imagen correspondiente
+                const categoryImage = categoryImages[category] || "img/default.jpg";  // Si no hay imagen, usa la imagen por defecto
+
+                categoryDiv.innerHTML = `
+                <div class="position-relative overflow-hidden" style="height: 80px;">
+                    <img class="img-fluid w-100 h-100" src="${categoryImage}" style="object-fit: cover;">
+                    <div class="overlay align-items-center justify-content-center h4 m-0 text-white">
+                        ${category.charAt(0).toUpperCase() + category.slice(1)}
+                    </div>
+                </div>
+                <div class="mt-2">
+                    <input type="checkbox" id="checkbox${index + 1}">
+                    <label for="checkbox${index + 1}">Seleccionar</label>
+                </div>
+            `;
+
+                categoryContainer.appendChild(categoryDiv);
+            });
+        }
+
+        // Llamamos a la función para renderizar las categorías cuando la página cargue
+        document.addEventListener("DOMContentLoaded", renderCategories);
+
+        // Evento del botón de Aceptar
+        document.getElementById("acceptButton").addEventListener("click", () => {
+            const selectedCategories = [];
+            categories.forEach((category, index) => {
+                const checkbox = document.getElementById(`checkbox${index + 1}`);
+                if (checkbox && checkbox.checked) {
+                    selectedCategories.push(category.charAt(0).toUpperCase() + category.slice(1));
+                }
+            });
+            alert("Categorías seleccionadas: " + selectedCategories.join(", "));
+        });
+    </script>
 
 
     <!-- Footer Start -->
