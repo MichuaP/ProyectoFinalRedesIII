@@ -161,6 +161,8 @@
                             });
 
                             const data = await response.json();
+
+                            console.log('Datos recibidos del servidor:', data);
                             
                             if (data.success) {
                                 // Guardar información del usuario en localStorage

@@ -234,11 +234,25 @@
         document.addEventListener("DOMContentLoaded", () => {
         const noticiasContainer = document.getElementById("myNews"); // Contenedor para las noticias
 
+        // Obtener usuario del localStorage
+        const usuario = JSON.parse(localStorage.getItem('usuario'));
+
+        if (!usuario) {
+            return;
+        }
+
+        console.log(usuario.IdUser);
+
         // Función para cargar noticias
         const cargarNoticias = async () => {
             try {
-                const response = await fetch('http://localhost:3000/myNews'); // Endpoint de la API
+                const response = await fetch(`http://localhost:3000/myNews?idUsuario=${usuario.IdUser}`); // Endpoint de la API
                 const noticias = await response.json();
+
+                if (!noticias.length) {
+                    noticiasContainer.innerHTML = "<p>No hay noticias para mostrar.</p>"; //diseño por mejorar jsjs
+                    return;
+                }
 
                 // Recorrer las noticias y crear el HTML
                 noticias.forEach(noticia => {

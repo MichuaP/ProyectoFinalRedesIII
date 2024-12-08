@@ -8,7 +8,7 @@ if (usuario) {
     pagLog.style.display = 'none'; //Ocultar le iniciar sesión
     span.style.display = 'inline'; // Mostrar el elemento
     //poner el display que se vea
-    span.innerHTML = `${usuario.Nombre} 
+    span.innerHTML = `${usuario.Alias} 
             <a href="#" id="logoutButton" title="Cerrar sesión">
                 <i class="fa-solid fa-right-from-bracket" style="color: #ff0000; margin-left: 10px;"></i>
             </a>`;
