@@ -16,7 +16,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
 
     <!-- Font Awesome -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/all.min.css" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/ea44ba5a78.js" crossorigin="anonymous"></script>
 
     <!-- Libraries Stylesheet -->
     <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
@@ -24,6 +24,11 @@
     <!-- Customized Bootstrap Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
     <link href="css/estilos.css" rel="stylesheet">
+
+    <!-- Script de auth, logout y session -->
+    <script src="js/logout.js" defer></script>
+    <script src="js/session.js" defer></script>
+
 </head>
 
 <body>
@@ -48,7 +53,6 @@
     </div>
     <!-- Topbar End -->
 
-
     <!-- Navbar Start -->
     <div class="container-fluid p-0 mb-3">
         <nav class="navbar navbar-expand-lg bg-light navbar-light py-2 py-lg-0 px-lg-5">
@@ -61,11 +65,17 @@
             <div class="collapse navbar-collapse justify-content-between px-0 px-lg-3" id="navbarCollapse">
                 <div class="navbar-nav mr-auto py-0">
                     <a href="index.html" class="nav-item nav-link">Incio</a>
-                    <a href="iniciar_sesion.html" class="nav-item nav-link active">Inicia Sesión</a>
+                    <a href="iniciar_sesion.html" class="nav-item nav-link active" id="linkLogin">Inicia Sesión</a>
                     <a href="preferencias.html" class="nav-item nav-link">Preferencias</a>
                     <a href="subir_new.html" class="nav-item nav-link">Publicar noticia</a>
                     <a href="misNoticias.html" class="nav-item nav-link">Mis noticias</a>
                 </div>
+                <span class="navbar-text" id="userAlias" style="display: none;">
+                    <!-- nombre del usuario y el ícono -->
+                    <a href="#" id="logoutButton" title="Cerrar sesión">
+                        <i class="fa-solid fa-right-from-bracket" style="color: #ff0000; margin-left: 10px;"></i>
+                    </a>
+                </span>
             </div>
         </nav>
     </div>
@@ -115,14 +125,14 @@
                             <div class="form-row">
                                 <div class="col-md-6">
                                     <div class="control-group">
-                                        <input type="text" class="form-control p-4" id="Alias" placeholder="Alias"
-                                            required="required" data-validation-required-message="Introduce tu alias" />
+                                        <input type="email" class="form-control p-4" id="Correo" placeholder="Correo"
+                                            required="required" data-validation-required-message="Introduce tu correo" />
                                         <p class="help-block text-danger"></p>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="control-group">
-                                        <input type="password" class="form-control p-4" id="Contraseña"
+                                        <input type="password" class="form-control p-4" id="Contrasenia"
                                             placeholder="Contraseña" required="required"
                                             data-validation-required-message="Introduce tu contraseña" />
                                         <p class="help-block text-danger"></p>
@@ -131,11 +141,41 @@
                             </div>
                             <div>
                                 <button class="btn btn-primary font-weight-semi-bold px-4" style="height: 50px;"
-                                    type="submit" id="loginButton">Iniciar Sesión</button>
+                                    type="submit" id="loginButton">Iniciar sesión</button>
                             </div>
                         </form>
                     </div>
                 </div>
+                <script>
+                    document.getElementById('iniciar_sesionForm').addEventListener('submit', async (e) => {
+                        e.preventDefault();
+                        
+                        const correo = document.getElementById('Correo').value;
+                        const contrasena = document.getElementById('Contrasenia').value;
+
+                        try {
+                            const response = await fetch('http://localhost:3000/login', {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify({ correo, contrasena })
+                            });
+
+                            const data = await response.json();
+                            
+                            if (data.success) {
+                                // Guardar información del usuario en localStorage
+                                localStorage.setItem('usuario', JSON.stringify(data.usuario));
+                                alert('Login exitoso');
+                                window.location.href = 'misNoticias.html'; // Redirigir a la página de mis noticias
+                            } else {
+                                alert(data.error);
+                            }
+                        } catch (error) {
+                            console.error('Error during login:', error);
+                            alert('Error al iniciar sesión');
+                        }
+                    });
+                </script>
             </div>
         </div>
     </div>

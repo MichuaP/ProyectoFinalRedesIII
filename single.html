@@ -16,7 +16,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
 
     <!-- Font Awesome -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/all.min.css" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/ea44ba5a78.js" crossorigin="anonymous"></script>
 
     <!-- Libraries Stylesheet -->
     <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
@@ -61,11 +61,17 @@
             <div class="collapse navbar-collapse justify-content-between px-0 px-lg-3" id="navbarCollapse">
                 <div class="navbar-nav mr-auto py-0">
                     <a href="index.html" class="nav-item nav-link">Incio</a>
-                    <a href="iniciar_sesion.html" class="nav-item nav-link">Inicia Sesión</a>
+                    <a href="iniciar_sesion.html" class="nav-item nav-link" id="linkLogin">Inicia Sesión</a>
                     <a href="preferencias.html" class="nav-item nav-link">Preferencias</a>
                     <a href="subir_new.html" class="nav-item nav-link">Publicar noticia</a>
                     <a href="misNoticias.html" class="nav-item nav-link">Mis noticias</a>
                 </div>
+                <span class="navbar-text" id="userAlias" style="display: none;">
+                    <!-- nombre del usuario y el ícono -->
+                    <a href="#" id="logoutButton" title="Cerrar sesión">
+                        <i class="fa-solid fa-right-from-bracket" style="color: #ff0000; margin-left: 10px;"></i>
+                    </a>
+                </span>
             </div>
         </nav>
     </div>
