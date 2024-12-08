@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>City Wire News</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Free HTML Templates" name="keywords">
+    <meta content="Free HTML Templates" name="description">
+
+    <!-- Favicon -->
+    <link href="img/favicon.ico" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="css/style.css" rel="stylesheet">
+</head>
+
+<body>
+    <script>
+        const apiKey = '2wwlSHxIGMzzoBxuk311UPiEaoYCKPSf';  // Clave de API de New York Times
+        const categories = [
+            "arts", "business", "fashion", "food", "health",
+            "home", "movies", "politics", "science", "sports", "technology",
+            "theater", "travel", "world"
+        ];
+    </script>
+
+    <!-- Topbar Start -->
+    <div class="row align-items-center py-2 px-lg-5">
+        <div class="col-lg-4">
+            <a href="" class="navbar-brand d-none d-lg-block">
+                <h1 class="m-0 display-5 text-uppercase"><span class="text-primary">City Wire </span>News</h1>
+            </a>
+        </div>
+    </div>
+    <!-- Topbar End -->
+
+    <!-- Navbar Start -->
+    <div class="container-fluid p-0 mb-3">
+        <nav class="navbar navbar-expand-lg bg-light navbar-light py-2 py-lg-0 px-lg-5">
+            <a href="" class="navbar-brand d-block d-lg-none">
+                <h1 class="m-0 display-5 text-uppercase"><span class="text-primary">City Wire </span>News</h1>
+            </a>
+            <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-between px-0 px-lg-3" id="navbarCollapse">
+                <div class="navbar-nav mr-auto py-0">
+                    <a href="index.html" class="nav-item nav-link active">Incio</a>
+                    <a href="iniciar_sesion.html" class="nav-item nav-link">Inicia Sesión</a>
+                    <a href="preferencias.html" class="nav-item nav-link">Preferencias</a>
+                    <a href="subir_new.html" class="nav-item nav-link">Publicar noticia</a>
+                    <a href="misNoticias.html" class="nav-item nav-link">Mis noticias</a>
+                </div>
+            </div>
+            <div class="input-group ml-auto" style="width: 100%; max-width: 300px;">
+                <input type="text" id="searchInput" class="form-control" placeholder="Keyword">
+                <div class="input-group-append">
+                    <button id="searchButton" class="input-group-text text-secondary"><i
+                            class="fa fa-search"></i></button>
+                </div>
+            </div>
+
+            <script>
+                document.getElementById('searchButton').addEventListener('click', function () {
+                    const keyword = document.getElementById('searchInput').value;
+                    if (keyword.trim()) {
+                        // Redirige a buscador.html con el término de búsqueda en la URL
+                        window.location.href = `buscador.html?query=${encodeURIComponent(keyword)}`;
+                    }
+                });
+            </script>
+
+        </nav>
+    </div>
+
+    <!-- Navbar End -->
+
+    <!-- Results Start -->
+    <div class="container">
+        <h2 style="margin-bottom: 20px;">Resultados de Búsqueda para <span id="search-query"
+                style="color: #ED1C24;"></span></h2>
+        <div id="results"></div>
+
+        <!-- Paginación -->
+        <div id="pagination" class="d-flex justify-content-between align-items-center" style="margin-top: 20px;">
+            <button id="prev-btn" class="btn btn-secondary" disabled>Anterior</button>
+            <span id="page-info"></span>
+            <button id="next-btn" class="btn btn-secondary">Siguiente</button>
+        </div>
+    </div>
+    <!-- Results End -->
+
+
+    <script>
+        // Variables para controlar la paginación
+        let currentPage = 1;
+        let totalPages = 1;
+        let allArticles = [];
+
+        // Obtener los parámetros de la URL
+        const params = new URLSearchParams(window.location.search);
+        const query = params.get('query');
+        document.getElementById("search-query").textContent = query;
+
+        // Verifica si hay un término de búsqueda
+        if (query) {
+            // Llama a la función para obtener los resultados
+            fetchNews(query);
+        } else {
+            document.getElementById('results').innerHTML = '<p>No se especificó ningún término de búsqueda.</p>';
+        }
+
+        // Función para obtener noticias desde la API
+        function fetchNews(keyword) {
+            const apiKey = '3c82b9e52bc44d15922797b6e3b6e0c1'; // Clave de News API
+            const apiUrl = `https://newsapi.org/v2/everything?q=${encodeURIComponent(keyword)}&sortBy=popularity&apiKey=${apiKey}`;
+
+            fetch(apiUrl)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'ok' && data.articles.length > 0) {
+                        allArticles = data.articles;
+                        totalPages = Math.ceil(allArticles.length / 5); // Dividir en páginas de 5 artículos
+                        renderResults();
+                        updatePagination();
+                    } else {
+                        document.getElementById('results').innerHTML = `
+                <div>
+                    <p style="margin-bottom: 0;">No se encontraron resultados.</p>
+                    <div style="height: 190px; display: flex; justify-content: center; align-items: center; flex-direction: column;">
+                        <div class="loader"></div>
+                    </div>
+                </div>`;
+                    }
+                })
+                .catch(error => {
+                    console.error('Error al obtener noticias:', error);
+                    document.getElementById('results').innerHTML = `
+                <div>
+                    <p style="margin-bottom: 0;">Hubo un error al cargar los resultados.</p>
+                    <div style="height: 190px; display: flex; justify-content: center; align-items: center; flex-direction: column;">
+                        <div class="loader"></div>
+                    </div>
+                </div>`;
+                });
+        }
+
+        // Función para renderizar los resultados en el DOM
+        function renderResults() {
+            const resultsContainer = document.getElementById('results');
+            resultsContainer.innerHTML = ''; // Limpiar el contenido previo
+
+            // Obtener los artículos de la página actual
+            const startIdx = (currentPage - 1) * 5;
+            const endIdx = Math.min(currentPage * 5, allArticles.length);
+            const articles = allArticles.slice(startIdx, endIdx);
+
+            articles.forEach(article => {
+                // Comprobamos si el artículo tiene "[Removed]" en el título o descripción
+                if (article.title.includes('[Removed]') || article.description.includes('[Removed]')) {
+                    return; // Si el artículo tiene "[Removed]", lo ignoramos
+                }
+
+                const articleElement = document.createElement('div');
+                articleElement.classList.add('card', 'mb-3');
+                articleElement.innerHTML = `
+            <div class="row no-gutters">
+                <div class="col-md-4">
+                    <img src="${article.urlToImage || 'img/default2.jpg'}" class="card-img" alt="${article.title}" style="object-fit: cover; width: 100%; height: 100%;">
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h5 class="card-title">${article.title}</h5>
+                        <p class="card-text">
+                            ${article.description || 'Sin descripción disponible.'}
+                        </p>
+                        <p class="card-text"><small class="text-muted">Publicado el ${new Date(article.publishedAt).toLocaleDateString()}</small></p>
+                        <a href="${article.url}" target="_blank" class="btn btn-primary">Leer más</a>
+                    </div>
+                </div>
+            </div>
+        `;
+
+                resultsContainer.appendChild(articleElement);
+            });
+        }
+
+        // Función para actualizar los botones de paginación
+        function updatePagination() {
+            document.getElementById('prev-btn').disabled = currentPage === 1;
+            document.getElementById('next-btn').disabled = currentPage === totalPages;
+            document.getElementById('page-info').textContent = `Página ${currentPage} de ${totalPages}`;
+        }
+
+        // Manejar clic en el botón "Anterior"
+        document.getElementById('prev-btn').addEventListener('click', () => {
+            if (currentPage > 1) {
+                currentPage--;
+                renderResults();
+                updatePagination();
+            }
+        });
+
+        // Manejar clic en el botón "Siguiente"
+        document.getElementById('next-btn').addEventListener('click', () => {
+            if (currentPage < totalPages) {
+                currentPage++;
+                renderResults();
+                updatePagination();
+            }
+        });
+
+
+    </script>
+    <br>
+    <!-- Footer Start -->
+    <div class="container-fluid bg-light pt-5 px-sm-3 px-md-5">
+        <div class="row">
+            <div class="col-lg-3 col-md-6 mb-5">
+                <a href="index.html" class="navbar-brand">
+                    <h1 class="mb-2 mt-n2 display-5 text-uppercase"><span class="text-primary">City Wire </span>News
+                    </h1>
+                </a>
+                <p>Volup amet magna clita tempor. Tempor sea eos vero ipsum. Lorem lorem sit sed elitr sed kasd et</p>
+                <div class="d-flex justify-content-start mt-4">
+                    <a class="btn btn-outline-secondary text-center mr-2 px-0" style="width: 38px; height: 38px;"
+                        href="#"><i class="fab fa-twitter"></i></a>
+                    <a class="btn btn-outline-secondary text-center mr-2 px-0" style="width: 38px; height: 38px;"
+                        href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a class="btn btn-outline-secondary text-center mr-2 px-0" style="width: 38px; height: 38px;"
+                        href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <a class="btn btn-outline-secondary text-center mr-2 px-0" style="width: 38px; height: 38px;"
+                        href="#"><i class="fab fa-instagram"></i></a>
+                    <a class="btn btn-outline-secondary text-center mr-2 px-0" style="width: 38px; height: 38px;"
+                        href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            <div class="col-lg-5 col-md-6 mb-5">
+                <h4 class="font-weight-bold mb-4">Categorías</h4>
+                <div class="d-flex flex-wrap m-n1" id="category-buttons-container">
+                    <!-- Categorías -->
+                </div>
+            </div>
+
+            <script>
+                // Contenedor de los botones
+                const categoryButtonsContainer = document.getElementById("category-buttons-container");
+
+                // Función para crear los botones de categorías
+                function renderCategoryButtons() {
+                    categoryButtonsContainer.innerHTML = ""; // Limpiar cualquier contenido previo
+
+                    categories.forEach(category => {
+                        const button = document.createElement("a");
+                        button.href = "#";  // Evitamos el enlace real en este paso
+                        button.classList.add("btn", "btn-sm", "btn-outline-secondary", "m-1");
+                        button.textContent = category.charAt(0).toUpperCase() + category.slice(1);
+
+                        // Agregar el evento de clic para redirigir a index.html con la categoría como parámetro
+                        button.addEventListener("click", (e) => {
+                            e.preventDefault();
+                            // Redirigir a index.html pasando la categoría como un parámetro
+                            window.location.href = `index.html?category=${category}`;
+                        });
+
+                        categoryButtonsContainer.appendChild(button);
+                    });
+                }
+
+                // Llamamos a la función para renderizar los botones cuando la página se haya cargado
+                document.addEventListener("DOMContentLoaded", renderCategoryButtons);
+
+            </script>
+
+            <div class="col-lg-3 col-md-6 mb-5">
+                <h4 class="font-weight-bold mb-4">Links Rápidos</h4>
+                <div class="d-flex flex-column justify-content-start">
+                    <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right text-dark mr-2"></i>Inicio</a>
+                    <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right text-dark mr-2"></i>Inicia
+                        Sesión</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid py-4 px-sm-3 px-md-5">
+        <p class="m-0 text-center">
+            &copy; <a class="font-weight-bold" href="#">City Wire News</a>. Todos los derechos reservados.
+        </p>
+    </div>
+    <!-- Footer End -->
+</body>
+
+</html>
