@@ -182,7 +182,7 @@
                     <h1 class="mb-2 mt-n2 display-5 text-uppercase"><span class="text-primary">City Wire </span>News
                     </h1>
                 </a>
-                <p>Volup amet magna clita tempor. Tempor sea eos vero ipsum. Lorem lorem sit sed elitr sed kasd et</p>
+                <p style="text-align: justify;">Mantente informado sobre los eventos más recientes a nivel global. Al registrarte e iniciar sesión, no solo podrás leer las noticias, sino también compartir y publicar aquellas que sucedan cerca de ti.</p>
                 <div class="d-flex justify-content-start mt-4">
                     <a class="btn btn-outline-secondary text-center mr-2 px-0" style="width: 38px; height: 38px;"
                         href="#"><i class="fab fa-twitter"></i></a>
@@ -213,18 +213,15 @@
 
                     categories.forEach(category => {
                         const button = document.createElement("a");
-                        button.href = "#";  // Aquí puedes poner un enlace real si lo necesitas
+                        button.href = "#";  // Evitamos el enlace real en este paso
                         button.classList.add("btn", "btn-sm", "btn-outline-secondary", "m-1");
-                         button.textContent = category.charAt(0).toUpperCase() + category.slice(1);
+                        button.textContent = category.charAt(0).toUpperCase() + category.slice(1);
 
-                        // Agregar el evento de clic para hacer scroll
+                        // Agregar el evento de clic para redirigir a index.html con la categoría como parámetro
                         button.addEventListener("click", (e) => {
                             e.preventDefault();
-                            const categoryId = `${category}-section`; // Id de la sección correspondiente
-                            const sectionElement = document.getElementById(categoryId);
-                            if (sectionElement) {
-                                sectionElement.scrollIntoView({ behavior: "smooth" }); // Desplazar suavemente hacia la sección
-                            }
+                            // Redirigir a index.html pasando la categoría como un parámetro
+                            window.location.href = `index.html?category=${category}`;
                         });
 
                         categoryButtonsContainer.appendChild(button);
@@ -233,6 +230,7 @@
 
                 // Llamamos a la función para renderizar los botones cuando la página se haya cargado
                 document.addEventListener("DOMContentLoaded", renderCategoryButtons);
+
             </script>
 
             <div class="col-lg-3 col-md-6 mb-5">

@@ -91,7 +91,7 @@
                 <div class="col-md-5">
                     <div class="bg-light mb-3" style="padding: 30px;">
                         <h6 class="font-weight-bold">Informa a los demás</h6>
-                        <p>Al iniciar sesión, podrás reportar los eventos que ocurren en tu comunidad y ayudar a
+                        <p style="text-align: justify;">Al iniciar sesión, podrás reportar los eventos que ocurren en tu comunidad y ayudar a
                             mantener informadas a las personas sobre lo que sucede a su alrededor. ¡Sé parte de la red
                             que conecta y protege a tu localidad!</p>
                         <div class="d-flex align-items-center mb-3">
@@ -121,24 +121,22 @@
                 <div class="col-md-7" id="loginForm">
                     <div class="iniciar_sesion-form bg-light mb-3" style="padding: 30px;">
                         <div id="success"></div>
-                        <form name="sentMessage" id="iniciar_sesionForm" novalidate="novalidate">
+                        <form name="sentMessage" id="iniciar_sesionForm">
                             <div class="form-row">
                                 <div class="col-md-6">
                                     <div class="control-group">
                                         <input type="email" class="form-control p-4" id="Correo" placeholder="Correo"
-                                            required="required" data-validation-required-message="Introduce tu correo" />
-                                        <p class="help-block text-danger"></p>
+                                            required/>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="control-group">
                                         <input type="password" class="form-control p-4" id="Contrasenia"
-                                            placeholder="Contraseña" required="required"
-                                            data-validation-required-message="Introduce tu contraseña" />
-                                        <p class="help-block text-danger"></p>
+                                            placeholder="Contraseña" required/>
                                     </div>
                                 </div>
                             </div>
+                            <br>
                             <div>
                                 <button class="btn btn-primary font-weight-semi-bold px-4" style="height: 50px;"
                                     type="submit" id="loginButton">Iniciar sesión</button>
@@ -191,7 +189,7 @@
                     <h1 class="mb-2 mt-n2 display-5 text-uppercase"><span class="text-primary">City Wire </span>News
                     </h1>
                 </a>
-                <p>Volup amet magna clita tempor. Tempor sea eos vero ipsum. Lorem lorem sit sed elitr sed kasd et</p>
+                <p style="text-align: justify;">Mantente informado sobre los eventos más recientes a nivel global. Al registrarte e iniciar sesión, no solo podrás leer las noticias, sino también compartir y publicar aquellas que sucedan cerca de ti.</p>
                 <div class="d-flex justify-content-start mt-4">
                     <a class="btn btn-outline-secondary text-center mr-2 px-0" style="width: 38px; height: 38px;"
                         href="#"><i class="fab fa-twitter"></i></a>
@@ -222,18 +220,15 @@
 
                     categories.forEach(category => {
                         const button = document.createElement("a");
-                        button.href = "#";  // Aquí puedes poner un enlace real si lo necesitas
+                        button.href = "#";  // Evitamos el enlace real en este paso
                         button.classList.add("btn", "btn-sm", "btn-outline-secondary", "m-1");
                         button.textContent = category.charAt(0).toUpperCase() + category.slice(1);
-                        
-                        // Agregar el evento de clic para hacer scroll
+
+                        // Agregar el evento de clic para redirigir a index.html con la categoría como parámetro
                         button.addEventListener("click", (e) => {
                             e.preventDefault();
-                            const categoryId = `${category}-section`; // Id de la sección correspondiente
-                            const sectionElement = document.getElementById(categoryId);
-                            if (sectionElement) {
-                                sectionElement.scrollIntoView({ behavior: "smooth" }); // Desplazar suavemente hacia la sección
-                            }
+                            // Redirigir a index.html pasando la categoría como un parámetro
+                            window.location.href = `index.html?category=${category}`;
                         });
 
                         categoryButtonsContainer.appendChild(button);
@@ -242,6 +237,7 @@
 
                 // Llamamos a la función para renderizar los botones cuando la página se haya cargado
                 document.addEventListener("DOMContentLoaded", renderCategoryButtons);
+
             </script>
 
             <div class="col-lg-3 col-md-6 mb-5">

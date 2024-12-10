@@ -141,23 +141,23 @@
                         updatePagination();
                     } else {
                         document.getElementById('results').innerHTML = `
-                <div>
-                    <p style="margin-bottom: 0;">No se encontraron resultados.</p>
-                    <div style="height: 190px; display: flex; justify-content: center; align-items: center; flex-direction: column;">
-                        <div class="loader"></div>
-                    </div>
-                </div>`;
+                        <div>
+                            <p style="margin-bottom: 0;">No se encontraron resultados.</p>
+                            <div style="height: 190px; display: flex; justify-content: center; align-items: center; flex-direction: column;">
+                                <div class="loader"></div>
+                            </div>
+                        </div>`;
                     }
                 })
                 .catch(error => {
                     console.error('Error al obtener noticias:', error);
                     document.getElementById('results').innerHTML = `
-                <div>
-                    <p style="margin-bottom: 0;">Hubo un error al cargar los resultados.</p>
-                    <div style="height: 190px; display: flex; justify-content: center; align-items: center; flex-direction: column;">
-                        <div class="loader"></div>
-                    </div>
-                </div>`;
+                    <div>
+                        <p style="margin-bottom: 0;">Hubo un error al cargar los resultados.</p>
+                        <div style="height: 190px; display: flex; justify-content: center; align-items: center; flex-direction: column;">
+                            <div class="loader"></div>
+                        </div>
+                    </div>`;
                 });
         }
 
@@ -180,22 +180,22 @@
                 const articleElement = document.createElement('div');
                 articleElement.classList.add('card', 'mb-3');
                 articleElement.innerHTML = `
-            <div class="row no-gutters">
-                <div class="col-md-4">
-                    <img src="${article.urlToImage || 'img/default2.jpg'}" class="card-img" alt="${article.title}" style="object-fit: cover; width: 100%; height: 100%;">
-                </div>
-                <div class="col-md-8">
-                    <div class="card-body">
-                        <h5 class="card-title">${article.title}</h5>
-                        <p class="card-text">
-                            ${article.description || 'Sin descripción disponible.'}
-                        </p>
-                        <p class="card-text"><small class="text-muted">Publicado el ${new Date(article.publishedAt).toLocaleDateString()}</small></p>
-                        <a href="${article.url}" target="_blank" class="btn btn-primary">Leer más</a>
+                    <div class="row no-gutters">
+                        <div class="col-md-4">
+                            <img src="${article.urlToImage || 'img/default2.jpg'}" class="card-img" alt="${article.title}" style="object-fit: cover; width: 100%; height: 100%;">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h5 class="card-title">${article.title}</h5>
+                                <p class="card-text">
+                                    ${article.description || 'Sin descripción disponible.'}
+                                </p>
+                                <p class="card-text"><small class="text-muted">Publicado el ${new Date(article.publishedAt).toLocaleDateString()}</small></p>
+                                <a href="${article.url}" target="_blank" class="btn btn-primary">Leer más</a>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-        `;
+                `;
 
                 resultsContainer.appendChild(articleElement);
             });
@@ -237,7 +237,7 @@
                     <h1 class="mb-2 mt-n2 display-5 text-uppercase"><span class="text-primary">City Wire </span>News
                     </h1>
                 </a>
-                <p>Volup amet magna clita tempor. Tempor sea eos vero ipsum. Lorem lorem sit sed elitr sed kasd et</p>
+                <p style="text-align: justify;">Mantente informado sobre los eventos más recientes a nivel global. Al registrarte e iniciar sesión, no solo podrás leer las noticias, sino también compartir y publicar aquellas que sucedan cerca de ti.</p>
                 <div class="d-flex justify-content-start mt-4">
                     <a class="btn btn-outline-secondary text-center mr-2 px-0" style="width: 38px; height: 38px;"
                         href="#"><i class="fab fa-twitter"></i></a>

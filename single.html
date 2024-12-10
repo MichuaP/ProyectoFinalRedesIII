@@ -91,7 +91,7 @@
             // Actualizar el texto del breadcrumb
             if (categoryElement) {
                 categoryElement.textContent = section.charAt(0).toUpperCase() + section.slice(1);
-                categoryElement.href = `#`; // Si quieres enlazar a algo, cambia el valor aquí
+                categoryElement.href = `#`;
             }
 
             if (titleElement) {
@@ -135,8 +135,8 @@
             const imageUrl = params.get("image") || "img/default.jpg";
             const section = params.get("section") || "Sección no disponible";
             const publishedDate = params.get("published_date") || "Fecha no disponible";
+            const articleUrl = params.get("url");
 
-            // Asegúrate de que los selectores correspondan a los elementos reales en el HTML
             const imageElement = document.querySelector(".news-image");
             if (imageElement) {
                 imageElement.src = imageUrl;
@@ -165,6 +165,18 @@
             if (dateElement) {
                 dateElement.textContent = formattedDate;
             }
+
+            const urlElement = document.getElementById("news-url");
+
+            if (articleUrl) {
+                // Si 'articleUrl' existe, mostramos el botón y establecemos el enlace
+                urlElement.textContent = "Leer más";
+                urlElement.href = articleUrl;
+                urlElement.style.display = "inline-block"; // Mostrar el botón
+            } else {
+                // Si no existe la URL, ocultamos el botón
+                urlElement.style.display = "none";
+            }
         });
 
     </script>
@@ -185,75 +197,11 @@
                             </div>
                             <h3 class="mb-3 news-title">Título no disponible</h3>
                             <p class="news-abstract">Descripción no disponible</p>
+                            <a id="news-url" href="#" target="_blank" class="btn btn-primary"
+                                style="display: none;">Leer más</a>
                         </div>
                     </div>
-
-
                     <!-- News Detail End -->
-
-                    <!-- Comment List Start -->
-                    <div class="bg-light mb-3" style="padding: 30px;">
-                        <h3 class="mb-4">3 Comentarios</h3>
-                        <div class="media mb-4">
-                            <img src="img/user.jpg" alt="Image" class="img-fluid mr-3 mt-1" style="width: 45px;">
-                            <div class="media-body">
-                                <h6><a href="">John Doe</a> <small><i>01 Jan 2045</i></small></h6>
-                                <p>Diam amet duo labore stet elitr invidunt ea clita ipsum voluptua, tempor labore
-                                    accusam ipsum et no at. Kasd diam tempor rebum magna dolores sed sed eirmod ipsum.
-                                    Gubergren clita aliquyam consetetur sadipscing, at tempor amet ipsum diam tempor
-                                    consetetur at sit.</p>
-                                <button class="btn btn-sm btn-outline-secondary">Comentar</button>
-                            </div>
-                        </div>
-                        <div class="media">
-                            <img src="img/user.jpg" alt="Image" class="img-fluid mr-3 mt-1" style="width: 45px;">
-                            <div class="media-body">
-                                <h6><a href="">John Doe</a> <small><i>01 Jan 2045 at 12:00pm</i></small></h6>
-                                <p>Diam amet duo labore stet elitr invidunt ea clita ipsum voluptua, tempor labore
-                                    accusam ipsum et no at. Kasd diam tempor rebum magna dolores sed sed eirmod ipsum.
-                                    Gubergren clita aliquyam consetetur sadipscing, at tempor amet ipsum diam tempor
-                                    consetetur at sit.</p>
-                                <button class="btn btn-sm btn-outline-secondary">Comentar</button>
-                                <div class="media mt-4">
-                                    <img src="img/user.jpg" alt="Image" class="img-fluid mr-3 mt-1"
-                                        style="width: 45px;">
-                                    <div class="media-body">
-                                        <h6><a href="">John Doe</a> <small><i>01 Jan 2045 at 12:00pm</i></small></h6>
-                                        <p>Diam amet duo labore stet elitr invidunt ea clita ipsum voluptua, tempor
-                                            labore accusam ipsum et no at. Kasd diam tempor rebum magna dolores sed sed
-                                            eirmod ipsum. Gubergren clita aliquyam consetetur sadipscing, at tempor amet
-                                            ipsum diam tempor consetetur at sit.</p>
-                                        <button class="btn btn-sm btn-outline-secondary">Comentar</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Comment List End -->
-
-                    <!-- Comment Form Start -->
-                    <div class="bg-light mb-3" style="padding: 30px;">
-                        <h3 class="mb-4">Deja un Comentario</h3>
-                        <form>
-                            <div class="form-group">
-                                <label for="name">Nombre *</label>
-                                <input type="text" class="form-control" id="name">
-                            </div>
-                            <div class="form-group">
-                                <label for="email">Email *</label>
-                                <input type="email" class="form-control" id="email">
-                            </div>
-                            <div class="form-group">
-                                <label for="message">Mensaje *</label>
-                                <textarea id="message" cols="30" rows="5" class="form-control"></textarea>
-                            </div>
-                            <div class="form-group mb-0">
-                                <input type="submit" value="Comentar"
-                                    class="btn btn-primary font-weight-semi-bold py-2 px-3">
-                            </div>
-                        </form>
-                    </div>
-                    <!-- Comment Form End -->
                 </div>
 
                 <div class="col-lg-4 pt-3 pt-lg-0">
@@ -300,7 +248,7 @@
                         <div class="bg-light py-2 px-4 mb-3">
                             <h3 class="m-0">Categorías</h3>
                         </div>
-                        <div class="d-flex flex-wrap m-n1" id="category-buttons-container">
+                        <div class="d-flex flex-wrap m-n1" id="category-buttons-container-top">
 
                         </div>
                     </div>
@@ -321,7 +269,9 @@
                     <h1 class="mb-2 mt-n2 display-5 text-uppercase"><span class="text-primary">City Wire </span>News
                     </h1>
                 </a>
-                <p>Volup amet magna clita tempor. Tempor sea eos vero ipsum. Lorem lorem sit sed elitr sed kasd et</p>
+                <p style="text-align: justify;">Mantente informado sobre los eventos más recientes a nivel global. Al
+                    registrarte e iniciar sesión, no solo podrás leer las noticias, sino también compartir y publicar
+                    aquellas que sucedan cerca de ti.</p>
                 <div class="d-flex justify-content-start mt-4">
                     <a class="btn btn-outline-secondary text-center mr-2 px-0" style="width: 38px; height: 38px;"
                         href="#"><i class="fab fa-twitter"></i></a>
@@ -337,14 +287,15 @@
             </div>
             <div class="col-lg-5 col-md-6 mb-5">
                 <h4 class="font-weight-bold mb-4">Categorías</h4>
-                <div class="d-flex flex-wrap m-n1" id="category-buttons-container">
+                <div class="d-flex flex-wrap m-n1" id="category-buttons-container-footer">
                     <!-- Categorías -->
                 </div>
             </div>
 
             <script>
-                // Contenedor de los botones
-                const categoryButtonsContainer = document.getElementById("category-buttons-container");
+                // Contenedores de los botones
+                const categoryButtonsContainerTop = document.getElementById("category-buttons-container-top");
+                const categoryButtonsContainerFooter = document.getElementById("category-buttons-container-footer");
 
                 // Función para obtener parámetros de la URL
                 function getQueryParams() {
@@ -355,38 +306,41 @@
                 }
 
                 // Función para crear los botones de categorías
-                function renderCategoryButtons() {
+                function renderCategoryButtons(container, isTop) {
                     const { category: currentCategory } = getQueryParams(); // Obtener la categoría actual de la URL
 
-                    categoryButtonsContainer.innerHTML = ""; // Limpiar cualquier contenido previo
+                    container.innerHTML = ""; // Limpiar cualquier contenido previo
 
                     categories.forEach(category => {
                         const button = document.createElement("a");
-                        button.href = "#"; // Aquí no es necesario un enlace real
+                        button.href = "#";
                         button.classList.add("btn", "btn-sm", "btn-outline-secondary", "m-1");
                         button.textContent = category.charAt(0).toUpperCase() + category.slice(1);
 
-                        // Marcar el botón si coincide con la categoría actual
-                        if (category === currentCategory) {
-                            button.classList.add("active"); // Clase para destacar el botón activo
+                        // Marcar el botón como 'active' solo si es el contenedor superior
+                        if (isTop && category === currentCategory) {
+                            button.classList.add("active");
                         }
 
                         // Agregar el evento de clic para redirigir a la página de inicio y hacer scroll
                         button.addEventListener("click", (e) => {
                             e.preventDefault();
 
-                            // Si el botón no está activo, redirigir a la página de inicio con el parámetro de la categoría
+                            // Si el botón no está activo, redirigir a la página de inicio con el parámetro de categoría
                             if (category !== currentCategory) {
-                                window.location.href = `index.html?section=${category}`; // Cambiar la URL para incluir el parámetro de categoría
+                                window.location.href = `index.html?section=${category}`;
                             }
                         });
 
-                        categoryButtonsContainer.appendChild(button);
+                        container.appendChild(button);
                     });
                 }
 
                 // Llamamos a la función para renderizar los botones cuando la página se haya cargado
-                document.addEventListener("DOMContentLoaded", renderCategoryButtons);
+                document.addEventListener("DOMContentLoaded", function () {
+                    renderCategoryButtons(categoryButtonsContainerTop, true);
+                    renderCategoryButtons(categoryButtonsContainerFooter, false);
+                });
             </script>
 
 
@@ -421,7 +375,6 @@
 
     <!-- iniciar_sesion Javascript File -->
     <script src="mail/jqBootstrapValidation.min.js"></script>
-    <script src="mail/iniciar_sesion.js"></script>
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>

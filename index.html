@@ -193,7 +193,7 @@
 
                     </div>
                     <a class="h2 m-0 text-white font-weight-bold" 
-                        href="single.html?title=${encodeURIComponent(article.title)}&image=${encodeURIComponent(article.multimedia && article.multimedia.length > 0 ? article.multimedia[0].url : 'img/default.jpg')}&section=${encodeURIComponent(section)}&published_date=${encodeURIComponent(article.published_date)}&abstract=${encodeURIComponent(article.abstract)}">
+                        href="single.html?title=${encodeURIComponent(article.title)}&image=${encodeURIComponent(article.multimedia && article.multimedia.length > 0 ? article.multimedia[0].url : 'img/default.jpg')}&section=${encodeURIComponent(section)}&published_date=${encodeURIComponent(article.published_date)}&abstract=${encodeURIComponent(article.abstract)}&url=${encodeURIComponent(article.url)}">
                         ${article.title}
                     </a>
                 </div>
@@ -392,7 +392,10 @@
                                 <span class="px-1">-</span>
                                 <p class="d-inline">${formattedDate}</p>
                             </div>
-                            <a class="h4 m-0" href="single.html?title=${encodeURIComponent(article.title)}&image=${encodeURIComponent(article.multimedia && article.multimedia.length > 0 ? article.multimedia[0].url : 'img/default.jpg')}&section=${encodeURIComponent(section)}&published_date=${encodeURIComponent(article.published_date)}&abstract=${encodeURIComponent(article.abstract)}">${article.title}</a>
+                            <a class="h4 m-0" 
+                            href="single.html?title=${encodeURIComponent(article.title)}&image=${encodeURIComponent(article.multimedia && article.multimedia.length > 0 ? article.multimedia[0].url : 'img/default.jpg')}&section=${encodeURIComponent(section)}&published_date=${encodeURIComponent(article.published_date)}&abstract=${encodeURIComponent(article.abstract)}&url=${encodeURIComponent(article.url)}">
+                            ${article.title}
+                            </a>
                         </div>
                     </div>
                 `;
@@ -455,7 +458,7 @@
                     <h1 class="mb-2 mt-n2 display-5 text-uppercase"><span class="text-primary">City Wire </span>News
                     </h1>
                 </a>
-                <p>Volup amet magna clita tempor. Tempor sea eos vero ipsum. Lorem lorem sit sed elitr sed kasd et</p>
+                <p style="text-align: justify;">Mantente informado sobre los eventos más recientes a nivel global. Al registrarte e iniciar sesión, no solo podrás leer las noticias, sino también compartir y publicar aquellas que sucedan cerca de ti.</p>
                 <div class="d-flex justify-content-start mt-4">
                     <a class="btn btn-outline-secondary text-center mr-2 px-0" style="width: 38px; height: 38px;"
                         href="#"><i class="fab fa-twitter"></i></a>
