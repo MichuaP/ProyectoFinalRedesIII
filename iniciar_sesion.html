@@ -18,12 +18,15 @@
     <!-- Font Awesome -->
     <script src="https://kit.fontawesome.com/ea44ba5a78.js" crossorigin="anonymous"></script>
 
+    <!-- Sweet Alert -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link href="css/estilos.css" rel="stylesheet">
+
     <!-- Libraries Stylesheet -->
     <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
 
     <!-- Customized Bootstrap Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
-    <link href="css/estilos.css" rel="stylesheet">
 
     <!-- Script de auth, logout y session -->
     <script src="js/logout.js" defer></script>
@@ -165,14 +168,47 @@
                             if (data.success) {
                                 // Guardar información del usuario en localStorage
                                 localStorage.setItem('usuario', JSON.stringify(data.usuario));
-                                alert('Login exitoso');
-                                window.location.href = 'misNoticias.html'; // Redirigir a la página de mis noticias
+                                await Swal.fire({
+                                    title: "Sesión iniciada",
+                                    text: "Ha ingresado correctamente a su cuenta",
+                                    color: "#000000",
+                                    background: "#ffffff",
+                                    customClass: {
+                                        confirmButton: 'btn-succ',
+                                        title: 'title-class', 
+                                        content: 'content-class' 
+                                    },
+                                    buttonsStyling: false,
+                                });
+                                window.location.href = 'misNoticias.html';
                             } else {
-                                alert(data.error);
+                                await Swal.fire({
+                                    title: "Error",
+                                    text: data.error,
+                                    color: "#000000",
+                                    background: "#ffffff",
+                                    customClass: {
+                                        confirmButton: 'btn-succ',
+                                        title: 'title-class', 
+                                        content: 'content-class' 
+                                    },
+                                    buttonsStyling: false,
+                                });
                             }
                         } catch (error) {
                             console.error('Error during login:', error);
-                            alert('Error al iniciar sesión');
+                            await Swal.fire({
+                                title: "Error",
+                                text: "Error al iniciar sesión",
+                                color: "#000000",
+                                background: "#ffffff",
+                                customClass: {
+                                    confirmButton: 'btn-succ',
+                                    title: 'title-class', 
+                                    content: 'content-class' 
+                                },
+                                buttonsStyling: false,
+                            });
                         }
                     });
                 </script>
