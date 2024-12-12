@@ -25,4 +25,5 @@
 .custom-file-label::after {
   background: #ED1C24 !important; /* Rojo */
   color: white !important;
+  cursor: pointer;
 }
