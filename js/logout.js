@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
             await Swal.fire({
                 title: "Salió de su cuenta",
                 text: "Ha salido correctamente su cuenta",
+                icon: "success",
                 color: "#000000",
                 background: "#ffffff",
                 customClass: {
@@ -17,7 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 },
                 buttonsStyling: false,
             });
-            window.location.reload();
+            window.location.href = 'index.html';
         });
     }
 });

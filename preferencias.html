@@ -68,11 +68,8 @@
             </button>
             <div class="collapse navbar-collapse justify-content-between px-0 px-lg-3" id="navbarCollapse">
                 <div class="navbar-nav mr-auto py-0">
-                    <a href="index.html" class="nav-item nav-link">Incio</a>
+                    <a href="preferencias.html" class="nav-item nav-link active">Selecciona tus Preferencias</a>
                     <a href="iniciar_sesion.html" class="nav-item nav-link" id="linkLogin">Inicia Sesión</a>
-                    <a href="preferencias.html" class="nav-item nav-link active">Preferencias</a>
-                    <a href="subir_new.html" class="nav-item nav-link">Publicar noticia</a>
-                    <a href="misNoticias.html" class="nav-item nav-link">Mis noticias</a>
                 </div>
                 <span class="navbar-text" id="userAlias" style="display: none;">
                     <!-- nombre del usuario y el ícono -->
@@ -120,6 +117,23 @@
             "world": "img/world.jpg"
         };
 
+        const categoryNumbers = {
+            "arts": 1,
+            "business": 2,
+            "fashion": 3,
+            "food": 4,
+            "health": 5,
+            "home": 6,
+            "movies": 7,
+            "politics": 8,
+            "science": 9,
+            "sports": 10,
+            "technology": 11,
+            "theater": 12,
+            "travel": 13,
+            "world": 14
+        };
+
         const defaultImage = "img/default.jpg";
         // Contenedor donde se agregarán las categorías dinámicamente
         const categoryContainer = document.getElementById("category-container");
@@ -156,13 +170,74 @@
         // Evento del botón de Aceptar
         document.getElementById("acceptButton").addEventListener("click", () => {
             const selectedCategories = [];
-            categories.forEach((category, index) => {
-                const checkbox = document.getElementById(`checkbox${index + 1}`);
+            categories.forEach((category) => {
+                const checkbox = document.getElementById(`checkbox${categoryNumbers[category]}`);
                 if (checkbox && checkbox.checked) {
-                    selectedCategories.push(category.charAt(0).toUpperCase() + category.slice(1));
+                    selectedCategories.push(categoryNumbers[category]); // Guardar el número de la categoría
                 }
             });
-            alert("Categorías seleccionadas: " + selectedCategories.join(", "));
+
+            const datos = {
+                idUser: usuario.IdUser,
+                idCategoria: [selectedCategories] // Arreglo de varias categorías
+            };
+
+
+            fetch('http://localhost:3000/guardarPreferencias', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(datos)
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        Swal.fire({
+                            title: "Preferencias guardadas",
+                            text: "Tus preferencias se han guardado correctamente.",
+                            icon: "success",
+                            color: "#000000",
+                            background: "#ffffff",
+                            customClass: {
+                                confirmButton: 'btn-succ',
+                                title: 'title-class',
+                                content: 'content-class'
+                            },
+                            buttonsStyling: false,
+                        }).then(() => {
+                            // Redireccionar a index.html después de la alerta de éxito
+                            window.location.href = 'index.html'; // Redirige a la página de inicio
+                        });
+                    } else {
+                        Swal.fire({
+                            title: "Error",
+                            text: "No se pudieron guardar las preferencias. Por favor, inténtalo de nuevo.",
+                            icon: "error",
+                            color: "#000000",
+                            background: "#ffffff",
+                            customClass: {
+                                confirmButton: 'btn-succ',
+                                title: 'title-class',
+                                content: 'content-class'
+                            },
+                            buttonsStyling: false,
+                        });
+                    }
+                })
+                .catch(error => Swal.fire({
+                    title: "Error",
+                    text: "Hubo un error al procesar tu solicitud.",
+                    icon: "error",
+                    color: "#000000",
+                    background: "#ffffff",
+                    customClass: {
+                        confirmButton: 'btn-succ',
+                        title: 'title-class',
+                        content: 'content-class'
+                    },
+                    buttonsStyling: false,
+                }));
         });
     </script>
 
@@ -175,7 +250,9 @@
                     <h1 class="mb-2 mt-n2 display-5 text-uppercase"><span class="text-primary">City Wire </span>News
                     </h1>
                 </a>
-                <p style="text-align: justify;">Mantente informado sobre los eventos más recientes a nivel global. Al registrarte e iniciar sesión, no solo podrás leer las noticias, sino también compartir y publicar aquellas que sucedan cerca de ti.</p>
+                <p style="text-align: justify;">Mantente informado sobre los eventos más recientes a nivel global. Al
+                    registrarte e iniciar sesión, no solo podrás leer las noticias, sino también compartir y publicar
+                    aquellas que sucedan cerca de ti.</p>
                 <div class="d-flex justify-content-start mt-4">
                     <a class="btn btn-outline-secondary text-center mr-2 px-0" style="width: 38px; height: 38px;"
                         href="#"><i class="fab fa-twitter"></i></a>

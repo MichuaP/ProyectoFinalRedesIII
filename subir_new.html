@@ -72,7 +72,6 @@
                 <div class="navbar-nav mr-auto py-0">
                     <a href="index.html" class="nav-item nav-link">Incio</a>
                     <a href="iniciar_sesion.html" class="nav-item nav-link" id="linkLogin">Inicia Sesión</a>
-                    <a href="preferencias.html" class="nav-item nav-link">Preferencias</a>
                     <a href="subir_new.html" class="nav-item nav-link active">Publicar noticia</a>
                     <a href="misNoticias.html" class="nav-item nav-link">Mis noticias</a>
                 </div>
@@ -273,6 +272,7 @@
                             await Swal.fire({
                                 title: "Noticia publicada",
                                 text: "Se ha publicado la noticia correctamente",
+                                icon: "success",
                                 color: "#000000",
                                 background: "#ffffff",
                                 customClass: {
@@ -288,6 +288,7 @@
                             await Swal.fire({
                                 title: "Error",
                                 text: "Error al publicar la noticia",
+                                icon: "error",
                                 color: "#000000",
                                 background: "#ffffff",
                                 customClass: {
@@ -303,6 +304,7 @@
                         await Swal.fire({
                             title: "Error",
                             text: "Error al publicar la noticia",
+                            icon: "error",
                             color: "#000000",
                             background: "#ffffff",
                             customClass: {
