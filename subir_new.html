@@ -26,12 +26,13 @@
     <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
 
     <!-- Customized Bootstrap Stylesheet -->
+     <link rel="stylesheet" href="css/estilos.css">
     <link href="css/style.css" rel="stylesheet">
 
     <!-- Script de auth, logout y session -->
     <script src="js/logout.js" defer></script>
     <script src="js/session.js" defer></script>
-    
+
 </head>
 
 <body>
@@ -77,7 +78,7 @@
                 <span class="navbar-text" id="userAlias" style="display: none;">
                     <!-- nombre del usuario y el ícono -->
                     <a href="#" id="logoutButton" title="Cerrar sesión">
-                        <i class="fa-solid fa-right-from-bracket" style="color: #ff0000; margin-left: 10px;"></i>
+                        <i class="fa-solid fa-right-from-bracket" style="color: #ED1C24; margin-left: 10px;"></i>
                     </a>
                 </span>
             </div>
@@ -96,34 +97,75 @@
                     <input type="text" class="form-control" id="titulo" name="titulo" required>
                 </div>
 
+                <script>
+                    function mostrarImagen(event, id) {
+                        var archivo = event.target.files[0];
+                        var lector = new FileReader();
+
+                        lector.onload = function (e) {
+                            var imagen = document.getElementById('imagen');
+                            imagen.src = e.target.result;
+                            imagen.style.display = 'block';
+                        }
+
+                        lector.readAsDataURL(archivo);
+                    }
+                </script>
+
                 <!-- Contenido -->
-                <div class="mb-3">
-                    <label for="contenido" class="form-label">Contenido</label>
-                    <textarea class="form-control" id="contenido" name="contenido" rows="5" required></textarea>
+                <div class="row">
+                    <div class="col-md-9 mb-3">
+                        <label for="contenido" class="form-label">Contenido</label>
+                        <textarea class="form-control" id="contenido" name="contenido" rows="12" required></textarea>
+                    </div>
+
+                    <!-- Imagen -->
+                    <div class="col-3">
+                        <label for="file">Imagen</label>
+                        <div class="input-group mb-3">
+                            <input type="file" id="file" name="file" accept="image/*"
+                                style="opacity: 0; position: absolute; left: 0; top: 0;" onchange="mostrarImagen(event,1)" required>
+                            <label for="file" class="custom-file-label">Seleccionar archivo</label>
+                        </div>
+                        <div class="d-flex align-items-center justify-content-center imagen">
+                            <img id="imagen" src="../img/emptyImg.png" alt="Vista previa de la imagen"
+                                style="max-width: 100%; height: auto;" />
+                        </div>
+                    </div>
                 </div>
+
+                <script>
+                    const fileInput = document.getElementById('file');
+                    const fileLabel = document.querySelector('.custom-file-label');
+
+                    fileInput.addEventListener('change', () => {
+                        fileLabel.textContent = fileInput.files[0].name;
+                    });
+                </script>
 
                 <div class="row">
                     <!-- FechaPublic -->
                     <div class="col-md-4 mb-3">
                         <label for="fechaPublic" class="form-label">Fecha de Publicación</label>
-                        <input type="date" class="form-control" id="fechaPublic" name="fechaPublic" required>
+                        <input type="date" class="form-control form-control" id="fechaPublic" name="fechaPublic"
+                            required>
                     </div>
-    
+
                     <!-- IdCategoria -->
                     <div class="col-md-4 mb-3">
                         <label for="idCategoria" class="form-label">Categoría</label>
-                        <select class="form-select" id="idCategoria" name="idCategoria" required>
+                        <select class="form-select form-control" id="idCategoria" name="idCategoria" required>
                             <option value="">Seleccione una categoría</option>
                             <option value="1">Categoría 1</option>
                             <option value="2">Categoría 2</option>
                             <option value="3">Categoría 3</option>
                         </select>
                     </div>
-    
+
                     <!-- IdIdioma -->
                     <div class="col-md-4 mb-3">
                         <label for="idIdioma" class="form-label">Idioma</label>
-                        <select class="form-select" id="idIdioma" name="idIdioma" required>
+                        <select class="form-select form-control" id="idIdioma" name="idIdioma" required>
                             <option value="">Seleccione un idioma</option>
                             <option value="1">Español</option>
                             <option value="2">Inglés</option>
@@ -131,34 +173,34 @@
                         </select>
                     </div>
                 </div>
-    
+
                 <div class="row">
                     <!-- IdPais -->
                     <div class="col-md-4 mb-3">
                         <label for="idPais" class="form-label">País</label>
-                        <select class="form-select" id="idPais" name="idPais" required>
+                        <select class="form-select form-control" id="idPais" name="idPais" required>
                             <option value="">Seleccione un país</option>
                             <option value="1">País 1</option>
                             <option value="2">País 2</option>
                             <option value="3">País 3</option>
                         </select>
                     </div>
-    
+
                     <!-- IdEstado -->
                     <div class="col-md-4 mb-3">
                         <label for="idEstado" class="form-label">Estado</label>
-                        <select class="form-select" id="idEstado" name="idEstado" required>
+                        <select class="form-select form-control" id="idEstado" name="idEstado" required>
                             <option value="">Seleccione un estado</option>
                             <option value="1">Estado 1</option>
                             <option value="2">Estado 2</option>
                             <option value="3">Estado 3</option>
                         </select>
                     </div>
-    
+
                     <!-- IdLugar -->
                     <div class="col-md-4 mb-3">
                         <label for="idLugar" class="form-label">Lugar</label>
-                        <select class="form-select" id="idLugar" name="idLugar" required>
+                        <select class="form-select form-control" id="idLugar" name="idLugar" required>
                             <option value="">Seleccione un lugar</option>
                             <option value="1">Lugar 1</option>
                             <option value="2">Lugar 2</option>
@@ -186,7 +228,9 @@
                     <h1 class="mb-2 mt-n2 display-5 text-uppercase"><span class="text-primary">City Wire </span>News
                     </h1>
                 </a>
-                <p style="text-align: justify;">Mantente informado sobre los eventos más recientes a nivel global. Al registrarte e iniciar sesión, no solo podrás leer las noticias, sino también compartir y publicar aquellas que sucedan cerca de ti.</p>
+                <p style="text-align: justify;">Mantente informado sobre los eventos más recientes a nivel global. Al
+                    registrarte e iniciar sesión, no solo podrás leer las noticias, sino también compartir y publicar
+                    aquellas que sucedan cerca de ti.</p>
                 <div class="d-flex justify-content-start mt-4">
                     <a class="btn btn-outline-secondary text-center mr-2 px-0" style="width: 38px; height: 38px;"
                         href="#"><i class="fab fa-twitter"></i></a>

@@ -10,6 +10,6 @@ if (usuario) {
     //poner el display que se vea
     span.innerHTML = `Hola, ${usuario.Alias} 
             <a href="#" id="logoutButton" title="Cerrar sesión">
-                <i class="fa-solid fa-right-from-bracket" style="color: #ff0000; margin-left: 10px;"></i>
+                <i class="fa-solid fa-right-from-bracket" style="color: #ED1C24; margin-left: 10px;"></i>
             </a>`;
 }

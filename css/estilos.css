@@ -1,5 +1,5 @@
 .swal2-confirm.btn-succ {
-    background-color: #ff0000;
+    background-color: #ED1C24;
     color: white;
     border: none;
     font-size: 16px;
@@ -16,4 +16,13 @@
 .swal2-content.content-class {
     color: #333333; 
     font-size: 18px;
+}
+
+#imagen {
+    margin-top: 40px !important;
+}
+
+.custom-file-label::after {
+  background: #ED1C24 !important; /* Rojo */
+  color: white !important;
 }

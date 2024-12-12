@@ -27,7 +27,7 @@
 
     <!-- Customized Bootstrap Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
-    
+
     <!-- Script de logout y session -->
     <script src="js/logout.js" defer></script>
     <script src="js/session.js" defer></script>
@@ -78,7 +78,7 @@
                 <span class="navbar-text" id="userAlias" style="display: none;">
                     <!-- nombre del usuario y el ícono -->
                     <a href="#" id="logoutButton" title="Cerrar sesión">
-                        <i class="fa-solid fa-right-from-bracket" style="color: #ff0000; margin-left: 10px;"></i>
+                        <i class="fa-solid fa-right-from-bracket" style="color: #ED1C24; margin-left: 10px;"></i>
                     </a>
                 </span>
             </div>
@@ -95,7 +95,7 @@
         </div>
     </div>
 
-     <!-- Footer Start -->
+    <!-- Footer Start -->
     <div class="container-fluid bg-light pt-5 px-sm-3 px-md-5">
         <div class="row">
             <div class="col-lg-3 col-md-6 mb-5">
@@ -103,7 +103,9 @@
                     <h1 class="mb-2 mt-n2 display-5 text-uppercase"><span class="text-primary">City Wire </span>News
                     </h1>
                 </a>
-                <p style="text-align: justify;">Mantente informado sobre los eventos más recientes a nivel global. Al registrarte e iniciar sesión, no solo podrás leer las noticias, sino también compartir y publicar aquellas que sucedan cerca de ti.</p>
+                <p style="text-align: justify;">Mantente informado sobre los eventos más recientes a nivel global. Al
+                    registrarte e iniciar sesión, no solo podrás leer las noticias, sino también compartir y publicar
+                    aquellas que sucedan cerca de ti.</p>
                 <div class="d-flex justify-content-start mt-4">
                     <a class="btn btn-outline-secondary text-center mr-2 px-0" style="width: 38px; height: 38px;"
                         href="#"><i class="fab fa-twitter"></i></a>
@@ -178,59 +180,89 @@
     <!-- Cargar noticias del usuario -->
     <script>
         document.addEventListener("DOMContentLoaded", () => {
-        const noticiasContainer = document.getElementById("myNews"); // Contenedor para las noticias
+            const noticiasContainer = document.getElementById("myNews"); // Contenedor para las noticias
 
-        // Obtener usuario del localStorage
-        const usuario = JSON.parse(localStorage.getItem('usuario'));
+            // Obtener usuario del localStorage
+            const usuario = JSON.parse(localStorage.getItem('usuario'));
 
-        if (!usuario) {
-            return;
-        }
+            if (!usuario) {
+                return;
+            }
 
-        console.log(usuario.IdUser);
+            console.log(usuario.IdUser);
 
-        // Función para cargar noticias
-        const cargarNoticias = async () => {
-            try {
-                const response = await fetch(`http://localhost:3000/myNews?idUsuario=${usuario.IdUser}`); // Endpoint de la API
-                const noticias = await response.json();
+            function formatDateWithLeadingZero(date) {
+                const day = String(date.getDate()).padStart(2, '0');
+                const month = String(date.getMonth() + 1).padStart(2, '0');
+                const year = date.getFullYear();
+                return `${day}/${month}/${year}`;
+            }
 
-                if (!noticias.length) {
-                    noticiasContainer.innerHTML = "<p>No hay noticias para mostrar.</p>"; //diseño por mejorar jsjs
-                    return;
-                }
 
-                // Recorrer las noticias y crear el HTML
-                noticias.forEach(noticia => {
-                    const noticiaHTML = `
-                        <div class="col-lg-6 mb-4">
-                            <div class="position-relative mb-3">
-                                <img class="img-fluid w-100" src="img/${noticia.Imagen}" style="object-fit: cover; height: 300px;">
-                                <div class="overlay position-relative bg-light">
-                                    <div class="mb-3">
-                                        <a href="#">${noticia.Categoria}</a>
-                                        <span class="px-1">/</span>
-                                        <span>${new Date(noticia.FechaPublic).toLocaleDateString()}</span>
-                                    </div>
-                                    <div>
-                                        <h3 class="mb-3">${noticia.Titulo}</h3>
-                                        <p>${noticia.Contenido.substring(0, 150)}...</p>
-                                        <button class="btn btn-primary font-weight-semi-bold px-4" style="height: 35px;" id="loginButton">Ver más</button>
+            // Función para cargar noticias
+            const cargarNoticias = async () => {
+                try {
+                    const response = await fetch(`http://localhost:3000/myNews?idUsuario=${usuario.IdUser}`); // Endpoint de la API
+                    const noticias = await response.json();
+
+                    if (!noticias.length) {
+                        noticiasContainer.innerHTML = "<p>No hay noticias para mostrar.</p>"; //diseño por mejorar jsjs
+                        return;
+                    }
+
+                    // Recorrer las noticias y crear el HTML
+                    noticias.forEach(noticia => {
+                        const noticiaHTML = `
+                            <div class="col-lg-6 mb-4">
+                                <div class="position-relative mb-3">
+                                    <img class="img-fluid w-100" src="img/${noticia.Imagen}" style="object-fit: cover; height: 300px;">
+                                    <div class="overlay position-relative bg-light">
+                                        <div class="mb-3">
+                                            <a href="#">${noticia.Categoria}</a>
+                                            <span class="px-1">-</span>
+                                            <span>${formatDateWithLeadingZero(new Date(noticia.FechaPublic))}</span>
+                                        </div>
+                                        <div>
+                                            <h3 class="mb-3">${noticia.Titulo}</h3>
+                                            <p>${noticia.Contenido.substring(0, 150)}...</p>
+                                            <button class="btn btn-primary font-weight-semi-bold px-4 ver-mas-btn" 
+                                                    data-section="${noticia.Categoria}" 
+                                                    data-title="${noticia.Titulo}" 
+                                                    data-image="img/${noticia.Imagen}" 
+                                                    data-abstract="${noticia.Contenido}" 
+                                                    data-published-date="${noticia.FechaPublic}" 
+                                                    style="height: 35px;">Ver más</button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    `;
-                    // Agregar el HTML al contenedor
-                    noticiasContainer.innerHTML += noticiaHTML;
-                });
-            } catch (error) {
-                console.error("Error al cargar las noticias:", error);
-            }
-        };
+                        `;
+                        // Agregar el HTML al contenedor
+                        noticiasContainer.innerHTML += noticiaHTML;
+                    });
 
-        cargarNoticias();
-    });
+                    // Event Listener para los botones "Ver más"
+                    document.querySelectorAll('.ver-mas-btn').forEach(button => {
+                        button.addEventListener('click', function () {
+                            const section = encodeURIComponent(this.getAttribute('data-section'));
+                            const title = encodeURIComponent(this.getAttribute('data-title'));
+                            const image = encodeURIComponent(this.getAttribute('data-image'));
+                            const abstract = encodeURIComponent(this.getAttribute('data-abstract'));
+                            const publishedDate = encodeURIComponent(this.getAttribute('data-published-date'));
+
+                            // Redirigir a `single.html` con los parámetros en la URL
+                            window.location.href = `single.html?section=${section}&title=${title}&image=${image}&abstract=${abstract}&published_date=${publishedDate}`;
+                        });
+                    });
+
+
+                } catch (error) {
+                    console.error("Error al cargar las noticias:", error);
+                }
+            };
+
+            cargarNoticias();
+        });
 
     </script>
 
