@@ -32,7 +32,8 @@
     <!-- Script de auth, logout y session -->
     <script src="js/logout.js" defer></script>
     <script src="js/session.js" defer></script>
-
+    <script src="js/auth.js" defer></script>
+    
 </head>
 
 <body>
@@ -90,7 +91,7 @@
     <div class="container-fluid py-3">
         <div class="container">
             <h2>Subir Noticia</h2>
-            <form action="submit_news.php" method="POST">
+            <form action="submit_news.php" method="POST" id="subir-noticia">
                 <!-- Titulo -->
                 <div class="mb-3">
                     <label for="titulo" class="form-label">Título</label>
@@ -147,8 +148,7 @@
                     <!-- FechaPublic -->
                     <div class="col-md-4 mb-3">
                         <label for="fechaPublic" class="form-label">Fecha de Publicación</label>
-                        <input type="date" class="form-control form-control" id="fechaPublic" name="fechaPublic"
-                            required>
+                        <input type="date" class="form-control" id="fechaPublic" name="fechaPublic" readonly>
                     </div>
 
                     <!-- IdCategoria -->
@@ -156,9 +156,20 @@
                         <label for="idCategoria" class="form-label">Categoría</label>
                         <select class="form-select form-control" id="idCategoria" name="idCategoria" required>
                             <option value="">Seleccione una categoría</option>
-                            <option value="1">Categoría 1</option>
-                            <option value="2">Categoría 2</option>
-                            <option value="3">Categoría 3</option>
+                            <option value="1">Arte</option>
+                            <option value="2">Negocios</option>
+                            <option value="3">Moda</option>
+                            <option value="4">Comida</option>
+                            <option value="5">Salud</option>
+                            <option value="6">Hogar</option>
+                            <option value="7">Películas</option>
+                            <option value="8">Política</option>
+                            <option value="9">Ciencia</option>
+                            <option value="10">Deportes</option>
+                            <option value="11">Tecnología</option>
+                            <option value="12">Teatro</option>
+                            <option value="13">Viajes</option>
+                            <option value="14">Mundo</option>
                         </select>
                     </div>
 
@@ -169,7 +180,6 @@
                             <option value="">Seleccione un idioma</option>
                             <option value="1">Español</option>
                             <option value="2">Inglés</option>
-                            <option value="3">Francés</option>
                         </select>
                     </div>
                 </div>
@@ -180,9 +190,8 @@
                         <label for="idPais" class="form-label">País</label>
                         <select class="form-select form-control" id="idPais" name="idPais" required>
                             <option value="">Seleccione un país</option>
-                            <option value="1">País 1</option>
-                            <option value="2">País 2</option>
-                            <option value="3">País 3</option>
+                            <option value="1">México</option>
+                            <option value="2">Estados Unidos</option>
                         </select>
                     </div>
 
@@ -191,21 +200,13 @@
                         <label for="idEstado" class="form-label">Estado</label>
                         <select class="form-select form-control" id="idEstado" name="idEstado" required>
                             <option value="">Seleccione un estado</option>
-                            <option value="1">Estado 1</option>
-                            <option value="2">Estado 2</option>
-                            <option value="3">Estado 3</option>
                         </select>
                     </div>
 
                     <!-- IdLugar -->
                     <div class="col-md-4 mb-3">
-                        <label for="idLugar" class="form-label">Lugar</label>
-                        <select class="form-select form-control" id="idLugar" name="idLugar" required>
-                            <option value="">Seleccione un lugar</option>
-                            <option value="1">Lugar 1</option>
-                            <option value="2">Lugar 2</option>
-                            <option value="3">Lugar 3</option>
-                        </select>
+                        <label for="lugar" class="form-label">Lugar</label>
+                        <input type="text" class="form-control" id="lugar" name="lugar" required>
                     </div>
                 </div>
 
@@ -214,6 +215,167 @@
                     <button type="submit" class="btn btn-primary">Subir Noticia</button>
                 </div>
             </form>
+            <script>
+                document.getElementById('subir-noticia').addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    
+                    const titulo = document.getElementById('titulo').value;
+                    const contenido = document.getElementById('contenido').value;
+                    const fechaPublic = document.getElementById('fechaPublic').value;
+                    const idCategoria = document.getElementById('idCategoria').value;
+                    const idIdioma = document.getElementById('idIdioma').value;
+                    const idPais = document.getElementById('idPais').value;
+                    const idEstado = document.getElementById('idEstado').value;
+                    const lugar = document.getElementById('lugar').value;
+                    const imagen = document.getElementById('file').value.split("\\").pop();
+                    console.log(imagen);
+
+                    if (!titulo || !contenido || !fechaPublic || !idCategoria || !idIdioma || !idPais || !idEstado || !lugar) {
+                        Swal.fire({
+                            title: "Error",
+                            text: "Por favor, rellene todos los campos.",
+                            icon: "error",
+                        });
+                        return;
+                    }
+
+                    if (!imagen || !/\.(jpg|jpeg|png)$/i.test(imagen)) {
+                        Swal.fire({ title: "Error", text: "La imagen debe ser un archivo JPG, JPEG o PNG.", icon: "error" });
+                        return;
+                    }
+
+                    try {
+
+                        //Obtenemos id del localStorage
+                        const aux = JSON.parse(localStorage.getItem('usuario'));
+                        const idUser = aux?.IdUser;
+
+                        const response = await fetch('http://localhost:3000/subirNoticia', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({
+                                titulo,
+                                contenido,
+                                fechaPublic,
+                                idCategoria: parseInt(idCategoria, 10),
+                                idIdioma: parseInt(idIdioma, 10),
+                                idPais: parseInt(idPais, 10),
+                                idEstado: parseInt(idEstado, 10),
+                                lugar,
+                                idUser,
+                                imagen,
+                            })
+                        });
+
+                        const result = await response.json();
+                        
+                        if (response.ok && result.success) {
+                            await Swal.fire({
+                                title: "Noticia publicada",
+                                text: "Se ha publicado la noticia correctamente",
+                                color: "#000000",
+                                background: "#ffffff",
+                                customClass: {
+                                    confirmButton: 'btn-succ',
+                                    title: 'title-class', 
+                                    content: 'content-class' 
+                                },
+                                buttonsStyling: false,
+                            });
+                            document.getElementById('subir-noticia').reset();
+                            window.location.href = 'index.html';
+                        } else {
+                            await Swal.fire({
+                                title: "Error",
+                                text: "Error al publicar la noticia",
+                                color: "#000000",
+                                background: "#ffffff",
+                                customClass: {
+                                    confirmButton: 'btn-succ',
+                                    title: 'title-class', 
+                                    content: 'content-class' 
+                                },
+                                buttonsStyling: false,
+                            });
+                        }
+                    } catch (error) {
+                        console.error('Error:', error);
+                        await Swal.fire({
+                            title: "Error",
+                            text: "Error al publicar la noticia",
+                            color: "#000000",
+                            background: "#ffffff",
+                            customClass: {
+                                confirmButton: 'btn-succ',
+                                title: 'title-class', 
+                                content: 'content-class' 
+                            },
+                            buttonsStyling: false,
+                        });
+                    }
+                });
+            </script>
+            <script>
+                document.addEventListener("DOMContentLoaded", () => {
+                    const paisSelect = document.getElementById("idPais");
+                    const estadoSelect = document.getElementById("idEstado");
+                    const fechaInput = document.getElementById("fechaPublic");
+        
+                    // Obtener la fecha actual en formato 'YYYY-MM-DD'
+                    const hoy = new Date();
+                    const fechaActual = hoy.toISOString().split("T")[0];
+
+                    // Establecer el valor y el máximo en el input de fecha
+                    fechaInput.value = fechaActual;
+                    fechaInput.max = fechaActual;
+
+                    // Función para cargar estados desde el servidor
+                    const cargarEstados = async (idPais) => {
+                        try {
+                            const response = await fetch('http://localhost:3000/estados', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                },
+                                body: JSON.stringify({ idPais }), // Enviar idPais en el cuerpo
+                            });
+
+                            if (!response.ok) {
+                                throw new Error('Error al obtener estados');
+                            }
+
+                            return await response.json();
+                        } catch (error) {
+                            console.error("Error al cargar los estados:", error);
+                            return [];
+                        }
+                    };
+
+                    paisSelect.addEventListener("change", async () => {
+                        const idPais = parseInt(paisSelect.value);
+
+                        if (!idPais) {
+                            //Limpiar opciones
+                            estadoSelect.innerHTML = '<option value="">Seleccione un estado</option>';
+                            return;
+                        }
+
+                        // Cargar estados del servidor
+                        const estadosFiltrados = await cargarEstados(idPais);
+
+                        // Limpiar las opciones actuales del select de estados
+                        estadoSelect.innerHTML = '<option value="">Seleccione un estado</option>';
+
+                        // Agregar las nuevas opciones al select de estados
+                        estadosFiltrados.forEach(estado => {
+                            const option = document.createElement("option");
+                            option.value = estado.IdEstado;
+                            option.textContent = estado.Nombre;
+                            estadoSelect.appendChild(option);
+                        });
+                    });
+                });
+            </script>
             <br>
         </div>
     </div>
