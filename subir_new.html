@@ -218,38 +218,54 @@
             <script>
                 document.getElementById('subir-noticia').addEventListener('submit', async (e) => {
                     e.preventDefault();
-                    
-                    const titulo = document.getElementById('titulo').value;
-                    const contenido = document.getElementById('contenido').value;
-                    const fechaPublic = document.getElementById('fechaPublic').value;
-                    const idCategoria = document.getElementById('idCategoria').value;
-                    const idIdioma = document.getElementById('idIdioma').value;
-                    const idPais = document.getElementById('idPais').value;
-                    const idEstado = document.getElementById('idEstado').value;
-                    const lugar = document.getElementById('lugar').value;
-                    const imagen = document.getElementById('file').value.split("\\").pop();
-                    console.log(imagen);
-
-                    if (!titulo || !contenido || !fechaPublic || !idCategoria || !idIdioma || !idPais || !idEstado || !lugar) {
-                        Swal.fire({
-                            title: "Error",
-                            text: "Por favor, rellene todos los campos.",
-                            icon: "error",
-                        });
-                        return;
-                    }
-
-                    if (!imagen || !/\.(jpg|jpeg|png)$/i.test(imagen)) {
-                        Swal.fire({ title: "Error", text: "La imagen debe ser un archivo JPG, JPEG o PNG.", icon: "error" });
-                        return;
-                    }
-
                     try {
+
+                        // Subir imagen y obtener la ruta
+                        const imageFile = document.getElementById('file').files[0];
+                        const imageData = new FormData();
+                        imageData.append('file', imageFile);
+
+                        const imageResponse = await fetch('http://localhost:3000/upload-image', {
+                            method: 'POST',
+                            body: imageData,
+                        });
+
+                        if (!imageResponse.ok) {
+                            throw new Error('Error al subir la imagen');
+                        }
+
+                        const imageResult = await imageResponse.json();
+                        const imagen = imageResult.filePath;
+
+                        // Datos del formulario
+                        const titulo = document.getElementById('titulo').value;
+                        const contenido = document.getElementById('contenido').value;
+                        const fechaPublic = document.getElementById('fechaPublic').value;
+                        const idCategoria = document.getElementById('idCategoria').value;
+                        const idIdioma = document.getElementById('idIdioma').value;
+                        const idPais = document.getElementById('idPais').value;
+                        const idEstado = document.getElementById('idEstado').value;
+                        const lugar = document.getElementById('lugar').value;
+
+                        if (!titulo || !contenido || !fechaPublic || !idCategoria || !idIdioma || !idPais || !idEstado || !lugar) {
+                            Swal.fire({
+                                title: "Error",
+                                text: "Por favor, rellene todos los campos.",
+                                icon: "error",
+                            });
+                            return;
+                        }
+
+                        if (!imagen || !/\.(jpg|jpeg|png)$/i.test(imagen)) {
+                            Swal.fire({ title: "Error", text: "La imagen debe ser un archivo JPG, JPEG o PNG.", icon: "error" });
+                            return;
+                        }
 
                         //Obtenemos id del localStorage
                         const aux = JSON.parse(localStorage.getItem('usuario'));
                         const idUser = aux?.IdUser;
 
+                        //Subir noticia
                         const response = await fetch('http://localhost:3000/subirNoticia', {
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json' },
