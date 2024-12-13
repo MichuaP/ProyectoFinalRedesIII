@@ -191,13 +191,14 @@
 
             console.log(usuario.IdUser);
 
-            function formatDateWithLeadingZero(date) {
+            function formatDateWithLeadingZero(dateStr) {
+                const date = new Date(dateStr + "T00:00:00");  //  evitar ajustes de zona horaria
+
                 const day = String(date.getDate()).padStart(2, '0');
                 const month = String(date.getMonth() + 1).padStart(2, '0');
                 const year = date.getFullYear();
                 return `${day}/${month}/${year}`;
             }
-
 
             // Función para cargar noticias
             const cargarNoticias = async () => {
@@ -206,7 +207,7 @@
                     const noticias = await response.json();
 
                     if (!noticias.length) {
-                        noticiasContainer.innerHTML = "<p>No hay noticias para mostrar.</p>"; //diseño por mejorar jsjs
+                        noticiasContainer.innerHTML = "<p>No hay noticias para mostrar.</p>";
                         return;
                     }
 
@@ -224,7 +225,7 @@
                                         <div class="mb-3">
                                             <a href="#">${noticia.Categoria}</a>
                                             <span class="px-1">-</span>
-                                            <span>${formatDateWithLeadingZero(new Date(noticia.FechaPublic))}</span>
+                                            <span>${formatDateWithLeadingZero(noticia.FechaPublic)}</span>
                                         </div>
                                         <div>
                                             <h3 class="mb-3">${noticia.Titulo}</h3>
@@ -234,7 +235,7 @@
                                                     data-title="${noticia.Titulo}" 
                                                     data-image="http://localhost:3000${noticia.Imagen}" 
                                                     data-abstract="${noticia.Contenido}" 
-                                                    data-published-date="${noticia.FechaPublic}" 
+                                                    data-published-date="${formatDateWithLeadingZero(noticia.FechaPublic)}" 
                                                     style="height: 35px;">Ver más</button>
                                         </div>
                                     </div>

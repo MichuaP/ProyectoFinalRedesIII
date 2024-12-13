@@ -95,7 +95,7 @@
                 <!-- Titulo -->
                 <div class="mb-3">
                     <label for="titulo" class="form-label">Título</label>
-                    <input type="text" class="form-control" id="titulo" name="titulo" required>
+                    <input type="text" class="form-control" id="titulo" name="titulo" minlength="5" maxlength="30" required>
                 </div>
 
                 <script>
@@ -117,7 +117,7 @@
                 <div class="row">
                     <div class="col-md-9 mb-3">
                         <label for="contenido" class="form-label">Contenido</label>
-                        <textarea class="form-control" id="contenido" name="contenido" rows="12" required></textarea>
+                        <textarea class="form-control" id="contenido" name="contenido" rows="12" minlength="15" maxlength="500" required></textarea>
                     </div>
 
                     <!-- Imagen -->
@@ -203,10 +203,10 @@
                         </select>
                     </div>
 
-                    <!-- IdLugar -->
+                    <!-- Lugar -->
                     <div class="col-md-4 mb-3">
                         <label for="lugar" class="form-label">Lugar</label>
-                        <input type="text" class="form-control" id="lugar" name="lugar" required>
+                        <input type="text" class="form-control" id="lugar" name="lugar" minlength="5" maxlength="30"  required>
                     </div>
                 </div>
 
@@ -246,6 +246,8 @@
                         const idPais = document.getElementById('idPais').value;
                         const idEstado = document.getElementById('idEstado').value;
                         const lugar = document.getElementById('lugar').value;
+
+                        console.log("fecha en front"+fechaPublic);
 
                         if (!titulo || !contenido || !fechaPublic || !idCategoria || !idIdioma || !idPais || !idEstado || !lugar) {
                             Swal.fire({
@@ -342,11 +344,11 @@
         
                     // Obtener la fecha actual en formato 'YYYY-MM-DD'
                     const hoy = new Date();
-                    const fechaActual = hoy.toISOString().split("T")[0];
+                    const fechaLocal = hoy.toLocaleDateString('en-CA');
 
                     // Establecer el valor y el máximo en el input de fecha
-                    fechaInput.value = fechaActual;
-                    fechaInput.max = fechaActual;
+                    fechaInput.value = fechaLocal;
+                    fechaInput.max = fechaLocal;
 
                     // Función para cargar estados desde el servidor
                     const cargarEstados = async (idPais) => {
