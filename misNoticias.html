@@ -207,7 +207,13 @@
                     const noticias = await response.json();
 
                     if (!noticias.length) {
-                        noticiasContainer.innerHTML = "<p>No hay noticias para mostrar.</p>";
+                        noticiasContainer.innerHTML = `
+                        <div>
+                            <p style="margin-bottom: 0;">No hay noticias para mostrar.</p>
+                            <div style="height: 190px; display: flex; justify-content: center; align-items: center; flex-direction: column;">
+                                <div class="loader"></div>
+                            </div>
+                        </div>`;
                         return;
                     }
 

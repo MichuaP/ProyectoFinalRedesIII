@@ -27,3 +27,7 @@
   color: white !important;
   cursor: pointer;
 }
+
+.loader {
+    left: 230%;
+}
