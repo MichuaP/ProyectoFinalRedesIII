@@ -168,6 +168,7 @@
                             if (data.success) {
                                 // Guardar información del usuario en localStorage
                                 localStorage.setItem('usuario', JSON.stringify(data.usuario));
+                                localStorage.setItem('categoriasUsuario', JSON.stringify(data.categorias));
                                 await Swal.fire({
                                     title: "Sesión iniciada",
                                     text: "Ha ingresado correctamente a su cuenta",

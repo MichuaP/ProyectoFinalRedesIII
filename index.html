@@ -31,7 +31,6 @@
     <!-- Script de auth, logout y session -->
     <script src="js/logout.js" defer></script>
     <script src="js/session.js" defer></script>
-    
 </head>
 
 <body>
@@ -145,7 +144,7 @@
     <!-- Top News Slider End -->
 
     <!-- Main News Slider Start -->
-    <div class="container-fluid py-3">
+    <div class="container-fluid py-3 main">
         <div class="container">
             <div class="row">
                 <div class="col-lg-8">
@@ -437,20 +436,66 @@
             });
         }
 
-
         // Función principal para cargar las noticias de todas las categorías
-        async function loadCategoryNews() {
-            const newsPromises = categories.map(category => fetchNews(category)); // Ejecuta todas las peticiones en paralelo
-            const newsResults = await Promise.all(newsPromises); // Espera que todas las promesas se resuelvan
+        async function loadUserCategoryNews() {
+            const usuario = JSON.parse(localStorage.getItem('usuario'));
 
-            newsResults.forEach((news, index) => {
-                renderNewsCarousel(news, categories[index]); // Renderiza los resultados
-            });
+            if (!usuario) {
+                // Si no hay usuario, mostrar todas las categorías
+                categories.forEach(category => {
+                    fetchNews(category).then(news => {
+                        if (news.length > 0) {
+                            renderNewsCarousel(news, category); // Renderiza todas las categorías disponibles
+                        }
+                    }).catch(error => {
+                        console.error(`Error al obtener noticias para la categoría ${category}:`, error);
+                    });
+                });
+            } else {
+                document.querySelector('.main').style.display = 'none';
+
+                // Obtener las categorías del localStorage
+                const categoriasUsuario = JSON.parse(localStorage.getItem('categoriasUsuario')) || [];
+
+                // Función para obtener los nombres de las categorías
+                function getCategoryNames(categoryNumbersArray) {
+                    return categoryNumbersArray.map(subArray => {
+                        return subArray.map(number => {
+                            return categories.find(category => categoryNumbers[category] === number); // Mapa los números a nombres
+                        }).filter(name => name !== undefined); // Filtrar valores undefined
+                    }).flat(); // Aplanar el array
+                }
+
+                // Objetos que mapean los números a los nombres de las categorías
+                const categoryNumbers = {
+                    "arts": 1, "business": 2, "fashion": 3, "food": 4, "health": 5, "home": 6,
+                    "movies": 7, "politics": 8, "science": 9, "sports": 10, "technology": 11,
+                    "theater": 12, "travel": 13, "world": 14
+                };
+
+                // Obtener los nombres de las categorías seleccionadas por el usuario
+                const nombresCategoriasUsuario = getCategoryNames(categoriasUsuario);
+
+                // Imprimir los nombres de las categorías seleccionadas en la consola
+                console.log('Categorías seleccionadas por el usuario (nombres):', nombresCategoriasUsuario);
+
+                // Renderizar las noticias basadas en las categorías seleccionadas
+                nombresCategoriasUsuario.forEach(categoryName => {
+                    fetchNews(categoryName).then(news => {
+                        if (news.length > 0) {
+                            renderNewsCarousel(news, categoryName); // Renderiza solo las categorías del usuario
+                        } else {
+                            console.warn(`No se encontraron noticias para la categoría ${categoryName}`);
+                        }
+                    }).catch(error => {
+                        console.error(`Error al obtener noticias para la categoría ${categoryName}:`, error);
+                    });
+                });
+            }
         }
 
-        // Llamada a la función para cargar las noticias
-        loadCategoryNews();
-
+        // Llamar a la función para cargar las noticias
+        loadUserCategoryNews();
     </script>
 
 
