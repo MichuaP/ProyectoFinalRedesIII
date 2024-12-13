@@ -73,6 +73,7 @@
                     <a href="iniciar_sesion.html" class="nav-item nav-link" id="linkLogin">Inicia Sesión</a>
                     <a href="subir_new.html" class="nav-item nav-link">Publicar noticia</a>
                     <a href="misNoticias.html" class="nav-item nav-link active">Mis noticias</a>
+                    <a href="comunidad.html" class="nav-item nav-link">Comunidad</a>
                 </div>
                 <span class="navbar-text" id="userAlias" style="display: none;">
                     <!-- nombre del usuario y el ícono -->
@@ -214,7 +215,11 @@
                         const noticiaHTML = `
                             <div class="col-lg-6 mb-4">
                                 <div class="position-relative mb-3">
-                                    <img class="img-fluid w-100" src="img/${noticia.Imagen}" style="object-fit: cover; height: 300px;">
+                                    <img class="img-fluid w-100" 
+                                        src="img/${noticia.Imagen}" 
+                                        alt="imagen" 
+                                        style="object-fit: cover; height: 300px;" 
+                                        onerror="this.onerror=null; this.src='img/default3.jpg';">
                                     <div class="overlay position-relative bg-light">
                                         <div class="mb-3">
                                             <a href="#">${noticia.Categoria}</a>

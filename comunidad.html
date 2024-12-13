@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>City Wire News</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Free HTML Templates" name="keywords">
+    <meta content="Free HTML Templates" name="description">
+
+    <!-- Favicon -->
+    <link href="img/favicon.ico" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/ea44ba5a78.js" crossorigin="anonymous"></script>
+
+    <!-- Sweet Alert -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link href="css/estilos.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="css/style.css" rel="stylesheet">
+
+    <!-- Script de logout y session -->
+    <script src="js/logout.js" defer></script>
+    <script src="js/session.js" defer></script>
+    <script src="js/auth.js" defer></script>
+
+</head>
+
+    <body>
+
+        <script>
+            const apiKey = '2wwlSHxIGMzzoBxuk311UPiEaoYCKPSf';  // Clave de API de New York Times
+            const categories = [
+                "arts", "business", "fashion", "food", "health",
+                "home", "movies", "politics", "science", "sports", "technology",
+                "theater", "travel", "world"
+            ];
+        </script>
+
+        <!-- Topbar Start -->
+        <div class="row align-items-center py-2 px-lg-5">
+            <div class="col-lg-4">
+                <a href="" class="navbar-brand d-none d-lg-block">
+                    <h1 class="m-0 display-5 text-uppercase"><span class="text-primary">CITY Wire </span>NEWS</h1>
+                </a>
+            </div>
+        </div>
+        </div>
+        <!-- Topbar End -->
+
+
+        <!-- Navbar Start -->
+        <div class="container-fluid p-0 mb-3">
+            <nav class="navbar navbar-expand-lg bg-light navbar-light py-2 py-lg-0 px-lg-5">
+                <a href="" class="navbar-brand d-block d-lg-none">
+                    <h1 class="m-0 display-5 text-uppercase"><span class="text-primary">City Wire </span>News</h1>
+                </a>
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse justify-content-between px-0 px-lg-3" id="navbarCollapse">
+                    <div class="navbar-nav mr-auto py-0">
+                        <a href="index.html" class="nav-item nav-link">Incio</a>
+                        <a href="iniciar_sesion.html" class="nav-item nav-link" id="linkLogin">Inicia Sesión</a>
+                        <a href="preferencias.html" class="nav-item nav-link">Preferencias</a>
+                        <a href="subir_new.html" class="nav-item nav-link">Publicar noticia</a>
+                        <a href="misNoticias.html" class="nav-item nav-link">Mis noticias</a>
+                        <a href="comunidad.html" class="nav-item nav-link active">Comunidad</a>
+                    </div>
+                    <span class="navbar-text" id="userAlias" style="display: none;">
+                        <!-- nombre del usuario y el ícono -->
+                        <a href="#" id="logoutButton" title="Cerrar sesión">
+                            <i class="fa-solid fa-right-from-bracket" style="color: #ff0000; margin-left: 10px;"></i>
+                        </a>
+                    </span>
+                </div>
+            </nav>
+        </div>
+        <!-- Navbar End -->
+        <!-- Noticias obtenidas del NFS-Nube -->
+        <div class="container-fluid py-3">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-7">
+                        <h1>¿En dónde te encuentras?</h1>
+                        <div class="row">
+                            <!-- IdPais -->
+                            <div class="col-lg-6 mb-3">
+                                <label for="idPais" class="form-label">País</label>
+                                <select class="form-select form-control" id="idPais" name="idPais" required>
+                                    <option value="">Cualquier lugar</option>
+                                    <option value="1">México</option>
+                                    <option value="2">Estados Unidos</option>
+                                </select>
+                            </div>
+
+                            <!-- IdEstado -->
+                            <div class="col-lg-6 mb-3">
+                                <label for="idEstado" class="form-label">Estado</label>
+                                <select class="form-select form-control" id="idEstado" name="idEstado" required>
+                                    <option value="">Seleccione un estado</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div id="myNews" style="display: none;">
+                            <!-- Aquí se cargan las noticias del usuario dinámicamente -->
+                        </div>
+                    </div>
+                    <div class="col-lg-5 pt-3 pt-lg-0">
+                        <!-- Social Follow Start -->
+                        <div class="pb-3">
+                            <div class="bg-light py-2 px-4 mb-3">
+                                <h3 class="m-0">Síguenos</h3>
+                            </div>
+                            <div class="d-flex mb-3">
+                                <a href="" class="d-block w-50 py-2 px-3 text-white text-decoration-none mr-2"
+                                    style="background: #39569E;">
+                                    <small class="fab fa-facebook-f mr-2"></small><small>12,345 Fans</small>
+                                </a>
+                                <a href="" class="d-block w-50 py-2 px-3 text-white text-decoration-none ml-2"
+                                    style="background: #52AAF4;">
+                                    <small class="fab fa-twitter mr-2"></small><small>12,345 Followers</small>
+                                </a>
+                            </div>
+                            <div class="d-flex mb-3">
+                                <a href="" class="d-block w-50 py-2 px-3 text-white text-decoration-none mr-2"
+                                    style="background: #0185AE;">
+                                    <small class="fab fa-linkedin-in mr-2"></small><small>12,345 Connects</small>
+                                </a>
+                                <a href="" class="d-block w-50 py-2 px-3 text-white text-decoration-none ml-2"
+                                    style="background: #C8359D;">
+                                    <small class="fab fa-instagram mr-2"></small><small>12,345 Followers</small>
+                                </a>
+                            </div>
+                            <div class="d-flex mb-3">
+                                <a href="" class="d-block w-50 py-2 px-3 text-white text-decoration-none mr-2"
+                                    style="background: #DC472E;">
+                                    <small class="fab fa-youtube mr-2"></small><small>12,345 Subscribers</small>
+                                </a>
+                                <a href="" class="d-block w-50 py-2 px-3 text-white text-decoration-none ml-2"
+                                    style="background: #1AB7EA;">
+                                    <small class="fab fa-vimeo-v mr-2"></small><small>12,345 Followers</small>
+                                </a>
+                            </div>
+                        </div>
+                        <!-- Social Follow End -->
+    
+                        <!-- Tags Start -->
+                        <div class="pb-3">
+                            <div class="bg-light py-2 px-4 mb-3">
+                                <h3 class="m-0">Categorías</h3>
+                            </div>
+                            <div class="d-flex flex-wrap m-n1" id="category-buttons-container-top">
+
+                            </div>
+                        </div>
+                        <!-- Tags End -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer Start -->
+        <div class="container-fluid bg-light pt-5 px-sm-3 px-md-5">
+            <div class="row">
+                <div class="col-lg-3 col-md-6 mb-5">
+                    <a href="index.html" class="navbar-brand">
+                        <h1 class="mb-2 mt-n2 display-5 text-uppercase"><span class="text-primary">City Wire </span>News
+                        </h1>
+                    </a>
+                    <p style="text-align: justify;">Mantente informado sobre los eventos más recientes a nivel global. Al
+                        registrarte e iniciar sesión, no solo podrás leer las noticias, sino también compartir y publicar
+                        aquellas que sucedan cerca de ti.</p>
+                    <div class="d-flex justify-content-start mt-4">
+                        <a class="btn btn-outline-secondary text-center mr-2 px-0" style="width: 38px; height: 38px;"
+                            href="#"><i class="fab fa-twitter"></i></a>
+                        <a class="btn btn-outline-secondary text-center mr-2 px-0" style="width: 38px; height: 38px;"
+                            href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a class="btn btn-outline-secondary text-center mr-2 px-0" style="width: 38px; height: 38px;"
+                            href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a class="btn btn-outline-secondary text-center mr-2 px-0" style="width: 38px; height: 38px;"
+                            href="#"><i class="fab fa-instagram"></i></a>
+                        <a class="btn btn-outline-secondary text-center mr-2 px-0" style="width: 38px; height: 38px;"
+                            href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-5 col-md-6 mb-5">
+                    <h4 class="font-weight-bold mb-4">Categorías</h4>
+                    <div class="d-flex flex-wrap m-n1" id="category-buttons-container">
+                        <!-- Categorías -->
+                    </div>
+                </div>
+
+                <script>
+                    // Contenedor de los botones
+                    const categoryButtonsContainer = document.getElementById("category-buttons-container");
+
+                    // Función para crear los botones de categorías
+                    function renderCategoryButtons() {
+                        categoryButtonsContainer.innerHTML = ""; // Limpiar cualquier contenido previo
+
+                        categories.forEach(category => {
+                            const button = document.createElement("a");
+                            button.href = "#";  // Evitamos el enlace real en este paso
+                            button.classList.add("btn", "btn-sm", "btn-outline-secondary", "m-1");
+                            button.textContent = category.charAt(0).toUpperCase() + category.slice(1);
+
+                            // Agregar el evento de clic para redirigir a index.html con la categoría como parámetro
+                            button.addEventListener("click", (e) => {
+                                e.preventDefault();
+                                // Redirigir a index.html pasando la categoría como un parámetro
+                                window.location.href = `index.html?category=${category}`;
+                            });
+
+                            categoryButtonsContainer.appendChild(button);
+                        });
+                    }
+
+                    // Llamamos a la función para renderizar los botones cuando la página se haya cargado
+                    document.addEventListener("DOMContentLoaded", renderCategoryButtons);
+
+                </script>
+
+                <div class="col-lg-3 col-md-6 mb-5">
+                    <h4 class="font-weight-bold mb-4">Links Rápidos</h4>
+                    <div class="d-flex flex-column justify-content-start">
+                        <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right text-dark mr-2"></i>Inicio</a>
+                        <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right text-dark mr-2"></i>Inicia
+                            Sesión</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid py-4 px-sm-3 px-md-5">
+            <p class="m-0 text-center">
+                &copy; <a class="font-weight-bold" href="#">City Wire News</a>. Todos los derechos reservados.
+            </p>
+        </div>
+        <!-- Footer End -->
+
+
+        <!-- Back to Top -->
+        <a href="#" class="btn btn-dark back-to-top"><i class="fa fa-angle-up"></i></a>
+
+        <!-- Selects -->
+        <script>
+            document.addEventListener("DOMContentLoaded", () => {
+                const paisSelect = document.getElementById("idPais");
+                const estadoSelect = document.getElementById("idEstado");
+                const noticiasContainer = document.getElementById("myNews");
+
+                // Formatear fecha
+                function formatDateWithLeadingZero(date) {
+                    const day = String(date.getDate()).padStart(2, '0');
+                    const month = String(date.getMonth() + 1).padStart(2, '0');
+                    const year = date.getFullYear();
+                    return `${day}/${month}/${year}`;
+                }
+    
+                // Función para cargar estados desde el servidor
+                const cargarEstados = async (idPais) => {
+                    try {
+                        const response = await fetch('http://localhost:3000/estados', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({ idPais }), // Enviar idPais en el cuerpo
+                        });
+
+                        if (!response.ok) {
+                            throw new Error('Error al obtener estados');
+                        }
+
+                        return await response.json();
+                    } catch (error) {
+                        console.error("Error al cargar los estados:", error);
+                        return [];
+                    }
+                };
+
+                // Función para cargar noticias según el país y el estado
+                const cargarNoticias = async (idPais, idEstado) => {
+                    try {
+                        const response = await fetch(`http://localhost:3000/comuNews?idPais=${idPais}&idEstado=${idEstado}`);
+                        const noticias = await response.json();
+
+                        if (!noticias.length) {
+                            noticiasContainer.innerHTML = "<p>No hay noticias para mostrar.</p>";
+                            return;
+                        }
+
+                        // Limpiar el contenedor de noticias antes de agregar las nuevas
+                        noticiasContainer.innerHTML = '';
+
+                        // Recorrer las noticias y crear el HTML
+                        noticias.forEach(noticia => {
+                            const noticiaHTML = `
+                                <div class="position-relative mb-3">
+                                    <img class="img-fluid w-100" 
+                                        src="img/${noticia.Imagen}" 
+                                        alt="imagen" 
+                                        style="object-fit: cover; height: 300px;" 
+                                        onerror="this.onerror=null; this.src='img/default3.jpg';">
+                                    <div class="overlay position-relative bg-light">
+                                        <div class="mb-3">
+                                            <a href="#">${noticia.Categoria}</a>
+                                            <span class="px-1">-</span>
+                                            <span>${formatDateWithLeadingZero(new Date(noticia.FechaPublic))}</span>
+                                        </div>
+                                        <div>
+                                            <h3 class="mb-3">${noticia.Titulo}</h3>
+                                            <p>${noticia.Contenido.substring(0, 150)}...</p>
+                                            <button class="btn btn-primary font-weight-semi-bold px-4 ver-mas-btn" 
+                                                    data-section="${noticia.Categoria}" 
+                                                    data-title="${noticia.Titulo}" 
+                                                    data-image="img/${noticia.Imagen}" 
+                                                    data-abstract="${noticia.Contenido}" 
+                                                    data-published-date="${noticia.FechaPublic}" 
+                                                    style="height: 35px;">Ver más</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            `;
+                            noticiasContainer.innerHTML += noticiaHTML;
+                        });
+
+                        // Mostrar el contenedor de noticias
+                        noticiasContainer.style.display = 'block';
+
+                        // Event Listener para los botones "Ver más"
+                        document.querySelectorAll('.ver-mas-btn').forEach(button => {
+                            button.addEventListener('click', function () {
+                                const section = encodeURIComponent(this.getAttribute('data-section'));
+                                const title = encodeURIComponent(this.getAttribute('data-title'));
+                                const image = encodeURIComponent(this.getAttribute('data-image'));
+                                const abstract = encodeURIComponent(this.getAttribute('data-abstract'));
+                                const publishedDate = encodeURIComponent(this.getAttribute('data-published-date'));
+
+                                // Redirigir a `single.html` con los parámetros en la URL
+                                window.location.href = `single.html?section=${section}&title=${title}&image=${image}&abstract=${abstract}&published_date=${publishedDate}`;
+                            });
+                        });
+
+                    } catch (error) {
+                        console.error("Error al cargar noticias:", error);
+                    }
+                };
+
+                paisSelect.addEventListener("change", async () => {
+                    const idPais = parseInt(paisSelect.value);
+
+                    if (!idPais) {
+                        //Limpiar opciones
+                        estadoSelect.innerHTML = '<option value="">Seleccione un estado</option>';
+                        return;
+                    }
+
+                    // Cargar estados del servidor
+                    const estadosFiltrados = await cargarEstados(idPais);
+
+                    // Limpiar las opciones actuales del select de estados
+                    estadoSelect.innerHTML = '<option value="">Seleccione un estado</option>';
+
+                    // Agregar las nuevas opciones al select de estados
+                    estadosFiltrados.forEach(estado => {
+                        const option = document.createElement("option");
+                        option.value = estado.IdEstado;
+                        option.textContent = estado.Nombre;
+                        estadoSelect.appendChild(option);
+                    });
+
+                    // Ocultar el contenedor de noticias hasta que se seleccione un estado
+                    noticiasContainer.style.display = 'none';
+                });
+
+                estadoSelect.addEventListener("change", () => {
+                    const idPais = parseInt(paisSelect.value);
+                    const idEstado = parseInt(estadoSelect.value);
+
+                    // Verificar si se seleccionaron tanto país como estado
+                    if (idPais && idEstado) {
+                        cargarNoticias(idPais, idEstado);
+                    } else {
+                        // Ocultar las noticias si no se seleccionaron ambos
+                        noticiasContainer.style.display = 'none';
+                    }
+                });
+            });
+        </script>
+
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="js/main.js"></script>
+    </body>
+
+</html>
