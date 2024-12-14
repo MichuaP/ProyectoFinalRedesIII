@@ -225,7 +225,7 @@
                         const imageData = new FormData();
                         imageData.append('file', imageFile);
 
-                        const imageResponse = await fetch('http://192.168.1.80:3000/upload-image', {
+                        const imageResponse = await fetch('http://localhost:3000/upload-image', {
                             method: 'POST',
                             body: imageData,
                         });
@@ -268,7 +268,7 @@
                         const idUser = aux?.IdUser;
 
                         //Subir noticia
-                        const response = await fetch('http://192.168.1.80:3000/subirNoticia', {
+                        const response = await fetch('http://localhost:3000/subirNoticia', {
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json' },
                             body: JSON.stringify({
@@ -353,7 +353,7 @@
                     // Función para cargar estados desde el servidor
                     const cargarEstados = async (idPais) => {
                         try {
-                            const response = await fetch('http://192.168.1.80:3000/estados', {
+                            const response = await fetch('http://localhost:3000/estados', {
                                 method: 'POST',
                                 headers: {
                                     'Content-Type': 'application/json',

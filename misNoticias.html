@@ -203,7 +203,7 @@
             // Función para cargar noticias
             const cargarNoticias = async () => {
                 try {
-                    const response = await fetch(`http://192.168.1.80:3000/myNews?idUsuario=${usuario.IdUser}`); // Endpoint de la API
+                    const response = await fetch(`http://localhost:3000/myNews?idUsuario=${usuario.IdUser}`); // Endpoint de la API
                     const noticias = await response.json();
 
                     if (!noticias.length) {
@@ -223,7 +223,7 @@
                             <div class="col-lg-6 mb-4">
                                 <div class="position-relative mb-3">
                                     <img class="img-fluid w-100" 
-                                        src="http://192.168.1.80:3000${noticia.Imagen}" 
+                                        src="http://localhost:3000${noticia.Imagen}" 
                                         alt="imagen" 
                                         style="object-fit: cover; height: 300px;" 
                                         onerror="this.onerror=null; this.src='img/default3.jpg';">
@@ -239,7 +239,7 @@
                                             <button class="btn btn-primary font-weight-semi-bold px-4 ver-mas-btn" 
                                                     data-section="${noticia.Categoria}" 
                                                     data-title="${noticia.Titulo}" 
-                                                    data-image="http://192.168.1.80:3000${noticia.Imagen}" 
+                                                    data-image="http://localhost:3000${noticia.Imagen}" 
                                                     data-abstract="${noticia.Contenido}" 
                                                     data-published-date="${formatDateWithLeadingZero(noticia.FechaPublic)}" 
                                                     style="height: 35px;">Ver más</button>
