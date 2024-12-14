@@ -327,7 +327,7 @@
                             const noticiaHTML = `
                                 <div class="position-relative mb-3">
                                     <img class="img-fluid w-100" 
-                                        src="img/${noticia.Imagen}" 
+                                        src="http://localhost:3000${noticia.Imagen}" 
                                         alt="imagen" 
                                         style="object-fit: cover; height: 300px;" 
                                         onerror="this.onerror=null; this.src='img/default3.jpg';">
@@ -343,7 +343,7 @@
                                             <button class="btn btn-primary font-weight-semi-bold px-4 ver-mas-btn" 
                                                     data-section="${noticia.Categoria}" 
                                                     data-title="${noticia.Titulo}" 
-                                                    data-image="img/${noticia.Imagen}" 
+                                                    data-image="http://localhost:3000${noticia.Imagen}" 
                                                     data-abstract="${noticia.Contenido}" 
                                                     data-published-date="${noticia.FechaPublic}" 
                                                     style="height: 35px;">Ver más</button>
