@@ -289,7 +289,7 @@
                 // Función para cargar estados desde el servidor
                 const cargarEstados = async (idPais) => {
                     try {
-                        const response = await fetch('http://localhost:3000/estados', {
+                        const response = await fetch('http://192.168.1.80:3000/estados', {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/json',
@@ -311,7 +311,7 @@
                 // Función para cargar noticias según el país y el estado
                 const cargarNoticias = async (idPais, idEstado) => {
                     try {
-                        const response = await fetch(`http://localhost:3000/comuNews?idPais=${idPais}&idEstado=${idEstado}`);
+                        const response = await fetch(`http://192.168.1.80:3000/comuNews?idPais=${idPais}&idEstado=${idEstado}`);
                         const noticias = await response.json();
 
                         if (!noticias.length) {
@@ -327,7 +327,7 @@
                             const noticiaHTML = `
                                 <div class="position-relative mb-3">
                                     <img class="img-fluid w-100" 
-                                        src="http://localhost:3000${noticia.Imagen}" 
+                                        src="http://192.168.1.80:3000${noticia.Imagen}" 
                                         alt="imagen" 
                                         style="object-fit: cover; height: 300px;" 
                                         onerror="this.onerror=null; this.src='img/default3.jpg';">
@@ -343,7 +343,7 @@
                                             <button class="btn btn-primary font-weight-semi-bold px-4 ver-mas-btn" 
                                                     data-section="${noticia.Categoria}" 
                                                     data-title="${noticia.Titulo}" 
-                                                    data-image="http://localhost:3000${noticia.Imagen}" 
+                                                    data-image="http://192.168.1.80:3000${noticia.Imagen}" 
                                                     data-abstract="${noticia.Contenido}" 
                                                     data-published-date="${noticia.FechaPublic}" 
                                                     style="height: 35px;">Ver más</button>
