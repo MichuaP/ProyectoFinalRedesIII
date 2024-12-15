@@ -207,9 +207,7 @@
 
                 const dateElement = document.querySelector('.news-date');
                 if (dateElement) {
-                    const date = new Date(publishedDate);
-                    const formattedDate = `${date.getDate().toString().padStart(2, '0')}/${(date.getMonth() + 1).toString().padStart(2, '0')}/${date.getFullYear()}`;
-                    dateElement.textContent = formattedDate;
+                    dateElement.textContent = publishedDate;
                 }
 
                 const urlElement = document.getElementById('news-url');
