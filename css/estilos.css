@@ -8,13 +8,13 @@
 }
 
 .swal2-title.title-class {
-    color: #000000; 
+    color: #000000;
     font-size: 24px;
     font-weight: bold;
 }
 
 .swal2-content.content-class {
-    color: #333333; 
+    color: #333333;
     font-size: 18px;
 }
 
@@ -23,11 +23,27 @@
 }
 
 .custom-file-label::after {
-  background: #ED1C24 !important;
-  color: white !important;
-  cursor: pointer;
+    background: #ED1C24 !important;
+    color: white !important;
+    cursor: pointer;
 }
 
 .loader {
     left: 230%;
+}
+
+#add-to-favorites {
+    text-decoration: none;
+    color: white;
+    cursor: pointer;
+}
+
+#add-to-favorites i {
+    transition: color 0.3s ease;
+}
+
+#add-to-favorites:hover i {
+    color: #ED1C24 !important;
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
 }

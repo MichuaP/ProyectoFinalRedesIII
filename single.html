@@ -31,7 +31,7 @@
     <!-- Script de auth, logout y session -->
     <script src="js/logout.js" defer></script>
     <script src="js/session.js" defer></script>
-    
+
 </head>
 
 <body>
@@ -44,6 +44,42 @@
             "theater", "travel", "world"
         ];
 
+        const categoryNumbers = {
+            "arts": 1,
+            "business": 2,
+            "fashion": 3,
+            "food": 4,
+            "health": 5,
+            "home": 6,
+            "movies": 7,
+            "politics": 8,
+            "science": 9,
+            "sports": 10,
+            "technology": 11,
+            "theater": 12,
+            "travel": 13,
+            "world": 14
+        };
+
+        usuario = JSON.parse(localStorage.getItem('usuario'));
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const button = document.getElementById('add-to-favorites');
+            const currentPage = window.location.pathname; // Obtener la ruta actual
+            const referrer = document.referrer; // Obtener la página de origen
+            const usuario = JSON.parse(localStorage.getItem('usuario')); // Obtener el usuario del localStorage
+
+            // Condición para mostrar u ocultar el botón basado en las páginas de referencia
+            if (usuario) { // Si hay usuario autenticado
+                if (currentPage.includes('single.html') && !referrer.includes('index.html') && referrer.includes('misNoticias.html')) {
+                    button.style.display = 'none'; // Ocultar el botón si se viene desde misNoticias.html
+                } else {
+                    button.style.display = 'block'; // Mostrar el botón si se viene de index.html o cualquier otra página permitida
+                }
+            } else {
+                button.style.display = 'none'; // Ocultar el botón si no hay usuario
+            }
+        });
     </script>
 
     <!-- Topbar Start -->
@@ -73,6 +109,7 @@
                     <a href="iniciar_sesion.html" class="nav-item nav-link" id="linkLogin">Inicia Sesión</a>
                     <a href="subir_new.html" class="nav-item nav-link">Publicar noticia</a>
                     <a href="misNoticias.html" class="nav-item nav-link">Mis noticias</a>
+                    <a href="comunidad.html" class="nav-item nav-link">Comunidad</a>
                 </div>
                 <span class="navbar-text" id="userAlias" style="display: none;">
                     <!-- nombre del usuario y el ícono -->
@@ -135,58 +172,121 @@
             return params;
         }
 
-        document.addEventListener("DOMContentLoaded", () => {
-            // Todo el código para obtener los parámetros y actualizar el DOM
-            const params = new URLSearchParams(window.location.search);
-            const title = params.get("title") || "Título no disponible";
-            const abstract = params.get("abstract") || "Descripción no disponible";
-            const imageUrl = params.get("image") || "img/default.jpg";
-            const section = params.get("section") || "Sección no disponible";
-            const publishedDate = params.get("published_date") || "Fecha no disponible";
-            const articleUrl = params.get("url");
+        document.addEventListener('DOMContentLoaded', async () => {
+            try {
+                const params = new URLSearchParams(window.location.search);
+                const title = decodeURIComponent(params.get('title')) || 'Título no disponible'; // Asegúrate que title tenga un valor
+                const abstract = decodeURIComponent(params.get('abstract')) || 'Descripción no disponible';
+                const imageUrl = params.get('image') || 'img/default.jpg';
+                const section = decodeURIComponent(params.get('section')) || 'Sección no disponible';
+                const sectionNumber = categoryNumbers[section] || 'Número no disponible'; // Asignar un número predeterminado si no se encuentra la sección
+                const publishedDate = params.get('published_date') || 'Fecha no disponible';
+                const articleUrl = params.get('url');
 
-            const imageElement = document.querySelector(".news-image");
-            if (imageElement) {
-                imageElement.src = imageUrl;
-            }
+                // Actualizar el título
+                const titleElement = document.querySelector('.news-title');
+                if (titleElement) {
+                    titleElement.textContent = title;
+                }
 
-            const titleElement = document.querySelector(".news-title");
-            if (titleElement) {
-                titleElement.textContent = title;
-            }
+                const abstractElement = document.querySelector('.news-abstract');
+                if (abstractElement) {
+                    abstractElement.textContent = abstract;
+                }
 
-            const abstractElement = document.querySelector(".news-abstract");
-            if (abstractElement) {
-                abstractElement.textContent = abstract;
-            }
+                const imageElement = document.querySelector('.news-image');
+                if (imageElement) {
+                    imageElement.src = imageUrl;
+                }
 
-            const sectionElement = document.querySelector(".news-section");
-            if (sectionElement) {
-                sectionElement.textContent = section.charAt(0).toUpperCase() + section.slice(1);
-            }
+                const sectionElement = document.querySelector('.news-section');
+                if (sectionElement) {
+                    sectionElement.textContent = section;
+                    sectionElement.dataset.sectionNumber = sectionNumber;
+                }
 
-            // Formatear la fecha con ceros al principio
-            const date = new Date(publishedDate);
-            const formattedDate = `${date.getDate().toString().padStart(2, '0')}/${(date.getMonth() + 1).toString().padStart(2, '0')}/${date.getFullYear()}`;
+                const dateElement = document.querySelector('.news-date');
+                if (dateElement) {
+                    const date = new Date(publishedDate);
+                    const formattedDate = `${date.getDate().toString().padStart(2, '0')}/${(date.getMonth() + 1).toString().padStart(2, '0')}/${date.getFullYear()}`;
+                    dateElement.textContent = formattedDate;
+                }
 
-            const dateElement = document.querySelector(".news-date");
-            if (dateElement) {
-                dateElement.textContent = formattedDate;
-            }
+                const urlElement = document.getElementById('news-url');
+                if (articleUrl) {
+                    urlElement.textContent = "Leer más";
+                    urlElement.href = articleUrl;
+                    urlElement.style.display = "inline-block"; // Mostrar el botón
+                } else {
+                    urlElement.style.display = "none";
+                }
 
-            const urlElement = document.getElementById("news-url");
+                // Añadir funcionalidad para el botón "Añadir a favoritos"
+                document.getElementById('add-to-favorites').addEventListener('click', async () => {
+                    try {
+                        const usuario = JSON.parse(localStorage.getItem('usuario'));
+                        if (!usuario) throw new Error('Usuario no autenticado');
 
-            if (articleUrl) {
-                // Si 'articleUrl' existe, mostramos el botón y establecemos el enlace
-                urlElement.textContent = "Leer más";
-                urlElement.href = articleUrl;
-                urlElement.style.display = "inline-block"; // Mostrar el botón
-            } else {
-                // Si no existe la URL, ocultamos el botón
-                urlElement.style.display = "none";
+                        const date = new Date(publishedDate);
+                        const formattedDate = `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')}`;
+
+                        const response = await fetch('http://localhost:3000/agregarFavorito', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({
+                                title,
+                                abstract,
+                                imageUrl,
+                                publishedDate: formattedDate,
+                                sectionNumber,
+                                idUser: usuario.IdUser
+                            })
+                        });
+
+                        if (!response.ok) {
+                            throw new Error('Error al agregar a favoritos');
+                        }
+
+                        const result = await response.json();
+
+                        if (result.success) {
+                            Swal.fire({
+                                title: "Artículo añadido a favoritos",
+                                icon: "success",
+                                text: "La noticia ha sido agregada a tus favoritos con éxito.",
+                                color: "#000000",
+                                background: "#ffffff",
+                                customClass: {
+                                    confirmButton: 'btn-succ',
+                                    title: 'title-class',
+                                    content: 'content-class'
+                                },
+                                buttonsStyling: false,
+                            });
+                        } else {
+                            throw new Error(result.message || "Error al agregar a favoritos");
+                        }
+                    } catch (error) {
+                        Swal.fire({
+                            title: "Error",
+                            icon: "error",
+                            text: error.message || "Ocurrió un error al intentar agregar la noticia a favoritos",
+                            color: "#000000",
+                            background: "#ffffff",
+                            customClass: {
+                                confirmButton: 'btn-succ',
+                                title: 'title-class',
+                                content: 'content-class'
+                            },
+                            buttonsStyling: false,
+                        });
+                    }
+                });
+
+            } catch (error) {
+                console.error('Error:', error);
             }
         });
-
     </script>
 
     <!-- News With Sidebar Start -->
@@ -205,8 +305,15 @@
                             </div>
                             <h3 class="mb-3 news-title">Título no disponible</h3>
                             <p class="news-abstract">Descripción no disponible</p>
-                            <a id="news-url" href="#" target="_blank" class="btn btn-primary"
-                                style="display: none;">Leer más</a>
+                            <div style="display: flex; gap: 10px; align-items: center;">
+                                <a id="news-url" href="#" target="_blank" class="btn btn-primary"
+                                    style="display: none;">Leer más</a>
+                                <div id="favorites-container">
+                                    <button id="add-to-favorites" class="btn btn-secondary"><i class="fa-solid fa-heart"
+                                            style="color: #ffffff; margin-right: 8px;"></i>Añadir a favoritos</button>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                     <!-- News Detail End -->
