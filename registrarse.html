@@ -22,6 +22,9 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link href="css/estilos.css" rel="stylesheet">
 
+    <!-- Crypto -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+
     <!-- Libraries Stylesheet -->
     <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
 
@@ -185,10 +188,17 @@
                                 const nombre = document.getElementById('Nombre').value;
         
                                 try {
+                                    
+                                    //Key
+                                    const encryptionKey = "35224252703265875843711068151088"; 
+
+                                    // Encriptar la contraseña
+                                    const contrasenaEncriptada = CryptoJS.AES.encrypt(contrasena, encryptionKey).toString();
+
                                     const response = await fetch('http://localhost:3000/signup', {
                                         method: 'POST',
                                         headers: { 'Content-Type': 'application/json' },
-                                        body: JSON.stringify({ correo, contrasena,apem, apep,alias,nombre })
+                                        body: JSON.stringify({ correo, contrasena: contrasenaEncriptada,apem, apep,alias,nombre })
                                     });
         
                                     const data = await response.json();
@@ -198,7 +208,6 @@
                                     if (data.success) {
                                         // Guardar información del usuario en localStorage
                                         localStorage.setItem('usuario', JSON.stringify(data.usuario));
-                                        localStorage.setItem('categoriasUsuario', JSON.stringify(data.categorias));
                                         await Swal.fire({
                                             title: "Cuenta creada",
                                             text: "Se ha creado la cuenta correctamente",

@@ -100,6 +100,12 @@
                                     <option value="1">México</option>
                                     <option value="2">Estados Unidos</option>
                                 </select>
+                                <script>
+                                    window.onload = function() {
+                                      var select = document.getElementById("idPais");
+                                      select.value = "";
+                                    };
+                                  </script>
                             </div>
 
                             <!-- IdEstado -->
@@ -277,7 +283,7 @@
                 const paisSelect = document.getElementById("idPais");
                 const estadoSelect = document.getElementById("idEstado");
                 const noticiasContainer = document.getElementById("myNews");
-
+                
                 // Formatear fecha
                 function formatDateWithLeadingZero(date) {
                     const day = String(date.getDate()).padStart(2, '0');

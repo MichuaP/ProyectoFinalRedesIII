@@ -195,7 +195,7 @@
                     if (data.success) {
                         Swal.fire({
                             title: "Preferencias guardadas",
-                            text: "Tus preferencias se han guardado correctamente.",
+                            text: "Tus preferencias se han guardado correctamente. Inicia sesión y disfruta de City Wire News",
                             icon: "success",
                             color: "#000000",
                             background: "#ffffff",
@@ -206,6 +206,9 @@
                             },
                             buttonsStyling: false,
                         }).then(() => {
+                            //Borramos localStorage
+                            localStorage.removeItem('usuario'); // Eliminar información del usuario
+                            localStorage.removeItem('categoriasUsuario'); // Eliminar categorias
                             // Redireccionar a index.html después de la alerta de éxito
                             window.location.href = 'iniciar_sesion.html'; // Redirige a la página de inicio
                         });
