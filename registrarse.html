@@ -189,16 +189,16 @@
         
                                 try {
                                     
-                                    //Key
-                                    const encryptionKey = "35224252703265875843711068151088"; 
+                                    // //Key
+                                    // const encryptionKey = "35224252703265875843711068151088"; 
 
-                                    // Encriptar la contraseña
-                                    const contrasenaEncriptada = CryptoJS.AES.encrypt(contrasena, encryptionKey).toString();
+                                    // // Encriptar la contraseña
+                                    // const contrasenaEncriptada = CryptoJS.AES.encrypt(contrasena, encryptionKey).toString();
 
                                     const response = await fetch('http://localhost:3000/signup', {
                                         method: 'POST',
                                         headers: { 'Content-Type': 'application/json' },
-                                        body: JSON.stringify({ correo, contrasena: contrasenaEncriptada,apem, apep,alias,nombre })
+                                        body: JSON.stringify({ correo, contrasena, apem, apep, alias, nombre })
                                     });
         
                                     const data = await response.json();
