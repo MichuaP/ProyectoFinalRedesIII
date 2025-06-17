@@ -158,9 +158,6 @@
                         const correo = document.getElementById('Correo').value;
                         const contrasena = document.getElementById('Contrasenia').value;
 
-                        console.log('Correo:', correo);
-                        console.log('Contra:', contrasena);
-
                         try {
                             const response = await fetch('http://localhost:3000/login', {
                                 method: 'POST',

@@ -84,7 +84,7 @@
                         </button>
                     </div>
                 </div>
-            
+
                 <!-- Hola Usuario -->
                 <span class="navbar-text" id="userAlias" style="display: none; width: 55%;">
                     Hola, <span id="userName"></span>!
@@ -93,7 +93,7 @@
                     </a>
                 </span>
             </div>
-            
+
             <script>
                 document.getElementById('searchButton').addEventListener('click', function () {
                     const keyword = document.getElementById('searchInput').value;
@@ -103,7 +103,7 @@
                     }
                 });
             </script>
-            
+
         </nav>
     </div>
 
@@ -452,12 +452,34 @@
                 const categoriasUsuario = JSON.parse(localStorage.getItem('categoriasUsuario')) || [];
 
                 // Función para obtener los nombres de las categorías
+                // Función para obtener los nombres de las categorías
                 function getCategoryNames(categoryNumbersArray) {
-                    return categoryNumbersArray.map(subArray => {
-                        return subArray.map(number => {
-                            return categories.find(category => categoryNumbers[category] === number); // Mapa los números a nombres
-                        }).filter(name => name !== undefined); // Filtrar valores undefined
-                    }).flat(); // Aplanar el array
+                    // Primero verifica si categoryNumbersArray es un array
+                    if (!Array.isArray(categoryNumbersArray)) {
+                        console.error('categoryNumbersArray no es un array:', categoryNumbersArray);
+                        return [];
+                    }
+
+                    // Si es un array de arrays (como parece esperarse)
+                    if (Array.isArray(categoryNumbersArray[0])) {
+                        return categoryNumbersArray.flatMap(subArray => {
+                            return subArray.map(number => {
+                                const category = Object.keys(categoryNumbers).find(
+                                    key => categoryNumbers[key] === number
+                                );
+                                return category || null;
+                            }).filter(Boolean); // Elimina valores null/undefined
+                        });
+                    }
+                    // Si es un array simple de números
+                    else {
+                        return categoryNumbersArray.map(number => {
+                            const category = Object.keys(categoryNumbers).find(
+                                key => categoryNumbers[key] === number
+                            );
+                            return category || null;
+                        }).filter(Boolean); // Elimina valores null/undefined
+                    }
                 }
 
                 // Objetos que mapean los números a los nombres de las categorías
@@ -501,7 +523,9 @@
                     <h1 class="mb-2 mt-n2 display-5 text-uppercase"><span class="text-primary">City Wire </span>News
                     </h1>
                 </a>
-                <p style="text-align: justify;">Mantente informado sobre los eventos más recientes a nivel global. Al registrarte e iniciar sesión, no solo podrás leer las noticias, sino también compartir y publicar aquellas que sucedan cerca de ti.</p>
+                <p style="text-align: justify;">Mantente informado sobre los eventos más recientes a nivel global. Al
+                    registrarte e iniciar sesión, no solo podrás leer las noticias, sino también compartir y publicar
+                    aquellas que sucedan cerca de ti.</p>
                 <div class="d-flex justify-content-start mt-4">
                     <a class="btn btn-outline-secondary text-center mr-2 px-0" style="width: 38px; height: 38px;"
                         href="#"><i class="fab fa-twitter"></i></a>

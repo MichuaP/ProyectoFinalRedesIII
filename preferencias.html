@@ -211,6 +211,7 @@
                 .then(response => response.json())
                 .then(data => {
                     if (data.success) {
+                        localStorage.setItem('categoriasUsuario', JSON.stringify(selectedCategories));
                         Swal.fire({
                             title: "Preferencias guardadas",
                             text: "Tus preferencias se han guardado correctamente",
