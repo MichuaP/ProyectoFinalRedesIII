@@ -26,14 +26,14 @@
     <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
 
     <!-- Customized Bootstrap Stylesheet -->
-     <link rel="stylesheet" href="css/estilos.css">
+    <link rel="stylesheet" href="css/estilos.css">
     <link href="css/style.css" rel="stylesheet">
 
     <!-- Script de auth, logout y session -->
     <script src="js/logout.js" defer></script>
     <script src="js/session.js" defer></script>
     <script src="js/auth.js" defer></script>
-    
+
 </head>
 
 <body>
@@ -95,7 +95,8 @@
                 <!-- Titulo -->
                 <div class="mb-3">
                     <label for="titulo" class="form-label">Título</label>
-                    <input type="text" class="form-control" id="titulo" name="titulo" minlength="5" maxlength="30" required>
+                    <input type="text" class="form-control" id="titulo" name="titulo" minlength="5" maxlength="30"
+                        required>
                 </div>
 
                 <script>
@@ -117,7 +118,8 @@
                 <div class="row">
                     <div class="col-md-9 mb-3">
                         <label for="contenido" class="form-label">Contenido</label>
-                        <textarea class="form-control" id="contenido" name="contenido" rows="12" minlength="15" maxlength="500" required></textarea>
+                        <textarea class="form-control" id="contenido" name="contenido" rows="12" minlength="15"
+                            maxlength="500" required></textarea>
                     </div>
 
                     <!-- Imagen -->
@@ -125,7 +127,8 @@
                         <label for="file">Imagen</label>
                         <div class="input-group mb-3">
                             <input type="file" id="file" name="file" accept="image/*"
-                                style="opacity: 0; position: absolute; left: 0; top: 0;" onchange="mostrarImagen(event,1)" required>
+                                style="opacity: 0; position: absolute; left: 0; top: 0;"
+                                onchange="mostrarImagen(event,1)" required>
                             <label for="file" class="custom-file-label">Seleccionar archivo</label>
                         </div>
                         <div class="d-flex align-items-center justify-content-center imagen">
@@ -191,7 +194,7 @@
                         <select class="form-select form-control" id="idPais" name="idPais" required>
                             <option value="">Seleccione un país</option>
                             <option value="1">México</option>
-                            <option value="2">Estados Unidos</option>
+                            <option value="2">EUA</option>
                         </select>
                     </div>
 
@@ -206,7 +209,8 @@
                     <!-- Lugar -->
                     <div class="col-md-4 mb-3">
                         <label for="lugar" class="form-label">Lugar</label>
-                        <input type="text" class="form-control" id="lugar" name="lugar" minlength="5" maxlength="30"  required>
+                        <input type="text" class="form-control" id="lugar" name="lugar" minlength="5" maxlength="30"
+                            required>
                     </div>
                 </div>
 
@@ -220,14 +224,29 @@
                     e.preventDefault();
                     try {
 
-                        // Subir imagen y obtener la ruta
+                        const getSelectedText = (selectId) => {
+                            const select = document.getElementById(selectId);
+                            return select.options[select.selectedIndex].text;
+                        };
+
+                        const paisNombre = getSelectedText('idPais');
+                        const estadoNombre = getSelectedText('idEstado');
+                        const idiomaNombre = getSelectedText('idIdioma'); 
+
                         const imageFile = document.getElementById('file').files[0];
+
+                        // Validar imagen
+                        if (!imageFile) {
+                            throw new Error('Debes seleccionar una imagen');
+                        }
+
+                        // Subir imagen al servidor
                         const imageData = new FormData();
                         imageData.append('file', imageFile);
 
                         const imageResponse = await fetch('http://localhost:3000/upload-image', {
                             method: 'POST',
-                            body: imageData,
+                            body: imageData
                         });
 
                         if (!imageResponse.ok) {
@@ -235,9 +254,9 @@
                         }
 
                         const imageResult = await imageResponse.json();
-                        const imagen = imageResult.filePath;
+                        const imagen = imageResult.filePath; // Esto será algo como "/img/img-123456789.jpg"
 
-                        // Datos del formulario
+                        // Obtener datos del formulario
                         const titulo = document.getElementById('titulo').value;
                         const contenido = document.getElementById('contenido').value;
                         const fechaPublic = document.getElementById('fechaPublic').value;
@@ -246,28 +265,16 @@
                         const idPais = document.getElementById('idPais').value;
                         const idEstado = document.getElementById('idEstado').value;
                         const lugar = document.getElementById('lugar').value;
+                        const usuario = JSON.parse(localStorage.getItem('usuario'));
+                        const idUser = usuario?.IdUser;
 
-                        console.log("fecha en front"+fechaPublic);
-
-                        if (!titulo || !contenido || !fechaPublic || !idCategoria || !idIdioma || !idPais || !idEstado || !lugar) {
-                            Swal.fire({
-                                title: "Error",
-                                text: "Por favor, rellene todos los campos.",
-                                icon: "error",
-                            });
+                        // Validar campos requeridos
+                        if (!titulo || !contenido || !fechaPublic || !idCategoria || !idIdioma || !idPais || !idEstado || !lugar || !idUser) {
+                            Swal.fire({ title: "Error", text: "Todos los campos son requeridos", icon: "error" });
                             return;
                         }
 
-                        if (!imagen || !/\.(jpg|jpeg|png)$/i.test(imagen)) {
-                            Swal.fire({ title: "Error", text: "La imagen debe ser un archivo JPG, JPEG o PNG.", icon: "error" });
-                            return;
-                        }
-
-                        //Obtenemos id del localStorage
-                        const aux = JSON.parse(localStorage.getItem('usuario'));
-                        const idUser = aux?.IdUser;
-
-                        //Subir noticia
+                        // Enviar datos al backend
                         const response = await fetch('http://localhost:3000/subirNoticia', {
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json' },
@@ -275,74 +282,62 @@
                                 titulo,
                                 contenido,
                                 fechaPublic,
-                                idCategoria: parseInt(idCategoria, 10),
-                                idIdioma: parseInt(idIdioma, 10),
-                                idPais: parseInt(idPais, 10),
-                                idEstado: parseInt(idEstado, 10),
+                                idCategoria: parseInt(idCategoria),
+                                pais: paisNombre,
+                                estado: estadoNombre,
+                                idioma: idiomaNombre,
                                 lugar,
                                 idUser,
-                                imagen,
+                                imagen
                             })
                         });
 
                         const result = await response.json();
-                        
+
                         if (response.ok && result.success) {
                             await Swal.fire({
-                                title: "Noticia publicada",
-                                text: "Se ha publicado la noticia correctamente",
+                                title: "Éxito",
+                                text: "Noticia publicada correctamente",
                                 icon: "success",
                                 color: "#000000",
                                 background: "#ffffff",
                                 customClass: {
                                     confirmButton: 'btn-succ',
-                                    title: 'title-class', 
-                                    content: 'content-class' 
+                                    title: 'title-class',
+                                    content: 'content-class'
                                 },
                                 buttonsStyling: false,
                             });
                             document.getElementById('subir-noticia').reset();
                             window.location.href = 'index.html';
                         } else {
-                            await Swal.fire({
-                                title: "Error",
-                                text: "Error al publicar la noticia",
-                                icon: "error",
-                                color: "#000000",
-                                background: "#ffffff",
-                                customClass: {
-                                    confirmButton: 'btn-succ',
-                                    title: 'title-class', 
-                                    content: 'content-class' 
-                                },
-                                buttonsStyling: false,
-                            });
+                            throw new Error(result.error || 'Error al publicar la noticia');
                         }
                     } catch (error) {
                         console.error('Error:', error);
-                        await Swal.fire({
+                        Swal.fire({
                             title: "Error",
-                            text: "Error al publicar la noticia",
+                            text: error.message || "Error al publicar la noticia",
                             icon: "error",
                             color: "#000000",
                             background: "#ffffff",
                             customClass: {
                                 confirmButton: 'btn-succ',
-                                title: 'title-class', 
-                                content: 'content-class' 
+                                title: 'title-class',
+                                content: 'content-class'
                             },
                             buttonsStyling: false,
                         });
                     }
                 });
             </script>
-            
+
             <script>
                 document.addEventListener("DOMContentLoaded", () => {
                     const paisSelect = document.getElementById("idPais");
                     const estadoSelect = document.getElementById("idEstado");
                     const fechaInput = document.getElementById("fechaPublic");
-        
+
                     // Obtener la fecha actual en formato 'YYYY-MM-DD'
                     const hoy = new Date();
                     const fechaLocal = hoy.toLocaleDateString('en-CA');
@@ -351,51 +346,47 @@
                     fechaInput.value = fechaLocal;
                     fechaInput.max = fechaLocal;
 
+                    // Estados predefinidos
+                    const estadosPorPais = {
+                        "1": [ // México
+                            { IdEstado: 1, Nombre: "Aguascalientes" },
+                            { IdEstado: 2, Nombre: "Baja California" },
+                            { IdEstado: 3, Nombre: "Baja California Sur" },
+                            // Agrega todos los estados de México...
+                            { IdEstado: 32, Nombre: "Zacatecas" }
+                        ],
+                        "2": [ // EUA
+                            { IdEstado: 33, Nombre: "Alabama" },
+                            { IdEstado: 34, Nombre: "Alaska" },
+                            // Agrega todos los estados de EUA...
+                            { IdEstado: 82, Nombre: "Wyoming" }
+                        ]
+                    };
+
                     // Función para cargar estados desde el servidor
-                    const cargarEstados = async (idPais) => {
-                        try {
-                            const response = await fetch('http://localhost:3000/estados', {
-                                method: 'POST',
-                                headers: {
-                                    'Content-Type': 'application/json',
-                                },
-                                body: JSON.stringify({ idPais }), // Enviar idPais en el cuerpo
+                    const cargarEstados = (idPais) => {
+                        estadoSelect.innerHTML = '<option value="">Seleccione un estado</option>';
+
+                        if (idPais && estadosPorPais[idPais]) {
+                            estadosPorPais[idPais].forEach(estado => {
+                                const option = document.createElement("option");
+                                option.value = estado.IdEstado;
+                                option.textContent = estado.Nombre;
+                                estadoSelect.appendChild(option);
                             });
-
-                            if (!response.ok) {
-                                throw new Error('Error al obtener estados');
-                            }
-
-                            return await response.json();
-                        } catch (error) {
-                            console.error("Error al cargar los estados:", error);
-                            return [];
                         }
                     };
 
-                    paisSelect.addEventListener("change", async () => {
-                        const idPais = parseInt(paisSelect.value);
-
-                        if (!idPais) {
-                            //Limpiar opciones
-                            estadoSelect.innerHTML = '<option value="">Seleccione un estado</option>';
-                            return;
-                        }
-
-                        // Cargar estados del servidor
-                        const estadosFiltrados = await cargarEstados(idPais);
-
-                        // Limpiar las opciones actuales del select de estados
-                        estadoSelect.innerHTML = '<option value="">Seleccione un estado</option>';
-
-                        // Agregar las nuevas opciones al select de estados
-                        estadosFiltrados.forEach(estado => {
-                            const option = document.createElement("option");
-                            option.value = estado.IdEstado;
-                            option.textContent = estado.Nombre;
-                            estadoSelect.appendChild(option);
-                        });
+                    // Evento para cambio de país
+                    paisSelect.addEventListener("change", () => {
+                        const idPais = paisSelect.value;
+                        cargarEstados(idPais);
                     });
+
+                    // Cargar estados si ya hay un país seleccionado (útil al recargar página)
+                    if (paisSelect.value) {
+                        cargarEstados(paisSelect.value);
+                    }
                 });
             </script>
             <br>
