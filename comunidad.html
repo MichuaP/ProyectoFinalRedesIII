@@ -357,7 +357,7 @@
                         const noticiaHTML = `
                 <div class="position-relative mb-3">
                     <img class="img-fluid w-100" 
-                        src="${noticia.Imagen ? (noticia.Imagen.startsWith('http') ? noticia.Imagen : 'img/' + noticia.Imagen) : 'img/default3.jpg'}" 
+                        src="http://localhost:3000${noticia.Imagen}" 
                         alt="${noticia.Titulo}" 
                         style="object-fit: cover; height: 300px;" 
                         onerror="this.onerror=null; this.src='img/default3.jpg';">
@@ -373,7 +373,7 @@
                             <button class="btn btn-primary font-weight-semi-bold px-4 ver-mas-btn" 
                                     data-section="${noticia.Categoria || 'General'}" 
                                     data-title="${noticia.Titulo}" 
-                                    data-image="${noticia.Imagen ? (noticia.Imagen.startsWith('http') ? noticia.Imagen : 'img/' + noticia.Imagen) : 'img/default3.jpg'}" 
+                                    data-image="${noticia.Imagen ? (noticia.Imagen.startsWith('http') ? noticia.Imagen : 'http://localhost:3000' + noticia.Imagen) : 'img/default3.jpg'}"
                                     data-abstract="${noticia.Contenido}" 
                                     data-published-date="${noticia.FechaPublic}" 
                                     ${tieneURL ? `data-url="${noticia.URL.trim()}"` : ''}

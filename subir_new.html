@@ -95,7 +95,7 @@
                 <!-- Titulo -->
                 <div class="mb-3">
                     <label for="titulo" class="form-label">Título</label>
-                    <input type="text" class="form-control" id="titulo" name="titulo" minlength="5" maxlength="30"
+                    <input type="text" class="form-control" id="titulo" name="titulo" minlength="5" maxlength="80"
                         required>
                 </div>
 
@@ -119,7 +119,7 @@
                     <div class="col-md-9 mb-3">
                         <label for="contenido" class="form-label">Contenido</label>
                         <textarea class="form-control" id="contenido" name="contenido" rows="12" minlength="15"
-                            maxlength="500" required></textarea>
+                            maxlength="1000" required></textarea>
                     </div>
 
                     <!-- Imagen -->
@@ -195,6 +195,8 @@
                             <option value="">Seleccione un país</option>
                             <option value="1">México</option>
                             <option value="2">EUA</option>
+                            <option value="3">España</option>
+                            <option value="4">Canadá</option>
                         </select>
                     </div>
 
@@ -209,7 +211,7 @@
                     <!-- Lugar -->
                     <div class="col-md-4 mb-3">
                         <label for="lugar" class="form-label">Lugar</label>
-                        <input type="text" class="form-control" id="lugar" name="lugar" minlength="5" maxlength="30"
+                        <input type="text" class="form-control" id="lugar" name="lugar" minlength="5" maxlength="30" placeholder="Escriba el lugar de los hechos"
                             required>
                     </div>
                 </div>
@@ -231,7 +233,7 @@
 
                         const paisNombre = getSelectedText('idPais');
                         const estadoNombre = getSelectedText('idEstado');
-                        const idiomaNombre = getSelectedText('idIdioma'); 
+                        const idiomaNombre = getSelectedText('idIdioma');
 
                         const imageFile = document.getElementById('file').files[0];
 
@@ -254,7 +256,7 @@
                         }
 
                         const imageResult = await imageResponse.json();
-                        const imagen = imageResult.filePath; // Esto será algo como "/img/img-123456789.jpg"
+                        const imagen = imageResult.filePath;
 
                         // Obtener datos del formulario
                         const titulo = document.getElementById('titulo').value;
@@ -352,14 +354,126 @@
                             { IdEstado: 1, Nombre: "Aguascalientes" },
                             { IdEstado: 2, Nombre: "Baja California" },
                             { IdEstado: 3, Nombre: "Baja California Sur" },
-                            // Agrega todos los estados de México...
+                            { IdEstado: 4, Nombre: "Campeche" },
+                            { IdEstado: 5, Nombre: "Chiapas" },
+                            { IdEstado: 6, Nombre: "Chihuahua" },
+                            { IdEstado: 7, Nombre: "Ciudad de México" },
+                            { IdEstado: 8, Nombre: "Coahuila" },
+                            { IdEstado: 9, Nombre: "Colima" },
+                            { IdEstado: 10, Nombre: "Durango" },
+                            { IdEstado: 11, Nombre: "Guanajuato" },
+                            { IdEstado: 12, Nombre: "Guerrero" },
+                            { IdEstado: 13, Nombre: "Hidalgo" },
+                            { IdEstado: 14, Nombre: "Jalisco" },
+                            { IdEstado: 15, Nombre: "México" },
+                            { IdEstado: 16, Nombre: "Michoacán" },
+                            { IdEstado: 17, Nombre: "Morelos" },
+                            { IdEstado: 18, Nombre: "Nayarit" },
+                            { IdEstado: 19, Nombre: "Nuevo León" },
+                            { IdEstado: 20, Nombre: "Oaxaca" },
+                            { IdEstado: 21, Nombre: "Puebla" },
+                            { IdEstado: 22, Nombre: "Querétaro" },
+                            { IdEstado: 23, Nombre: "Quintana Roo" },
+                            { IdEstado: 24, Nombre: "San Luis Potosí" },
+                            { IdEstado: 25, Nombre: "Sinaloa" },
+                            { IdEstado: 26, Nombre: "Sonora" },
+                            { IdEstado: 27, Nombre: "Tabasco" },
+                            { IdEstado: 28, Nombre: "Tamaulipas" },
+                            { IdEstado: 29, Nombre: "Tlaxcala" },
+                            { IdEstado: 30, Nombre: "Veracruz" },
+                            { IdEstado: 31, Nombre: "Yucatán" },
                             { IdEstado: 32, Nombre: "Zacatecas" }
                         ],
                         "2": [ // EUA
-                            { IdEstado: 33, Nombre: "Alabama" },
-                            { IdEstado: 34, Nombre: "Alaska" },
-                            // Agrega todos los estados de EUA...
-                            { IdEstado: 82, Nombre: "Wyoming" }
+                            { "IdEstado": 1, "Nombre": "Alabama" },
+                            { "IdEstado": 2, "Nombre": "Alaska" },
+                            { "IdEstado": 3, "Nombre": "Arizona" },
+                            { "IdEstado": 4, "Nombre": "Arkansas" },
+                            { "IdEstado": 5, "Nombre": "California" },
+                            { "IdEstado": 6, "Nombre": "Carolina del Norte" },
+                            { "IdEstado": 7, "Nombre": "Carolina del Sur" },
+                            { "IdEstado": 8, "Nombre": "Colorado" },
+                            { "IdEstado": 9, "Nombre": "Connecticut" },
+                            { "IdEstado": 10, "Nombre": "Dakota del Norte" },
+                            { "IdEstado": 11, "Nombre": "Dakota del Sur" },
+                            { "IdEstado": 12, "Nombre": "Delaware" },
+                            { "IdEstado": 13, "Nombre": "Florida" },
+                            { "IdEstado": 14, "Nombre": "Georgia" },
+                            { "IdEstado": 15, "Nombre": "Hawai" },
+                            { "IdEstado": 16, "Nombre": "Idaho" },
+                            { "IdEstado": 17, "Nombre": "Illinois" },
+                            { "IdEstado": 18, "Nombre": "Indiana" },
+                            { "IdEstado": 19, "Nombre": "Iowa" },
+                            { "IdEstado": 20, "Nombre": "Kansas" },
+                            { "IdEstado": 21, "Nombre": "Kentucky" },
+                            { "IdEstado": 22, "Nombre": "Luisiana" },
+                            { "IdEstado": 23, "Nombre": "Maine" },
+                            { "IdEstado": 24, "Nombre": "Maryland" },
+                            { "IdEstado": 25, "Nombre": "Massachusetts" },
+                            { "IdEstado": 26, "Nombre": "Míchigan" },
+                            { "IdEstado": 27, "Nombre": "Minnesota" },
+                            { "IdEstado": 28, "Nombre": "Misisipi" },
+                            { "IdEstado": 29, "Nombre": "Misuri" },
+                            { "IdEstado": 30, "Nombre": "Montana" },
+                            { "IdEstado": 31, "Nombre": "Nebraska" },
+                            { "IdEstado": 32, "Nombre": "Nevada" },
+                            { "IdEstado": 33, "Nombre": "Nueva Jersey" },
+                            { "IdEstado": 34, "Nombre": "Nueva York" },
+                            { "IdEstado": 35, "Nombre": "Nuevo Hampshire" },
+                            { "IdEstado": 36, "Nombre": "Nuevo México" },
+                            { "IdEstado": 37, "Nombre": "Ohio" },
+                            { "IdEstado": 38, "Nombre": "Oklahoma" },
+                            { "IdEstado": 39, "Nombre": "Oregón" },
+                            { "IdEstado": 40, "Nombre": "Pensilvania" },
+                            { "IdEstado": 41, "Nombre": "Rhode Island" },
+                            { "IdEstado": 42, "Nombre": "Tennessee" },
+                            { "IdEstado": 43, "Nombre": "Texas" },
+                            { "IdEstado": 44, "Nombre": "Utah" },
+                            { "IdEstado": 45, "Nombre": "Vermont" },
+                            { "IdEstado": 46, "Nombre": "Virginia" },
+                            { "IdEstado": 47, "Nombre": "Virginia Occidental" },
+                            { "IdEstado": 48, "Nombre": "Washington" },
+                            { "IdEstado": 49, "Nombre": "Wisconsin" },
+                            { "IdEstado": 50, "Nombre": "Wyoming" }
+                        ],
+                        "3": [ // España
+                            { "IdEstado": 1, "Nombre": "Andalucía" },
+                            { "IdEstado": 2, "Nombre": "Aragón" },
+                            { "IdEstado": 3, "Nombre": "Asturias" },
+                            { "IdEstado": 4, "Nombre": "Islas Baleares" },
+                            { "IdEstado": 5, "Nombre": "Canarias" },
+                            { "IdEstado": 6, "Nombre": "Cantabria" },
+                            { "IdEstado": 7, "Nombre": "Castilla-La Mancha" },
+                            { "IdEstado": 8, "Nombre": "Castilla y León" },
+                            { "IdEstado": 9, "Nombre": "Cataluña" },
+                            { "IdEstado": 10, "Nombre": "Comunidad Valenciana" },
+                            { "IdEstado": 11, "Nombre": "Extremadura" },
+                            { "IdEstado": 12, "Nombre": "Galicia" },
+                            { "IdEstado": 13, "Nombre": "La Rioja" },
+                            { "IdEstado": 14, "Nombre": "Comunidad de Madrid" },
+                            { "IdEstado": 15, "Nombre": "Región de Murcia" },
+                            { "IdEstado": 16, "Nombre": "Navarra" },
+                            { "IdEstado": 17, "Nombre": "País Vasco" },
+                            { "IdEstado": 18, "Nombre": "Ceuta" },
+                            { "IdEstado": 19, "Nombre": "Melilla" }
+                        ],
+                        "4": [
+                            // Provincias
+                            { "IdEstado": 1, "Nombre": "Alberta" },
+                            { "IdEstado": 2, "Nombre": "Columbia Británica" },
+                            { "IdEstado": 3, "Nombre": "Isla del Príncipe Eduardo" },
+                            { "IdEstado": 4, "Nombre": "Manitoba" },
+                            { "IdEstado": 5, "Nombre": "Nueva Brunswick" },
+                            { "IdEstado": 6, "Nombre": "Nueva Escocia" },
+                            { "IdEstado": 7, "Nombre": "Ontario" },
+                            { "IdEstado": 8, "Nombre": "Quebec" },
+                            { "IdEstado": 9, "Nombre": "Saskatchewan" },
+                            { "IdEstado": 10, "Nombre": "Terranova y Labrador" },
+
+                            // Territorios
+                            { "IdEstado": 11, "Nombre": "Nunavut" },
+                            { "IdEstado": 12, "Nombre": "Territorios del Noroeste" },
+                            { "IdEstado": 13, "Nombre": "Yukón" }
                         ]
                     };
 
